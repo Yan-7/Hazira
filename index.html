@@ -397,15 +397,15 @@
       localStorage.removeItem("goalState");
       // Add any additional logic you need for clearing saved data
     }
-          document.addEventListener('DOMContentLoaded', function () {
-        // Attach event listener to clearButton
-        const clearButton = document.getElementById('clearButton');
-        if (clearButton) {
-          clearButton.addEventListener('click', clearSavedData);
-        }
+    document.addEventListener('DOMContentLoaded', function () {
+      // Attach event listener to clearButton
+      const clearButton = document.getElementById('clearButton');
+      if (clearButton) {
+        clearButton.addEventListener('click', clearSavedData);
+      }
 
-      
-      });
+
+    });
     // Get the dropdown element
     const goalDropdown = document.getElementById("goal");
     // Get the dropdown element
@@ -517,9 +517,9 @@
         showModal("Goal renamed successfully!");
 
         // Save the updated goalState to localStorage
-        saveData();
         localStorage.setItem("goalState", JSON.stringify(goalState));
       }
+
 
       function updateGoalDropdownWithColors() {
         const goalDropdown = document.getElementById("goal");
@@ -940,9 +940,18 @@
         }
       }
 
+      function updateGoalDropdownWithState() {
+        const goalDropdown = document.getElementById("goal");
+        goalDropdown.innerHTML = ''; // Clear existing options
 
-
-
+        // Populate the dropdown with goals from the goalState
+        for (const goalName in goalState) {
+          const option = document.createElement("option");
+          option.value = goalName;
+          option.textContent = goalName;
+          goalDropdown.appendChild(option);
+        }
+      }
 
 
       // Function to load saved goalState from localStorage
@@ -952,14 +961,15 @@
           goalState = JSON.parse(savedGoalState);
         } else {
           initializeGoalsAndInitiatives();
-          console.log(
-            "Initialized goalState with default values:",
-            goalState
-          );
         }
+        updateGoalDropdownWithState();
         updateInitiativesDropdown();
         replotPoints();
       }
+
+      document.addEventListener("DOMContentLoaded", loadData);
+
+
       // Function to display error messages
       function showError(message) {
         document.getElementById("error-message").textContent = message;
