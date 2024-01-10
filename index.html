@@ -373,8 +373,9 @@
         <br />
         <span id="sum">0</span> סכום אימפקט + ישימות
         <br />
-        <button id="clearButton" onclick="clearSavedData()">איפוס המטריצה</button>
-
+        <button id="clearButton" onclick="clearSavedData()">
+          מחיקת כל הנקודות שעל הגרף
+        </button>
       </div>
     </div>
 
@@ -385,27 +386,22 @@
     //----------------------------------------------------------------
     //----------------------------------------------------------------
     //----------------------------------------------------------------
+    function clearSavedData() {
+        console.log("clearSavedData function called");
+        localStorage.removeItem("goalState");
+      }
 
+      document.addEventListener('DOMContentLoaded', (event) => {
+        const clearButton = document.getElementById('clearButton');
+        if (clearButton) {
+          clearButton.addEventListener('click', clearSavedData);
+        }
+      });
     // Initialize an empty object to store the state of goals and initiatives
     let goalState = {};
     // Declare selectedGoal as a global variable
     let selectedGoal;
 
-    // Define the clearSavedData function
-    function clearSavedData() {
-      console.log("clearSavedData function called");
-      localStorage.removeItem("goalState");
-      // Add any additional logic you need for clearing saved data
-    }
-    document.addEventListener('DOMContentLoaded', function () {
-      // Attach event listener to clearButton
-      const clearButton = document.getElementById('clearButton');
-      if (clearButton) {
-        clearButton.addEventListener('click', clearSavedData);
-      }
-
-
-    });
     // Get the dropdown element
     const goalDropdown = document.getElementById("goal");
     // Get the dropdown element
@@ -517,9 +513,9 @@
         showModal("Goal renamed successfully!");
 
         // Save the updated goalState to localStorage
+        saveData();
         localStorage.setItem("goalState", JSON.stringify(goalState));
       }
-
 
       function updateGoalDropdownWithColors() {
         const goalDropdown = document.getElementById("goal");
@@ -939,19 +935,7 @@
           showModal("Failed to save data. Storage might be full.");
         }
       }
-
-      function updateGoalDropdownWithState() {
-        const goalDropdown = document.getElementById("goal");
-        goalDropdown.innerHTML = ''; // Clear existing options
-
-        // Populate the dropdown with goals from the goalState
-        for (const goalName in goalState) {
-          const option = document.createElement("option");
-          option.value = goalName;
-          option.textContent = goalName;
-          goalDropdown.appendChild(option);
-        }
-      }
+      // Function to clear saved data from localStorage
 
 
       // Function to load saved goalState from localStorage
@@ -961,15 +945,14 @@
           goalState = JSON.parse(savedGoalState);
         } else {
           initializeGoalsAndInitiatives();
+          console.log(
+            "Initialized goalState with default values:",
+            goalState
+          );
         }
-        updateGoalDropdownWithState();
         updateInitiativesDropdown();
         replotPoints();
       }
-
-      document.addEventListener("DOMContentLoaded", loadData);
-
-
       // Function to display error messages
       function showError(message) {
         document.getElementById("error-message").textContent = message;
