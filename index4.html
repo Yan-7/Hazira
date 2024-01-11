@@ -16,7 +16,7 @@
       <button id="importData">יבוא</button>
       <button id="refreshPage">Refresh Page</button>
       <button id="clearButton" onclick="clearSavedData()">
-        מחיקת כל הנקודות שעל הגרף
+        מחיקת כל המידע
       </button>
     </div>
   </head>
@@ -28,7 +28,7 @@
         <div class="black-background">
           <h2>בחירת מטרה</h2>
           <select id="goal" class="goal-select">
-            <option value="goal1">חשיפה ומודעות למחקר ונתוני התעסוקה</option>
+            <option value="goal1"></option>
             <option value="goal2">
               חשיפה להזדמנויות, תנאי העסקה ומצב השוק
             </option>
@@ -505,11 +505,13 @@
       }
 
       document.addEventListener("DOMContentLoaded", (event) => {
+        console.log("DOMContentLoaded function called");
         const clearButton = document.getElementById("clearButton");
         if (clearButton) {
           clearButton.addEventListener("click", clearSavedData);
         }
       });
+
       // Initialize an empty object to store the state of goals and initiatives
       let goalState = {};
       // Declare selectedGoal as a global variable
@@ -535,14 +537,21 @@
       };
 
       // Event listener for DOMContentLoaded
+      //
+      //
+      //
       document.addEventListener("DOMContentLoaded", function () {
         // Load goalState from localStorage
         const savedGoalState = localStorage.getItem("goalState");
         if (savedGoalState) {
           goalState = JSON.parse(savedGoalState);
+          console.log("saved goal state: " + savedGoalState);
         } else {
           // Initialize goalState with default values if not present in localStorage
           initializeGoalsAndInitiatives();
+          console.log(
+            "initializeGoalsAndInitiatives function called with default values"
+          );
         }
 
         // Initialize the goal dropdown with values from goalState
@@ -550,10 +559,7 @@
         for (const goal in goalState) {
           const option = document.createElement("option");
           option.value = goal;
-
-          // the fuckin goal name:
           option.textContent = goal;
-          console.log(name); //testing
           goalDropdown.appendChild(option);
         }
 
@@ -590,43 +596,31 @@
         });
 
         // Initialize the goal dropdown
-        initializeGoalsAndInitiatives();
+        // initializeGoalsAndInitiatives(); - needed only on first run
         updateGoalDropdownWithColors();
         updateInitiativesDropdown();
 
         //fuckin goal name
         function editGoal() {
           const selectedGoal = goalDropdown.value;
-          const newName = prompt(
-            `רשום את שם המטרה החדש:`
-          );
+          const newName = prompt(`Enter new goal name for "${selectedGoal}":`);
 
           if (!newName || newName.trim() === "") {
-            alert("השם החדש אינו תקין");
+            alert("Invalid name!");
             return;
           }
 
           if (goalState[newName]) {
-            alert(
-              "שם מטרה זה כבר קיים במערכת, יש לבחור שם אחר."
-            );
+            alert("Name already exists!");
             return;
           }
 
-          // Rename the goal in the goalState object
-          goalState[newName] = goalState[selectedGoal]; //new goal name
+          // Rename the goal in goalState and update the dropdown
+          goalState[newName] = { ...goalState[selectedGoal] };
           delete goalState[selectedGoal];
+          updateGoalDropdown();
 
-          // Update the goal in the goal dropdown
-          const goalOption = Array.from(goalDropdown.options).find(
-            (option) => option.value === selectedGoal
-          );
-          if (goalOption) {
-            goalOption.value = newName;
-            goalOption.textContent = newName;
-          }
-
-          // Save the updated goalState to localStorage
+          // Save the updated state
           saveData();
         }
 
@@ -653,6 +647,7 @@
         }
 
         function initializeGoalsAndInitiatives() {
+          console.log("function initializeGoalsAndInitiatives called");
           const savedGoalState = localStorage.getItem("goalState");
           if (savedGoalState) {
             goalState = JSON.parse(savedGoalState);
@@ -1071,10 +1066,9 @@
             localStorage.setItem("goalState", JSON.stringify(goalState));
           } catch (e) {
             console.error("Failed to save data to localStorage:", e);
-            showModal("Failed to save data. Storage might be full.");
+            alert("Failed to save data. Storage might be full.");
           }
         }
-        // Function to clear saved data from localStorage
 
         // Function to load saved goalState from localStorage
         function loadData() {
