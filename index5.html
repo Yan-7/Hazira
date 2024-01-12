@@ -556,10 +556,11 @@
 
         // Initialize the goal dropdown with values from goalState
         goalDropdown.innerHTML = "";
-        for (const goal in goalState) {
+        for (const goalKey in goalState) {
+          const goal = goalState[goalKey];
           const option = document.createElement("option");
-          option.value = goal;
-          option.textContent = goal;  // controls the goal name
+          option.value = goalKey;
+          option.textContent = goal.name; // Use the goal's name for display
           goalDropdown.appendChild(option);
         }
 
@@ -653,80 +654,88 @@
             goalState = JSON.parse(savedGoalState);
           } else {
             // Initialize goalState with default values if not present in localStorage
-          }
-          const goals = Array.from(goalDropdown.options).map(
-            (opt) => opt.value
-          );
-          let goalInitiativeList = [
-            {
-              goal: "goal1",
-              name: "חשיפה ומודעות למחקר ונתוני התעסוקה",
-              initiatives: [
-                "E.N.Data",
-                "סרט דוקו לחשיפת המחקר ",
-                "מדד פל״א רשותי",
-              ],
-            },
-            {
-              goal: "goal2",
-              name: "חשיפה להזדמנויות, תנאי העסקה ומצב השוק",
-              initiatives: ["Jobeek – job week"],
-            },
-            {
-              goal: "goal3",
-              name: "התפתחות והתקדמות מקצועית לצד האמהות",
-              initiatives: ["MamaWork"],
-            },
-            {
-              goal: "goal4",
-              name: "רשת אזורית לקידום ופיתוח מקצועי לתעסוקה איכותית",
-              initiatives: ["מתכלל תעסוקה ", "מש״א יחד נגב", "תתחברי"],
-            },
-            {
-              goal: "goal5",
-              name: "סביבה תומכת, מעודדת ונותנת השראה והשפעה בדרך לתעסוקה איכותית",
-              initiatives: ["עצמאיות בחורה", "הצלחתך, הצלחתי"],
-            },
-            {
-              goal: "goal6",
-              name: "צמצום פערי השפה בחברה הבדואית לטובת קידום תעסוקת נשים",
-              initiatives: ["חוגי עברית "],
-            },
-            {
-              goal: "goal7",
-              name: "ניעות תעסוקתית לאורך הקריירה בחייה של אישה",
-              initiatives: [
-                "הדבר הבא: מורשת דימונה",
-                "הסעה ליעד הבא ",
-                "מורתי / معلمي ",
-              ],
-            },
-          ];
-          goals.forEach((goal) => {
-            if (!goalState[goal]) {
-              // Unique color for each goal:
-              const goalColor = goalColors[goal] || "#000000"; // Default to black if color is not set
-              goalState[goal] = { color: goalColor, initiatives: {} };
 
-              // Find the matching goal in the goalInitiativeList
-              const matchingGoal = goalInitiativeList.find(
-                (g) => g.goal === goal
-              );
-              if (matchingGoal) {
-                matchingGoal.initiatives.forEach((initiativeName) => {
-                  if (!goalState[goal].initiatives[initiativeName]) {
-                    // Check if the initiative already exists before creating it
-                    goalState[goal].initiatives[initiativeName] = {
-                      color: goalColor,
-                      x: null,
-                      y: null,
-                    };
-                  }
-                });
+            const goals = Array.from(goalDropdown.options).map(
+              (opt) => opt.value
+            );
+            let goalInitiativeList = [
+              {
+                goal: "goal1",
+                name: "חשיפה ומודעות למחקר ונתוני התעסוקה",
+                initiatives: [
+                  "E.N.Data",
+                  "סרט דוקו לחשיפת המחקר ",
+                  "מדד פל״א רשותי",
+                ],
+              },
+              {
+                goal: "goal2",
+                name: "חשיפה להזדמנויות, תנאי העסקה ומצב השוק",
+                initiatives: ["Jobeek – job week"],
+              },
+              {
+                goal: "goal3",
+                name: "התפתחות והתקדמות מקצועית לצד האמהות",
+                initiatives: ["MamaWork"],
+              },
+              {
+                goal: "goal4",
+                name: "רשת אזורית לקידום ופיתוח מקצועי לתעסוקה איכותית",
+                initiatives: ["מתכלל תעסוקה ", "מש״א יחד נגב", "תתחברי"],
+              },
+              {
+                goal: "goal5",
+                name: "סביבה תומכת, מעודדת ונותנת השראה והשפעה בדרך לתעסוקה איכותית",
+                initiatives: ["עצמאיות בחורה", "הצלחתך, הצלחתי"],
+              },
+              {
+                goal: "goal6",
+                name: "צמצום פערי השפה בחברה הבדואית לטובת קידום תעסוקת נשים",
+                initiatives: ["חוגי עברית "],
+              },
+              {
+                goal: "goal7",
+                name: "ניעות תעסוקתית לאורך הקריירה בחייה של אישה",
+                initiatives: [
+                  "הדבר הבא: מורשת דימונה",
+                  "הסעה ליעד הבא ",
+                  "מורתי / معلمي ",
+                ],
+              },
+            ];
+            goals.forEach((goal) => {
+              if (!goalState[goal]) {
+                // Find the matching goal in the goalInitiativeList to get its name and color
+                const matchingGoal = goalInitiativeList.find(
+                  (g) => g.goal === goal
+                );
+                if (matchingGoal) {
+                  // Set color for the goal, default to black if not set
+                  const goalColor = goalColors[goal] || "#000000";
+
+                  // Initialize goal in goalState with name, color, and empty initiatives
+                  goalState[goal] = {
+                    name: matchingGoal.name, // Save the name of the goal
+                    color: goalColor, // Save the color of the goal
+                    initiatives: {}, // Initialize an empty initiatives object
+                  };
+
+                  // Loop through initiatives of the matching goal and add them
+                  matchingGoal.initiatives.forEach((initiativeName) => {
+                    if (!goalState[goal].initiatives[initiativeName]) {
+                      // Initialize initiative if it does not already exist
+                      goalState[goal].initiatives[initiativeName] = {
+                        color: goalColor,
+                        x: null,
+                        y: null,
+                      };
+                    }
+                  });
+                }
               }
-            }
-          });
-          updateGoalDropdownWithNames(goalInitiativeList);
+            });
+            updateGoalDropdownWithNames(goalInitiativeList);
+          }
         }
 
         function updateGoalDropdownWithNames(goalInitiativeList) {
