@@ -5,28 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Civix App</title>
     <!-- title for the page -->
-
-    <header>
-      
-    </header>
-  
+    <link rel="stylesheet" href="https://use.typekit.net/your-project-id.css" />
   </head>
 
   <body>
+    <!-- <header></header> -->
     <div class="container">
-      
       <div class="left" style="text-align: center">
-        <div class="buttons">
-          <button id="exportData">שמירה</button>
-          <input type="file" id="importDataFile" style="display: none" />
-          <button id="importData">יבוא</button>
-          <button id="refreshPage">Refresh Page</button>
-          <button id="clearButton" onclick="clearSavedData()">
-            מחיקת כל המידע
-          </button>
-        </div>
         <!-- GOALs -->
         <div class="black-background">
+          <div class="buttons">
+            <button id="exportData">שמירה</button>
+            <input type="file" id="importDataFile" style="display: none" />
+            <button id="importData">יבוא</button>
+            <button id="refreshPage">Refresh Page</button>
+            <button id="clearButton" onclick="clearSavedData()">
+              מחיקת כל המידע
+            </button>
+          </div>
           <h2>בחירת מטרה</h2>
           <select id="goal" class="goal-select">
             <option value="goal1"></option>
@@ -47,22 +43,21 @@
               ניעות תעסוקתית לאורך הקריירה בחייה של אישה
             </option>
           </select>
-          <div>
-            <button id="createGoal">יצירת מטרה חדשה</button>
-            <button id="deleteGoal">מחיקת מטרה נוכחית</button>
-            <button id="editGoal">עריכת שם מטרה</button>
-          </div>
+
+          <button id="createGoal">מטרה חדשה</button>
+          <button id="deleteGoal">מחיקת מטרה נוכחית</button>
+          <button id="editGoal">עריכת שם מטרה</button>
 
           <h3>בחירת יוזמה</h3>
+          <select id="initative"></select>
+          <p></p>
           <button id="deleteInitiative">מחיקת יוזמה</button>
           <button id="renameInitiative">שינוי שם יוזמה</button>
           <button id="createInitiative">יצירת יוזמה</button>
-
-          <select id="initative"></select>
+          .
         </div>
-
+        
         <div class="green-background">
-          <p></p>
           <div
             style="
               text-align: right;
@@ -86,7 +81,7 @@
                     justify-content: flex-end;
                   "
                 >
-                  <span>1</span>
+                  <span>0</span>
                   <input
                     type="range"
                     min="1"
@@ -114,7 +109,7 @@
                     justify-content: flex-end;
                   "
                 >
-                  <span>1</span>
+                  <span>10</span>
                   <input
                     type="range"
                     min="1"
@@ -125,7 +120,7 @@
                     style="margin: 0 10px"
                     reversed
                   />
-                  <span>10 </span>
+                  <span>0 </span>
                 </div>
               </td>
               <td>
@@ -142,7 +137,7 @@
                     justify-content: flex-end;
                   "
                 >
-                  <span>1</span>
+                  <span>0</span>
                   <input
                     type="range"
                     min="1"
@@ -170,7 +165,7 @@
                     justify-content: flex-end;
                   "
                 >
-                  <span>1</span>
+                  <span>10</span>
                   <input
                     type="range"
                     min="1"
@@ -181,7 +176,7 @@
                     style="margin: 0 10px"
                     reversed
                   />
-                  <span>10 </span>
+                  <span>0 </span>
                 </div>
               </td>
               <td>
@@ -198,7 +193,7 @@
                     justify-content: flex-end;
                   "
                 >
-                  <span>1</span>
+                  <span>0</span>
                   <input
                     type="range"
                     min="1"
@@ -256,7 +251,7 @@
                     justify-content: flex-end;
                   "
                 >
-                  <span>1</span>
+                  <span>0</span>
                   <input
                     type="range"
                     min="1"
@@ -286,7 +281,7 @@
                     justify-content: flex-end;
                   "
                 >
-                  <span>1</span>
+                  <span>0</span>
                   <input
                     type="range"
                     min="1"
@@ -316,7 +311,7 @@
                     justify-content: flex-end;
                   "
                 >
-                  <span>1</span>
+                  <span>0</span>
                   <input
                     type="range"
                     min="1"
@@ -345,7 +340,7 @@
                     justify-content: flex-end;
                   "
                 >
-                  <span>1</span>
+                  <span>0</span>
                   <input
                     type="range"
                     min="1"
@@ -374,7 +369,7 @@
                     justify-content: flex-end;
                   "
                 >
-                  <span>1</span>
+                  <span>0</span>
                   <input
                     type="range"
                     min="1"
@@ -489,16 +484,13 @@
           <span id="sum">0</span> סכום אימפקט + ישימות
           <br />
         </div>
-        
+        <p>All rights reserved to Yaniv Almagor &copy</p>
       </div>
-      
-      <aside
-      
-        style="align-items: center; display: flex; flex-direction: column"
-        
-      ><img src="civixLogo.PNG" alt="Civix Logo" />
-      <img src="NegevLogo.PNG" alt="Negev Logo" /></aside>
-      
+
+      <aside style="align-items: center; display: flex; flex-direction: column">
+        <img src="civixLogo.PNG" alt="Civix Logo" />
+        <img src="NegevLogo.PNG" alt="Negev Logo" />
+      </aside>
     </div>
 
     <script>
@@ -1409,15 +1401,16 @@
         loadData();
       });
     </script>
-
-    <footer>
-      <p>All rights reserved to Yaniv Almagor &copy</p>
-    </footer>
   </body>
+
   <style>
     body {
-      font-family: Arial, sans-serif;
-      text-align: center;
+      font-family: greycliff-hebrew-cf, sans-serif;
+      font-style: normal;
+      font-weight: 100;
+
+      /* font-family: Arial, sans-serif; */
+      text-align: right;
       margin: 0;
       padding: 0;
       background-color: #f4f4f4;
@@ -1427,7 +1420,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: #fff;
+      background-color: rgb(203, 203, 203) 828;
       padding: 10px 0;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
@@ -1445,11 +1438,11 @@
       margin: 0 10px;
       padding: 10px 20px;
       border: none;
-      background-color: #007bff;
+      background-color: rgb(16, 69, 126);
       color: white;
-      border-radius: 5px;
+      border-radius: 0px;
       cursor: pointer;
-      font-size: 16px;
+      font-size: 18px;
     }
 
     button:hover {
@@ -1534,27 +1527,31 @@
 
     #graph {
       position: relative;
+      width: 60vw; /* Sets the width to 60% of the viewport width */
       /* width: 100%; */
-      height: 70%;
+      height: 100%;
       /* border: 5px solid rgb(0, 0, 0); */
       background: white;
       border-radius: 5px;
     }
 
     .slider {
-      width: 150%;
-      margin: 0;
+      color: #202523;
     }
 
     select {
       padding: 5px;
       border: 1px solid #b3b0da;
+      width: 90%;
       /* Border color with a mix of blue and purple */
       border-radius: 5px;
       background-color: #f3f3f3;
       cursor: pointer;
       color: #413e98;
       /* Darker shade of purple */
+      direction: rtl; /* Add this to align text right-to-left */
+      text-align: right; /* Align text to the right within each option */
+      font-size: 18px; /* Increased font size */
     }
 
     /* Divider */
@@ -1654,6 +1651,7 @@
 
     .slider {
       width: 100%;
+
       background: repeating-linear-gradient(
         to right,
         #ddd,
@@ -1676,7 +1674,7 @@
       padding: 10px 20px;
       border: none;
       /* border-radius: 5px; */
-      font-size: 16px;
+      font-size: 18px;
       cursor: pointer;
       transition: background-color 0.3s ease, transform 0.2s ease;
     }
@@ -1705,7 +1703,7 @@
     #clearButton {
       padding: 10px 20px;
       border: none;
-      border-radius: 5px;
+      border-radius: 1px;
       font-size: 16px;
       color: rgb(255, 255, 255);
       background: linear-gradient(45deg, #ff7e5f, #feb47b);
@@ -1773,20 +1771,27 @@
     }
 
     .black-background {
-      background-color: black;
+      background-color: #202523;
       color: white;
+      direction: rtl; /* Add this to align text right-to-left */
+      text-align: right; /* Align text to the right within each option */
       /* Optional: To make the text readable */
+      font-size: 20px; /* Increased font size */
     }
 
     .green-background {
-      background-color: rgb(137, 169, 145);
-      color: white;
+      background-color: rgb(255, 255, 255);
+
+      color: rgb(32, 37, 35);
+      text-align: right; /* Align text to the right within each option */
       /* Optional: To make the text readable */
     }
 
     .orange-background {
-      background-color: rgb(99, 78, 65);
+      background-color: rgb(20, 25, 23);
       color: white;
+      text-align: right; /* Align text to the right within each option */
+
       /* Optional: To make the text readable */
     }
 
@@ -1795,22 +1800,22 @@
       height: auto;
     }
 
-    .current-initiative {
-      font-size: 24px;
+    /* .current-initiative {
+      font-size: 20px;
       font-weight: bold;
-    }
+      width: 30%;
+    } */
 
     .goal-select {
-      font-size: 18px;
-      /* Increase the font size */
+      font-size: px;
       padding: 10px 15px;
-      /* Add more padding */
-      width: 50%;
-      /* Adjust the width as needed */
+      width: 90%;
       margin: 10px auto;
-      /* Center the dropdown */
       display: block;
-      /* Makes the width setting effective */
+      direction: rtl; /* Add this to align text right-to-left */
+      text-align: right; /* Align text to the right within each option */
+      margin-right: 0; /* Align to the right */
+      margin-left: auto; /* Auto margin for left to maintain layout */
     }
   </style>
 </html>
