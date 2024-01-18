@@ -7,23 +7,24 @@
     <!-- title for the page -->
 
     <header>
-      <img src="civixLogo.PNG" alt="Civix Logo" />
-      <img src="NegevLogo.PNG" alt="Negev Logo" />
+      
     </header>
-    <div class="buttons">
-      <button id="exportData">שמירה</button>
-      <input type="file" id="importDataFile" style="display: none" />
-      <button id="importData">יבוא</button>
-      <button id="refreshPage">Refresh Page</button>
-      <button id="clearButton" onclick="clearSavedData()">
-        מחיקת כל המידע
-      </button>
-    </div>
+  
   </head>
 
   <body>
     <div class="container">
+      
       <div class="left" style="text-align: center">
+        <div class="buttons">
+          <button id="exportData">שמירה</button>
+          <input type="file" id="importDataFile" style="display: none" />
+          <button id="importData">יבוא</button>
+          <button id="refreshPage">Refresh Page</button>
+          <button id="clearButton" onclick="clearSavedData()">
+            מחיקת כל המידע
+          </button>
+        </div>
         <!-- GOALs -->
         <div class="black-background">
           <h2>בחירת מטרה</h2>
@@ -488,10 +489,16 @@
           <span id="sum">0</span> סכום אימפקט + ישימות
           <br />
         </div>
+        
       </div>
+      
       <aside
+      
         style="align-items: center; display: flex; flex-direction: column"
-      ></aside>
+        
+      ><img src="civixLogo.PNG" alt="Civix Logo" />
+      <img src="NegevLogo.PNG" alt="Negev Logo" /></aside>
+      
     </div>
 
     <script>
