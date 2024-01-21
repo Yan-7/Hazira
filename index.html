@@ -2,28 +2,26 @@
 <html lang="he">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
     <title>Civix App</title>
     <!-- title for the page -->
     <link rel="stylesheet" href="https://use.typekit.net/your-project-id.css" />
   </head>
-
   <body>
     <!-- <header></header> -->
     <div class="container">
-      <div class="left" style="text-align: center">
-        <!-- GOALs -->
+      <!-- left side -->
+
+      <div class="left">
         <div class="black-background">
-          <div class="buttons">
-            <button id="exportData">שמירה</button>
-            <input type="file" id="importDataFile" style="display: none" />
-            <button id="importData">יבוא</button>
-            <button id="refreshPage">Refresh Page</button>
-            <button id="clearButton" onclick="clearSavedData()">
-              מחיקת כל המידע
-            </button>
-          </div>
-          <h2>בחירת מטרה</h2>
+          
+            <h1 style="
+            margin-top: 0px;
+            margin-bottom: 0px;
+        " >Clickable<span style="  color: rgb(144, 235, 202)">Impact</span>Tool
+          
+
+          <h3  >מטרה:
           <select id="goal" class="goal-select">
             <option value="goal1"></option>
             <option value="goal2">
@@ -48,27 +46,27 @@
           <button id="deleteGoal">מחיקת מטרה נוכחית</button>
           <button id="editGoal">עריכת שם מטרה</button>
 
-          <h3>בחירת יוזמה</h3>
+          <h3 style="margin-bottom: 0px;"> יוזמה:
           <select id="initative"></select>
           <p></p>
           <button id="deleteInitiative">מחיקת יוזמה</button>
           <button id="renameInitiative">שינוי שם יוזמה</button>
           <button id="createInitiative">יצירת יוזמה</button>
-          .
         </div>
-        
+<!-- ----------------------------------------------------------- -->
         <div class="green-background">
           <div
             style="
               text-align: right;
-              display: flex;
+              /* display: flex; */
               justify-content: space-between;
             "
           >
-            <h4>ישימות נמוכה</h4>
-            <p></p>
-            <h4>ישימות גבוהה</h4>
-            <h2>מדדי ישימות</h2>
+
+          <h2 style="
+          margin-top: 0px;
+          margin-bottom: 0px;
+      ">מדדי ישימות</h2>
           </div>
 
           <table>
@@ -232,13 +230,16 @@
           <div
             style="
               text-align: right;
-              display: flex;
+              /* display: flex; */
               justify-content: space-between;
             "
           >
-            <h4>אימפקט נמוך</h4>
-            <h4>אימפקט גבוה</h4>
-            <h2>מדדי אימפקט</h2>
+            <!-- ------------------------------------- -->
+<h2 style="
+    margin-bottom: 0px;
+    margin-top: 0px;
+">מדדי אימפקט
+          </h2>
           </div>
 
           <table>
@@ -406,16 +407,31 @@
         </datalist>
       </div>
 
+      <!-- right side of the app------------------------------------------------ ---->
       <div class="right">
         <div id="graph">
           <div class="crosshair-vertical">
             <span class="crosshair-label">
-              <h3>אימפקט</h3>
+              <h3
+                style="
+                  background-color: rgb(144, 235, 202);
+                  display: inline-block;
+                "
+              >
+                אימפקט
+              </h3>
             </span>
           </div>
           <div class="crosshair-horizontal">
             <span class="crosshair-label">
-              <h3>יְשִׁימוּת</h3>
+              <h3
+                style="
+                  background-color: rgb(144, 235, 202);
+                  display: inline-block;
+                "
+              >
+                ישימות
+              </h3>
             </span>
           </div>
 
@@ -455,10 +471,10 @@
             </div>
           </div>
           <!-- Text boxes in the corners of the graph -->
-          <div class="graph-text-box top-left-box">הצלחות פורצות דרך</div>
-          <div class="graph-text-box top-right-box">הצלחות בטוחות</div>
-          <div class="graph-text-box bottom-left-box">לא רלוונטי</div>
-          <div class="graph-text-box bottom-right-box">הצלחות מהירות</div>
+          <!-- <div class="graph-text-box top-left-box"></div>
+          <div class="graph-text-box top-right-box"></div>
+          <div class="graph-text-box bottom-left-box"></div>
+          <div class="graph-text-box bottom-right-box"></div> -->
 
           <div
             id="graphContainer"
@@ -468,28 +484,50 @@
           </div>
         </div>
 
-        <!-- Graph description by numbers -->
-        <div style="text-align: right" class="graph-description-box">
-          <span id="currentInitiative" class="current-initiative"
-            >Current Initiative:
-          </span>
-
-          <br />
-          ישימות <span id="xValueDisplay">0</span><br />
-          ממוצא מדד ישימות <span id="meanX">0</span><br />
-          <br />
-          אימפקט <span id="yValueDisplay">0</span><br />
-          <span id="meanY">0</span> ממוצא מדד אימפקט<br />
-          <br />
-          <span id="sum">0</span> סכום אימפקט + ישימות
-          <br />
+        <div class="buttons">
+          <button id="exportData">שמירה</button>
+          <input type="file" id="importDataFile" style="display: none" />
+          <button id="importData">יבוא</button>
+          <button id="refreshPage">Refresh Page</button>
+          <button id="clearButton" onclick="clearSavedData()">
+            מחיקת כל המידע
+          </button>
         </div>
         <p>All rights reserved to Yaniv Almagor &copy</p>
       </div>
 
-      <aside style="align-items: center; display: flex; flex-direction: column">
-        <img src="civixLogo.PNG" alt="Civix Logo" />
-        <img src="NegevLogo.PNG" alt="Negev Logo" />
+      <!-- -------------------------------------------------------------------------------------------------------------- -->
+      <aside>
+        <img src="civixNew.jpg" alt="Negev Logo" />
+
+        <div id="bottomContent" style="position: absolute; bottom: 0">
+          <span
+            id="currentInitiative"
+            class="current-initiative"
+            style="background-color: rgb(144, 235, 202)"
+          >
+            Current Initiative: </span
+          ><br />
+          <p></p>
+          <span style="background-color: rgb(144, 235, 202)"> :ישימות </span>
+          <span
+            id="xValueDisplay"
+            style="background-color: rgb(144, 235, 202)"
+          ></span
+          ><br />
+
+          <br />
+
+          <span style="background-color: rgb(144, 235, 202)"> :אימפקט </span>
+          <span
+            id="yValueDisplay"
+            style="background-color: rgb(144, 235, 202)"
+          ></span
+          ><br />
+          <br />
+        </div>
+
+        <!-- Additional content here if needed -->
       </aside>
     </div>
 
@@ -1047,9 +1085,9 @@
           if (initiativeDropdown.selectedIndex >= 0) {
             const selectedOption =
               initiativeDropdown.options[initiativeDropdown.selectedIndex].text;
-            currentInitiativeSpan.textContent = "יוזמה: " + selectedOption;
+            currentInitiativeSpan.textContent = ":יוזמה " + selectedOption;
           } else {
-            currentInitiativeSpan.textContent = "יוזמה: "; // Default text when no initiative is selected
+            currentInitiativeSpan.textContent = "יש לבחור יוזמה "; // Default text when no initiative is selected
           }
         }
 
@@ -1404,49 +1442,125 @@
   </body>
 
   <style>
+    header {
+      display: none;
+    }
+
     body {
       font-family: greycliff-hebrew-cf, sans-serif;
       font-style: normal;
       font-weight: 100;
-
-      /* font-family: Arial, sans-serif; */
       text-align: right;
-      margin: 0;
-      padding: 0;
+      margin: 0px;
       background-color: #f4f4f4;
     }
+    aside {
+      border: 5px solid grey;
+      font-family: greycliff-hebrew-cf, sans-serif;
+      font-style: normal;
+      font-weight: 100;
+      text-align: right;
+      margin: 10px;
+     
+      background-color: #f0f0f0; /* Light grey background for visibility */
+    }
+    aside img {
+      width: 200px;
+      /* height: auto; */
+    }
+    .aside-container {
+      border: px solid grey; /* Grey border */
+      /* Additional styling as needed, e.g., padding, margins */
+    }
 
-    header {
+    .container {
+      margin: 10px;
       display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: rgb(203, 203, 203) 828;
-      padding: 10px 0;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+      justify-content: space-between;
+      width: 100%; /* Keep the container full width */
+      
+      /* margin: 5px; */
+      /* padding: 5px; */
+    }
+    /* Optional: Centering the left and right divs within the container */
+ 
+
+    .left {
+      width: 500px;
+      min-width: 500px;
+      max-width: 500px;
+      height: 700px;
+      /* margin: 20px; */
+      /* padding: 20px; */
+    }
+    .right {
+      margin: 1px;
+      min-width: 700px;
+      /* max-width: 700px; */
+      width: 685x; /* Example fixed width, adjust as needed */
+      height: 685px;
+      border: 6px solid gray;
+      /* Additional styling for left and right as needed */
     }
 
-    header img {
-      margin: 0 10px;
-      height: 100px;
-    }
-
-    .buttons {
-      margin-top: 20px;
+    .aside .buttons {
+      margin-top: 10px;
     }
 
     button {
       margin: 0 10px;
-      padding: 10px 20px;
+      padding: 3px 20px;
       border: none;
-      background-color: rgb(16, 69, 126);
-      color: white;
-      border-radius: 0px;
+      background-color: rgb(144, 235, 202);
+      color: black;
+      border-radius: 5px;
       cursor: pointer;
       font-size: 18px;
     }
 
     button:hover {
-      background-color: #0056b3;
+      background-color: rgb(144, 235, 202);
+    }
+    #graph {
+      position: sticky;
+
+      width: 100%; /* Adjust width as necessary */
+      height: 100%; /* Adjust height as necessary */
+    }
+
+    .slider {
+      color: #202523;
+    }
+    select {
+      padding: 1px;
+      border: 1px solid #b3b0da;
+      width: 90%;
+      /* Border color with a mix of blue and purple */
+      border-radius: 5px;
+      background-color: #f3f3f3;
+      cursor: pointer;
+      color: #413e98;
+      /* Darker shade of purple */
+      direction: rtl; /* Add this to align text right-to-left */
+      text-align: right; /* Align text to the right within each option */
+      font-size: 18px; /* Increased font size */
+    }
+    .graph-description-box {
+      /* margin-top: 20px; */
+      padding: 10px;
+      /* border: 1px solid #b3b0da; */
+      border-radius: 5px;
+      background: rgb(211, 16, 16);
+      color: rgb(153, 15, 15);
+
+      /* Adjusted text color for better readability on the gradient background */
+    }
+    /* Divider */
+    td[colspan="2"] {
+      text-align: center;
+      border-bottom: 1px solid #696798;
+      /* Darker shade of purple */
     }
 
     .axis {
@@ -1525,42 +1639,6 @@
       transform: translateY(-50%);
     }
 
-    #graph {
-      position: relative;
-      width: 60vw; /* Sets the width to 60% of the viewport width */
-      /* width: 100%; */
-      height: 100%;
-      /* border: 5px solid rgb(0, 0, 0); */
-      background: white;
-      border-radius: 5px;
-    }
-
-    .slider {
-      color: #202523;
-    }
-
-    select {
-      padding: 5px;
-      border: 1px solid #b3b0da;
-      width: 90%;
-      /* Border color with a mix of blue and purple */
-      border-radius: 5px;
-      background-color: #f3f3f3;
-      cursor: pointer;
-      color: #413e98;
-      /* Darker shade of purple */
-      direction: rtl; /* Add this to align text right-to-left */
-      text-align: right; /* Align text to the right within each option */
-      font-size: 18px; /* Increased font size */
-    }
-
-    /* Divider */
-    td[colspan="2"] {
-      text-align: center;
-      border-bottom: 2px solid #696798;
-      /* Darker shade of purple */
-    }
-
     /* Crosshair styles */
     .crosshair-vertical,
     .crosshair-horizontal {
@@ -1592,66 +1670,23 @@
         rgba(60, 58, 120, 0.9)
       );
       /* Gradient with semi-transparent shades of purple */
-      padding: 5px;
+      padding: 1px;
       /* border: 1px solid #b3b0da; */
       border-radius: 5px;
       color: white;
       /* Adjusted text color for better readability on the gradient background */
     }
-
-    .top-left-box {
-      top: 10px;
-      left: 10px;
-    }
-
-    .top-right-box {
-      top: 10px;
-      right: 10px;
-    }
-
-    .bottom-left-box {
-      bottom: 10px;
-      left: 10px;
-    }
-
-    .bottom-right-box {
-      bottom: 10px;
-      right: 10px;
-    }
-
-    .graph-description-box {
-      /* margin-top: 20px; */
-      padding: 10px;
-      /* border: 1px solid #b3b0da; */
-      border-radius: 5px;
-      background: rgb(158, 101, 179);
-      color: rgb(19, 10, 10);
-      /* Adjusted text color for better readability on the gradient background */
-    }
-
-    .container {
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .left,
-    .right {
-      width: 100%;
-      border: 1px solid black;
-      /* padding: 10px; */
-    }
-
+    /* האזור של קביעת פרמטרים */
     table {
       width: 100%;
     }
-
+    /* רווח בין שורות טקסט */
     td {
-      padding: 10px;
+      padding: 0px;
     }
 
     .slider {
       width: 100%;
-
       background: repeating-linear-gradient(
         to right,
         #ddd,
@@ -1662,7 +1697,7 @@
     }
 
     .initiative-controls {
-      display: flex;
+      /* display: flex; */
       justify-content: space-between;
       padding: 20px 0;
       /* background-color: #f5f5f5; */
@@ -1671,9 +1706,10 @@
     }
 
     .initiative-controls button {
-      padding: 10px 20px;
+      /* padding: 10px 20px; */
       border: none;
       /* border-radius: 5px; */
+
       font-size: 18px;
       cursor: pointer;
       transition: background-color 0.3s ease, transform 0.2s ease;
@@ -1681,31 +1717,27 @@
 
     /* Color for the create button */
     #createInitiative {
-      background-color: #4caf50;
-      /* Green */
-      /* color: white; */
-    }
+      background-color: rgb(144, 235, 202);
 
+      color: black;
+    }
     /* Color for the delete button */
     #deleteInitiative {
-      background-color: #f44336;
-      /* Red */
-      /* color: white; */
+      background-color: rgb(144, 235, 202);
+      color: black;
     }
-
     /* Color for the rename button */
     #renameInitiative {
-      background-color: #ffc107;
-      /* Amber */
+      background-color: rgb(144, 235, 202);
       color: black;
     }
 
     #clearButton {
       padding: 10px 20px;
       border: none;
-      border-radius: 1px;
+      border-radius: 10px;
       font-size: 16px;
-      color: rgb(255, 255, 255);
+      color: black;
       background: linear-gradient(45deg, #ff7e5f, #feb47b);
       cursor: pointer;
       transition: transform 0.1s;
@@ -1724,7 +1756,7 @@
       display: none;
       position: fixed;
       z-index: 1;
-      padding-top: 60px;
+      /* padding-top: 60px; */
       width: 100%;
       height: 100%;
       overflow: auto;
@@ -1734,15 +1766,15 @@
     /* Modal Content */
     .modal-content {
       background-color: #fefefe;
-      margin: 5% auto;
-      padding: 20px;
-      border: 1px solid #888;
+      /* margin: 5% auto; */
+      /* padding: 20px; */
+      /* border: 1px solid #888; */
       width: 80%;
     }
 
     /* The Close Button */
     .close-button {
-      color: #aaa;
+      color: #ac0707;
       float: right;
       font-size: 28px;
       font-weight: bold;
@@ -1761,15 +1793,6 @@
       font-weight: bold;
     }
 
-    #initiativeControls {
-      display: flex;
-      align-items: center;
-    }
-
-    #initiativeControls > * {
-      margin-right: 10px;
-    }
-
     .black-background {
       background-color: #202523;
       color: white;
@@ -1777,13 +1800,16 @@
       text-align: right; /* Align text to the right within each option */
       /* Optional: To make the text readable */
       font-size: 20px; /* Increased font size */
+      margin: 5px;
     }
 
     .green-background {
-      background-color: rgb(255, 255, 255);
+      background-color: rgb(144, 235, 202);
 
       color: rgb(32, 37, 35);
       text-align: right; /* Align text to the right within each option */
+      margin: 5px;
+
       /* Optional: To make the text readable */
     }
 
@@ -1791,31 +1817,59 @@
       background-color: rgb(20, 25, 23);
       color: white;
       text-align: right; /* Align text to the right within each option */
-
       /* Optional: To make the text readable */
     }
 
-    aside img {
-      width: 150px;
-      height: auto;
-    }
-
-    /* .current-initiative {
-      font-size: 20px;
+    .current-initiative {
+      /* font-size: 20px; */
       font-weight: bold;
-      width: 30%;
-    } */
+      /* width: 30%; */
+    }
 
     .goal-select {
       font-size: px;
-      padding: 10px 15px;
-      width: 90%;
-      margin: 10px auto;
+      padding: 2px 2px;
+      width: 98%;
+      /* margin: 2px auto; */
       display: block;
       direction: rtl; /* Add this to align text right-to-left */
       text-align: right; /* Align text to the right within each option */
       margin-right: 0; /* Align to the right */
       margin-left: auto; /* Auto margin for left to maintain layout */
     }
+
+    .impact-heading {
+    text-align: right;
+}
+
+
+    /* .top-left-box {
+      top: 10px;
+      left: 10px;
+    }
+
+    .top-right-box {
+      top: 10px;
+      right: 10px;
+    }
+
+    .bottom-left-box {
+      bottom: 10px;
+      left: 10px;
+    }
+
+    .bottom-right-box {
+      bottom: 10px;
+      right: 10px;
+    } */
+    /* 
+    #initiativeControls {
+      display: flex;
+      align-items: center;
+    }
+
+    #initiativeControls > {
+      margin-right: 100px;
+    } */
   </style>
 </html>
