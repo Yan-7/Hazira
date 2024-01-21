@@ -9,9 +9,9 @@
   </head>
   <body>
     <!-- <header></header> -->
-    <div class="container">
+    <div class="container" >
       <!-- left side -->
-
+<!-- --------------------------------------------------------------------- -->
       <div class="left">
         <div class="black-background">
           
@@ -21,7 +21,7 @@
         " >Clickable<span style="  color: rgb(144, 235, 202)">Impact</span>Tool
           
 
-          <h3  >מטרה:
+          <h3 style="margin-top: 10px;margin-bottom: 10px" >מטרה:
           <select id="goal" class="goal-select">
             <option value="goal1"></option>
             <option value="goal2">
@@ -46,7 +46,8 @@
           <button id="deleteGoal">מחיקת מטרה נוכחית</button>
           <button id="editGoal">עריכת שם מטרה</button>
 
-          <h3 style="margin-bottom: 0px;"> יוזמה:
+          <h3 style="margin-top: 10px;margin-bottom: 10px;
+      "> יוזמה:
           <select id="initative"></select>
           <p></p>
           <button id="deleteInitiative">מחיקת יוזמה</button>
@@ -58,8 +59,6 @@
           <div
             style="
               text-align: right;
-              /* display: flex; */
-              justify-content: space-between;
             "
           >
 
@@ -230,19 +229,17 @@
           <div
             style="
               text-align: right;
-              /* display: flex; */
-              justify-content: space-between;
             "
           >
             <!-- ------------------------------------- -->
 <h2 style="
-    margin-bottom: 0px;
+    margin-bottom: 4px;
     margin-top: 0px;
 ">מדדי אימפקט
           </h2>
           </div>
 
-          <table>
+          <table style="padding: 10px;">
             <tr>
               <td>
                 <div
@@ -408,8 +405,12 @@
       </div>
 
       <!-- right side of the app------------------------------------------------ ---->
-      <div class="right">
-
+      <!-- right side of the app------------------------------------------------ ---->
+      <!-- right side of the app------------------------------------------------ ---->
+      
+      <div class="rightb" style="      border: 6px solid gray;">
+      <div class="right" >
+        
         <div id="graph">
 
           <div class="crosshair-vertical">
@@ -441,36 +442,42 @@
           <!-- X and Y axes with tick marks and labels -->
           <div class="axis x-axis">
             <div class="tick" style="--i: 10">
-              <span class="tick-label">10</span>
+              <span class="tick-label">1</span>
+            </div>
+            <div class="tick" style="--i: 10">
+              <span class="tick-label">2</span>
             </div>
             <div class="tick" style="--i: 20">
-              <span class="tick-label">20</span>
+              <span class="tick-label">3</span>
             </div>
             <div class="tick" style="--i: 30">
-              <span class="tick-label">30</span>
+              <span class="tick-label">4</span>
             </div>
             <div class="tick" style="--i: 40">
-              <span class="tick-label">40</span>
+              <span class="tick-label">5</span>
             </div>
             <div class="tick" style="--i: 50">
-              <span class="tick-label">50</span>
+              <span class="tick-label"></span>
             </div>
           </div>
           <div class="axis y-axis">
             <div class="tick" style="--i: 10">
-              <span class="tick-label">10</span>
+              <span class="tick-label">1</span>
+            </div>
+            <div class="tick" style="--i: 10">
+              <span class="tick-label">2</span>
             </div>
             <div class="tick" style="--i: 20">
-              <span class="tick-label">20</span>
+              <span class="tick-label">3</span>
             </div>
             <div class="tick" style="--i: 30">
-              <span class="tick-label">30</span>
+              <span class="tick-label">4</span>
             </div>
             <div class="tick" style="--i: 40">
-              <span class="tick-label">40</span>
+              <span class="tick-label">5</span>
             </div>
             <div class="tick" style="--i: 50">
-              <span class="tick-label">50</span>
+              <span class="tick-label"></span>
             </div>
           </div>
           <!-- Text boxes in the corners of the graph -->
@@ -485,13 +492,12 @@
           >
             <!-- Dot will be appended here -->
           </div>
-
-          
         </div>
 
         
         <p>All rights reserved to Yaniv Almagor &copy</p>
       </div>
+    </div>
 
       <!-- -------------------------------------------------------------------------------------------------------------- -->
       <aside>
@@ -506,16 +512,18 @@
         </div>
     
         <div id="bottomContent">
-            <span id="currentInitiative" class="current-initiative" style="background-color: rgb(144, 235, 202)">
-                Current Initiative:
-            </span><br />
-            <span style="background-color: rgb(144, 235, 202)">:ישימות</span>
-            <span id="xValueDisplay" style="background-color: rgb(144, 235, 202)"></span><br />
-            <br />
-            <span style="background-color: rgb(144, 235, 202)">:אימפקט</span>
-            <span id="yValueDisplay" style="background-color: rgb(144, 235, 202)"></span><br />
-            <br />
-        </div>
+          <h3>:יוזמה שנבחרה</h3>
+          <span id="currentInitiative" class="current-initiative" style="background-color: rgb(144, 235, 202);"></span>
+          <br>
+          <br>
+          <span style="background-color: rgb(144, 235, 202);">:ישימות</span>
+          <span id="xValueDisplay" style="background-color: rgb(144, 235, 202);"></span><br>
+          <br>
+          <span style="background-color: rgb(144, 235, 202);">:אימפקט</span>
+          <span id="yValueDisplay" style="background-color: rgb(144, 235, 202);"></span><br>
+          <br>
+      </div>
+      
     </aside>
     
     </div>
@@ -1074,7 +1082,8 @@
           if (initiativeDropdown.selectedIndex >= 0) {
             const selectedOption =
               initiativeDropdown.options[initiativeDropdown.selectedIndex].text;
-            currentInitiativeSpan.textContent = ":יוזמה " + selectedOption;
+            currentInitiativeSpan.textContent = "" + selectedOption;
+            console.log(selectedOption);
           } else {
             currentInitiativeSpan.textContent = "יש לבחור יוזמה "; // Default text when no initiative is selected
           }
@@ -1443,29 +1452,14 @@
       margin: 0px;
       background-color: #f4f4f4;
     }
-    aside {
-      border: 5px solid grey;
-      font-family: greycliff-hebrew-cf, sans-serif;
-      font-style: normal;
-      font-weight: 100;
-      text-align: right;
-      /* margin: 10px; */
-      padding: 1;
-      background-color: #f0f0f0; /* Light grey background for visibility */
-      height: 685px;
-    }
-    
-    
-    
-    aside img {
-      width: 200px;
-      /* height: auto; */
-    }
+
 
 
     .container {
       margin: 1%;
       display: flex;
+      
+      
 
       /* justify-content: space-between; */
       width: 100%; /* Keep the container full width */
@@ -1474,36 +1468,66 @@
       /* padding: 5px; */
     }
     /* Optional: Centering the left and right divs within the container */
- 
-
     .left {
-      width: 500px;
+      width: 600px;
       min-width: 500px;
-      max-width: 500px;
-      height: 700px;
+      max-width: 600px;
+      height: 785px;
+      margin-right: 10px;
+      
       /* margin: 20px; */
       /* padding: 20px; */
     }
+
+    .rightb {
+      height:  685px;
+    }
     .right {
       margin: 1px;
+      margin-left: 15px;
+      margin-right: 20px;
       min-width: 700px;
       /* max-width: 700px; */
       width: 685x; /* Example fixed width, adjust as needed */
       height: 685px;
-      border: 6px solid gray;
-      /* Additional styling for left and right as needed */
+      /* border: 6px solid gray; */
+      
+      /* Additional styling for left and rig0ht as needed */
+    }
+aside {
+  border: 6px solid gray;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* This will push the bottom content to the end */
+    height: 685px;
+    margin-left: 15px;
+}
+aside img {
+      width: 200px;
+      /* height: auto; */
     }
 
+.buttons {
+  
+    display: flex;
+    flex-direction: column;
+    /* Additional styles if needed */
+}
+    
 
-
+    .buttons button {
+    display: block;
+    width: 80%; /* Makes button take the full width */
+    margin-bottom: 10px; /* Adds space below each button */
+}
     button {
-      margin: 0 10px;
-      padding: 3px 20px;
+      display: flexbox;
+      margin:  10px;
       border: none;
       background-color: rgb(144, 235, 202);
       color: black;
       border-radius: 5px;
-      cursor: pointer;
+      cursor: grabbing;
       font-size: 18px;
     }
 
@@ -1513,6 +1537,8 @@
     #graph {
       position: sticky;
       background-image: url('grid.jpg');
+      
+      
       background-size: cover; /* Ensures the image covers the entire area */
     background-position: center; /* Centers the image in the div */
     background-repeat: no-repeat; /* Prevents the image from repeating */
@@ -1520,6 +1546,17 @@
       width: 100%; /* Adjust width as necessary */
       height: 100%; /* Adjust height as necessary */
     }
+    
+    #bottomContent {
+    position: sticky;
+    text-align: center;
+    margin-top: 100%;
+    
+    
+    
+    width: 100%; /* Adjust as needed */
+    /* Other styles for bottomContent... */
+}
 
     .slider {
       color: #202523;
@@ -1555,12 +1592,9 @@
       /* Darker shade of purple */
     }
 
-    .axis {
-      position: absolute;
-      display: flex;
-    }
 
     .tick {
+      
       position: relative;
       flex-grow: 1;
     }
@@ -1573,18 +1607,22 @@
       content: "";
       position: absolute;
       background: black;
-      width: 2px;
+      width: 5px;
       height: 100%;
-      left: 50%;
+      /* left: 50%; */
     }
 
     .tick-label {
       position: absolute;
-      font-size: 12px;
+      /* font-size: 12px; */
+    }
+    .axis {
+      position: absolute;
+      display: flex;
     }
 
     .x-axis {
-      left: 0;
+      /* left: 1px; */
       bottom: 0;
       width: calc(100% - 2px);
       align-items: flex-end;
@@ -1592,17 +1630,24 @@
 
     .x-axis .tick::after {
       bottom: 0;
-      height: 5px;
+      
     }
-
+    
+    .y-axis .tick-label {
+      left: 20px;
+      
+      /* top: 50%; */
+      transform: translateY(-50%);
+    }
     .x-axis .tick-label {
-      bottom: -20px;
-      left: 50%;
+      bottom: 20px;
+      /* right: 1px; */
       transform: translateX(-50%);
     }
 
     .y-axis {
-      top: 0;
+      /* top: 10px; */
+      
       left: 0;
       height: 100%;
       flex-direction: column-reverse;
@@ -1615,19 +1660,21 @@
 
     .y-axis .tick:last-child {
       flex-grow: 0;
+      
     }
 
     .y-axis .tick::after {
-      right: 0;
-      width: 5px;
+      right: 3;
+      width: 20px;
       height: 2px;
-      top: 50%;
+      /* top: 50%; */
       transform: translateY(-50%);
     }
-
-    .y-axis .tick-label {
-      right: -20px;
-      top: 50%;
+    .x-axis .tick::after {
+      /* right: 3; */
+      width: 2px;
+      height: 20px;
+      bottom: -10px;
       transform: translateY(-50%);
     }
 
@@ -1792,7 +1839,6 @@
       text-align: right; /* Align text to the right within each option */
       /* Optional: To make the text readable */
       font-size: 20px; /* Increased font size */
-      margin: 5px;
     }
 
     .green-background {
@@ -1800,7 +1846,7 @@
 
       color: rgb(32, 37, 35);
       text-align: right; /* Align text to the right within each option */
-      margin: 5px;
+      margin-bottom: 10px; */
 
       /* Optional: To make the text readable */
     }
