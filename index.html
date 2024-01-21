@@ -409,7 +409,9 @@
 
       <!-- right side of the app------------------------------------------------ ---->
       <div class="right">
+
         <div id="graph">
+
           <div class="crosshair-vertical">
             <span class="crosshair-label">
               <h3
@@ -422,6 +424,7 @@
               </h3>
             </span>
           </div>
+          
           <div class="crosshair-horizontal">
             <span class="crosshair-label">
               <h3
@@ -478,57 +481,43 @@
 
           <div
             id="graphContainer"
-            style="position: relative; width: 100%; height: 100%"
+            style="position: relative; width: 100%; height: 100% "
           >
             <!-- Dot will be appended here -->
           </div>
+
+          
         </div>
 
-        <div class="buttons">
-          <button id="exportData">שמירה</button>
-          <input type="file" id="importDataFile" style="display: none" />
-          <button id="importData">יבוא</button>
-          <button id="refreshPage">Refresh Page</button>
-          <button id="clearButton" onclick="clearSavedData()">
-            מחיקת כל המידע
-          </button>
-        </div>
+        
         <p>All rights reserved to Yaniv Almagor &copy</p>
       </div>
 
       <!-- -------------------------------------------------------------------------------------------------------------- -->
       <aside>
         <img src="civixNew.jpg" alt="Negev Logo" />
-
-        <div id="bottomContent" style="position: absolute; bottom: 0">
-          <span
-            id="currentInitiative"
-            class="current-initiative"
-            style="background-color: rgb(144, 235, 202)"
-          >
-            Current Initiative: </span
-          ><br />
-          <p></p>
-          <span style="background-color: rgb(144, 235, 202)"> :ישימות </span>
-          <span
-            id="xValueDisplay"
-            style="background-color: rgb(144, 235, 202)"
-          ></span
-          ><br />
-
-          <br />
-
-          <span style="background-color: rgb(144, 235, 202)"> :אימפקט </span>
-          <span
-            id="yValueDisplay"
-            style="background-color: rgb(144, 235, 202)"
-          ></span
-          ><br />
-          <br />
+    
+        <div class="buttons">
+            <button id="exportData">שמירה</button>
+            <input type="file" id="importDataFile" style="display: none" />
+            <button id="importData">יבוא</button>
+            <button id="refreshPage">Refresh Page</button>
+            <button id="clearButton" onclick="clearSavedData()">מחיקת כל המידע</button>
         </div>
-
-        <!-- Additional content here if needed -->
-      </aside>
+    
+        <div id="bottomContent">
+            <span id="currentInitiative" class="current-initiative" style="background-color: rgb(144, 235, 202)">
+                Current Initiative:
+            </span><br />
+            <span style="background-color: rgb(144, 235, 202)">:ישימות</span>
+            <span id="xValueDisplay" style="background-color: rgb(144, 235, 202)"></span><br />
+            <br />
+            <span style="background-color: rgb(144, 235, 202)">:אימפקט</span>
+            <span id="yValueDisplay" style="background-color: rgb(144, 235, 202)"></span><br />
+            <br />
+        </div>
+    </aside>
+    
     </div>
 
     <script>
@@ -1026,9 +1015,9 @@
           const meanX = x / 5;
           const meanY = y / 5;
 
-          document.getElementById("sum").textContent = sum.toFixed(0);
-          document.getElementById("meanX").textContent = meanX.toFixed(0);
-          document.getElementById("meanY").textContent = meanY.toFixed(0);
+          // document.getElementById("sum").textContent = sum.toFixed(0);
+          // document.getElementById("meanX").textContent = meanX.toFixed(0);
+          // document.getElementById("meanY").textContent = meanY.toFixed(0);
 
           goalState[selectedGoal].initiatives[selectedInitiative].x = x;
           goalState[selectedGoal].initiatives[selectedInitiative].y = y;
@@ -1460,24 +1449,25 @@
       font-style: normal;
       font-weight: 100;
       text-align: right;
-      margin: 10px;
-     
+      /* margin: 10px; */
+      padding: 1;
       background-color: #f0f0f0; /* Light grey background for visibility */
+      height: 685px;
     }
+    
+    
+    
     aside img {
       width: 200px;
       /* height: auto; */
     }
-    .aside-container {
-      border: px solid grey; /* Grey border */
-      /* Additional styling as needed, e.g., padding, margins */
-    }
+
 
     .container {
-      margin: 10px;
+      margin: 1%;
       display: flex;
 
-      justify-content: space-between;
+      /* justify-content: space-between; */
       width: 100%; /* Keep the container full width */
       
       /* margin: 5px; */
@@ -1504,9 +1494,7 @@
       /* Additional styling for left and right as needed */
     }
 
-    .aside .buttons {
-      margin-top: 10px;
-    }
+
 
     button {
       margin: 0 10px;
@@ -1524,6 +1512,10 @@
     }
     #graph {
       position: sticky;
+      background-image: url('grid.jpg');
+      background-size: cover; /* Ensures the image covers the entire area */
+    background-position: center; /* Centers the image in the div */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
 
       width: 100%; /* Adjust width as necessary */
       height: 100%; /* Adjust height as necessary */
