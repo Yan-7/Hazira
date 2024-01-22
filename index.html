@@ -17,15 +17,15 @@
           
             <h1 style="
             margin-top: 0px;
-            margin-bottom: 0px;
+            margin-bottom: 0px; text-align: center;
         " >Clickable<span style="  color: rgb(144, 235, 202)">Impact</span>Tool
           
 
-          <h3 style="margin-top: 10px;margin-bottom: 10px" >מטרה:
+          <h3 style="margin-top: 10px;margin-bottom: 10px; " >מטרה
           <select id="goal" class="goal-select">
             <option value="goal1"></option>
             <option value="goal2">
-              חשיפה להזדמנויות, תנאי העסקה ומצב השוק
+              חשיפה להזדמנויות , תנאי העסקה ומצב השוק
             </option>
             <option value="goal3">התפתחות והתקדמות מקצועית לצד האמהות</option>
             <option value="goal4">
@@ -43,16 +43,16 @@
           </select>
 
           <button id="createGoal">מטרה חדשה</button>
-          <button id="deleteGoal">מחיקת מטרה נוכחית</button>
           <button id="editGoal">עריכת שם מטרה</button>
+          <button id="deleteGoal">מחיקת מטרה נוכחית</button>
 
           <h3 style="margin-top: 10px;margin-bottom: 10px;
       "> יוזמה:
           <select id="initative"></select>
           <p></p>
-          <button id="deleteInitiative">מחיקת יוזמה</button>
-          <button id="renameInitiative">שינוי שם יוזמה</button>
           <button id="createInitiative">יצירת יוזמה</button>
+          <button id="renameInitiative">שינוי שם יוזמה</button>
+          <button id="deleteInitiative">מחיקת יוזמה</button>
         </div>
 <!-- ----------------------------------------------------------- -->
         <div class="green-background">
@@ -442,19 +442,19 @@
           <!-- X and Y axes with tick marks and labels -->
           <div class="axis x-axis">
             <div class="tick" style="--i: 10">
-              <span class="tick-label">1</span>
+              <span class="tick-label">10</span>
             </div>
             <div class="tick" style="--i: 10">
-              <span class="tick-label">2</span>
+              <span class="tick-label">20</span>
             </div>
             <div class="tick" style="--i: 20">
-              <span class="tick-label">3</span>
+              <span class="tick-label">30</span>
             </div>
             <div class="tick" style="--i: 30">
-              <span class="tick-label">4</span>
+              <span class="tick-label">40</span>
             </div>
             <div class="tick" style="--i: 40">
-              <span class="tick-label">5</span>
+              <span class="tick-label">50</span>
             </div>
             <div class="tick" style="--i: 50">
               <span class="tick-label"></span>
@@ -462,19 +462,19 @@
           </div>
           <div class="axis y-axis">
             <div class="tick" style="--i: 10">
-              <span class="tick-label">1</span>
+              <span class="tick-label">10</span>
             </div>
             <div class="tick" style="--i: 10">
-              <span class="tick-label">2</span>
+              <span class="tick-label">20</span>
             </div>
             <div class="tick" style="--i: 20">
-              <span class="tick-label">3</span>
+              <span class="tick-label">30</span>
             </div>
             <div class="tick" style="--i: 30">
-              <span class="tick-label">4</span>
+              <span class="tick-label">40</span>
             </div>
             <div class="tick" style="--i: 40">
-              <span class="tick-label">5</span>
+              <span class="tick-label">50</span>
             </div>
             <div class="tick" style="--i: 50">
               <span class="tick-label"></span>
@@ -500,9 +500,22 @@
     </div>
 
       <!-- -------------------------------------------------------------------------------------------------------------- -->
-      <aside>
+      <aside style="text-align: right;">
         <img src="civixNew.jpg" alt="Negev Logo" />
-    
+        
+        <div class="rtl-container" style="margin: 5px;">
+          <div class="input-group">
+            <label for="teamInput">צוות:</label>
+            <input type="text" id="teamInput" />
+            <button onclick="saveToLocalStorage('team', document.getElementById('teamInput').value)">שמור</button>
+          </div>
+          <div class="input-group">
+            <label for="challengeInput">אתגר:</label>
+            <input type="text" id="challengeInput" />
+            <button onclick="saveToLocalStorage('challenge', document.getElementById('challengeInput').value)">שמור</button>
+          </div>
+        </div>
+        
         <div class="buttons">
             <button id="exportData">שמירה</button>
             <input type="file" id="importDataFile" style="display: none" />
@@ -1458,8 +1471,8 @@
     .container {
       margin: 1%;
       display: flex;
-      
-      
+      background-color: rgb(255, 255, 255);
+            
 
       /* justify-content: space-between; */
       width: 100%; /* Keep the container full width */
@@ -1474,9 +1487,9 @@
       max-width: 600px;
       height: 785px;
       margin-right: 10px;
+      padding-right: 20px;
       
-      /* margin: 20px; */
-      /* padding: 20px; */
+      
     }
 
     .rightb {
@@ -1487,6 +1500,7 @@
       margin-left: 15px;
       margin-right: 20px;
       min-width: 700px;
+      
       /* max-width: 700px; */
       width: 685x; /* Example fixed width, adjust as needed */
       height: 685px;
@@ -1501,9 +1515,11 @@ aside {
     justify-content: space-between; /* This will push the bottom content to the end */
     height: 685px;
     margin-left: 15px;
+    background-color: rgb(255, 255, 255);
 }
 aside img {
       width: 200px;
+      padding: 20px;
       /* height: auto; */
     }
 
@@ -1537,11 +1553,10 @@ aside img {
     #graph {
       position: sticky;
       background-image: url('grid.jpg');
-      
-      
       background-size: cover; /* Ensures the image covers the entire area */
     background-position: center; /* Centers the image in the div */
     background-repeat: no-repeat; /* Prevents the image from repeating */
+    
 
       width: 100%; /* Adjust width as necessary */
       height: 100%; /* Adjust height as necessary */
@@ -1550,10 +1565,7 @@ aside img {
     #bottomContent {
     position: sticky;
     text-align: center;
-    margin-top: 100%;
-    
-    
-    
+    /* margin-top: 60px; */
     width: 100%; /* Adjust as needed */
     /* Other styles for bottomContent... */
 }
@@ -1635,6 +1647,7 @@ aside img {
     
     .y-axis .tick-label {
       left: 20px;
+      top: 2px;
       
       /* top: 50%; */
       transform: translateY(-50%);
@@ -1665,7 +1678,7 @@ aside img {
 
     .y-axis .tick::after {
       right: 3;
-      width: 20px;
+      width: 10px;
       height: 2px;
       /* top: 50%; */
       transform: translateY(-50%);
@@ -1673,7 +1686,7 @@ aside img {
     .x-axis .tick::after {
       /* right: 3; */
       width: 2px;
-      height: 20px;
+      height: 10px;
       bottom: -10px;
       transform: translateY(-50%);
     }
@@ -1846,7 +1859,7 @@ aside img {
 
       color: rgb(32, 37, 35);
       text-align: right; /* Align text to the right within each option */
-      margin-bottom: 10px; */
+      margin-bottom: 10px; 
 
       /* Optional: To make the text readable */
     }
@@ -1875,10 +1888,53 @@ aside img {
       margin-right: 0; /* Align to the right */
       margin-left: auto; /* Auto margin for left to maintain layout */
     }
-
-    .impact-heading {
-    text-align: right;
+    .rtl-container {
+  direction: rtl; /* Sets the text direction to right-to-left */
 }
+
+.input-group {
+  display: flex;
+  align-items: center;
+  gap: 5px; /* Adds a gap between the elements */
+  background-color: rgb(144, 235, 202); /* Circular background color */
+  border-radius: 20px; /* Rounded corners for the container */
+  /* padding: 10px; Spacing inside the container */
+  margin-bottom: 10px; /* Space between each input group */
+}
+
+.input-group label {
+  background-color: rgb(144, 235, 202); /* Background color for label */
+  border-radius: 10px; 
+  padding: 5px;
+  white-space: nowrap; /* Prevents label text from wrapping */
+}
+
+.input-group input[type="text"] {
+  width: 100px; /* Adjust the width as needed */
+  /* padding: 5px; Add some padding for aesthetics */
+  border: none; /* Removes the border */
+  border-radius: 10px; /* Rounds the corners of the input field */
+  background-color: white; /* Sets the input background color */
+  color: #000; /* Text color for the input, adjust as needed */
+}
+
+/* Apply focus styles for when the input is active */
+.input-group input[type="text"]:focus {
+  outline: none; /* Removes default focus outline */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow to highlight focus */
+}
+
+/* Style for the save button */
+.input-group button {
+  border: none;
+  background-color: #fff; /* Button background color */
+  color: #000; /* Button text color */
+  /* padding: 5px 10px; */
+  border-radius: 10px; /* Rounds the button corners */
+ 
+
+
+
 
 
     /* .top-left-box {
