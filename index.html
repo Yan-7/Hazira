@@ -21,7 +21,7 @@
         " >Clickable<span style="  color: rgb(144, 235, 202)">Impact</span>Tool
           
 
-          <h3 style="margin-top: 10px;margin-bottom: 10px; " >מטרה
+          <h3  >מטרה
           <select id="goal" class="goal-select">
             <option value="goal1"></option>
             <option value="goal2">
@@ -46,8 +46,7 @@
           <button id="editGoal">עריכת שם מטרה</button>
           <button id="deleteGoal">מחיקת מטרה נוכחית</button>
 
-          <h3 style="margin-top: 10px;margin-bottom: 10px;
-      "> יוזמה:
+          <h3 > יוזמה
           <select id="initative"></select>
           <p></p>
           <button id="createInitiative">יצירת יוזמה</button>
@@ -1472,6 +1471,7 @@
       margin: 1%;
       display: flex;
       background-color: rgb(255, 255, 255);
+      
             
 
       /* justify-content: space-between; */
@@ -1485,17 +1485,20 @@
       width: 600px;
       min-width: 500px;
       max-width: 600px;
-      height: 785px;
+      height: 700px;
       margin-right: 10px;
-      padding-right: 20px;
+      padding-right: 10px;
+      padding-left: 10px;
       
       
     }
 
     .rightb {
       height:  685px;
+      border-radius: 20px; /* Rounded corners for the container */
     }
     .right {
+      
       margin: 1px;
       margin-left: 15px;
       margin-right: 20px;
@@ -1516,6 +1519,7 @@ aside {
     height: 685px;
     margin-left: 15px;
     background-color: rgb(255, 255, 255);
+    border-radius: 20px; /* Rounded corners for the container */
 }
 aside img {
       width: 200px;
@@ -1557,6 +1561,7 @@ aside img {
     background-position: center; /* Centers the image in the div */
     background-repeat: no-repeat; /* Prevents the image from repeating */
     
+    
 
       width: 100%; /* Adjust width as necessary */
       height: 100%; /* Adjust height as necessary */
@@ -1594,8 +1599,36 @@ aside img {
       border-radius: 5px;
       background: rgb(211, 16, 16);
       color: rgb(153, 15, 15);
+      
 
       /* Adjusted text color for better readability on the gradient background */
+    }
+    
+    .black-background {
+      background-color: #202523;
+      color: white;
+      direction: rtl; /* Add this to align text right-to-left */
+      text-align: right; /* Align text to the right within each option */
+      /* Optional: To make the text readable */
+      font-size: 20px; /* Increased font size */
+    }
+
+    .green-background {
+      background-color: rgb(144, 235, 202);
+
+      color: rgb(32, 37, 35);
+      text-align: right; /* Align text to the right within each option */
+      margin-bottom: 5px; 
+
+      /* Optional: To make the text readable */
+    }
+
+    .orange-background {
+      background-color: rgb(20, 25, 23);
+      color: white;
+      text-align: right; /* Align text to the right within each option */
+      padding-bottom: 20px;
+      /* Optional: To make the text readable */
     }
     /* Divider */
     td[colspan="2"] {
@@ -1717,6 +1750,7 @@ aside img {
     .graph-text-box {
       position: absolute;
       background: linear-gradient(
+        
         160deg,
         rgba(142, 138, 177, 0.9),
         rgba(60, 58, 120, 0.9)
@@ -1736,6 +1770,12 @@ aside img {
     td {
       padding: 0px;
     }
+    h3 {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  /* Add other styles as needed */
+}
+
 
     .slider {
       width: 100%;
@@ -1845,31 +1885,6 @@ aside img {
       font-weight: bold;
     }
 
-    .black-background {
-      background-color: #202523;
-      color: white;
-      direction: rtl; /* Add this to align text right-to-left */
-      text-align: right; /* Align text to the right within each option */
-      /* Optional: To make the text readable */
-      font-size: 20px; /* Increased font size */
-    }
-
-    .green-background {
-      background-color: rgb(144, 235, 202);
-
-      color: rgb(32, 37, 35);
-      text-align: right; /* Align text to the right within each option */
-      margin-bottom: 10px; 
-
-      /* Optional: To make the text readable */
-    }
-
-    .orange-background {
-      background-color: rgb(20, 25, 23);
-      color: white;
-      text-align: right; /* Align text to the right within each option */
-      /* Optional: To make the text readable */
-    }
 
     .current-initiative {
       /* font-size: 20px; */
