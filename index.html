@@ -17,7 +17,7 @@
           
             <h1 style="
             margin-top: 0px;
-            margin-bottom: 0px; text-align: center;
+            margin-bottom: 0px; text-align: center; padding-top: 10px;
         " >Clickable<span style="  color: rgb(144, 235, 202)">Impact</span>Tool
           
 
@@ -42,15 +42,14 @@
             </option>
           </select>
 
-          <button id="createGoal">מטרה חדשה</button>
+          <button id="createGoal">יצירת מטרה חדשה</button>
           <button id="editGoal">עריכת שם מטרה</button>
-          <button id="deleteGoal">מחיקת מטרה נוכחית</button>
+          <button id="deleteGoal">מחיקת מטרה </button>
 
           <h3 > יוזמה
           <select id="initative"></select>
-          <p></p>
           <button id="createInitiative">יצירת יוזמה</button>
-          <button id="renameInitiative">שינוי שם יוזמה</button>
+          <button id="renameInitiative">עריכת שם יוזמה</button>
           <button id="deleteInitiative">מחיקת יוזמה</button>
         </div>
 <!-- ----------------------------------------------------------- -->
@@ -238,7 +237,7 @@
           </h2>
           </div>
 
-          <table style="padding: 10px;">
+          <table ">
             <tr>
               <td>
                 <div
@@ -499,10 +498,10 @@
     </div>
 
       <!-- -------------------------------------------------------------------------------------------------------------- -->
-      <aside style="text-align: right;">
+      <aside >
         <img src="civixNew.jpg" alt="Negev Logo" />
         
-        <div class="rtl-container" style="margin: 5px;">
+        <div class="rtl-container" >
           <div class="input-group">
             <label for="teamInput">צוות:</label>
             <input type="text" id="teamInput" />
@@ -519,20 +518,22 @@
             <button id="exportData">שמירה</button>
             <input type="file" id="importDataFile" style="display: none" />
             <button id="importData">יבוא</button>
-            <button id="refreshPage">Refresh Page</button>
             <button id="clearButton" onclick="clearSavedData()">מחיקת כל המידע</button>
+            <button id="refreshPage">Refresh Page</button>
         </div>
     
-        <div id="bottomContent">
+        <div id="bottomContent" >
           <h3>:יוזמה שנבחרה</h3>
-          <span id="currentInitiative" class="current-initiative" style="background-color: rgb(144, 235, 202);"></span>
+          <span id="currentInitiative" class="current-initiative" style="background-color: rgb(144, 235, 202); border-radius: 10px;"></span>
+
           <br>
           <br>
-          <span style="background-color: rgb(144, 235, 202);">:ישימות</span>
-          <span id="xValueDisplay" style="background-color: rgb(144, 235, 202);"></span><br>
+          <span style="background-color: rgb(144, 235, 202); border-radius: 10px;">ישימות</span>
+          <span id="xValueDisplay" style="background-color: rgb(144, 235, 202); border-radius: 10px;"></span>
           <br>
-          <span style="background-color: rgb(144, 235, 202);">:אימפקט</span>
-          <span id="yValueDisplay" style="background-color: rgb(144, 235, 202);"></span><br>
+          <br>
+          <span style="background-color: rgb(144, 235, 202); border-radius: 10px;">אימפקט</span>
+          <span id="yValueDisplay" style="background-color: rgb(144, 235, 202); border-radius: 10px;"></span><br>
           <br>
       </div>
       
@@ -545,18 +546,37 @@
       //----------------------------------------------------------------
       //----------------------------------------------------------------
 
-      function clearSavedData() {
-        console.log("clearSavedData function called");
-        localStorage.removeItem("goalState");
-      }
+      // function clearSavedData() {
+      //   console.log("clearSavedData function called");
+      //   localStorage.removeItem("goalState");
+      // }
 
-      document.addEventListener("DOMContentLoaded", (event) => {
-        console.log("DOMContentLoaded function called");
-        const clearButton = document.getElementById("clearButton");
-        if (clearButton) {
-          clearButton.addEventListener("click", clearSavedData);
-        }
-      });
+      function clearSavedData() {
+  console.log("clearSavedData function called");
+
+  // Prompt the user for confirmation
+  var confirmation = confirm("האם אתם בטוחים שאתם רוצים למחוק את כל המידע שנשמר ולהתחיל מסך חדש?");
+  
+
+  // If the user confirms, remove the item from localStorage
+  if (confirmation) {
+    localStorage.removeItem("goalState");
+    console.log("Data deleted successfully.");
+    alert("המידע נמחק.");
+    // Optionally, you can add additional code here to handle the post-deletion scenario
+  } else {
+    console.log("Data deletion cancelled.");
+  }
+}
+
+
+      // document.addEventListener("DOMContentLoaded", (event) => {
+      //   console.log("DOMContentLoaded function called");
+      //   const clearButton = document.getElementById("clearButton");
+      //   if (clearButton) {
+      //     clearButton.addEventListener("click", clearSavedData);
+      //   }
+      // });
 
       // Initialize an empty object to store the state of goals and initiatives
       let goalState = {};
@@ -665,22 +685,22 @@
           const selectedGoal = goalState[selectedGoalKey];
 
           if (!selectedGoal) {
-            alert("Please select a valid goal to rename.");
+            alert("יש לבחור מטרה ורק אז ניתן לערוך את השם שלה");
             return;
           }
 
           const newName = prompt(
-            `Enter new goal name for "${selectedGoal.name}":`
+            `הכניסו שם חדש ל "${selectedGoal.name}":`
           );
 
           if (!newName || newName.trim() === "") {
-            alert("Invalid name!");
+            alert("שם לא תקין");
             return;
           }
 
           // Check if newName already exists in goalState (to avoid duplicates)
           if (Object.values(goalState).some((goal) => goal.name === newName)) {
-            alert("Name already exists!");
+            alert("שם זה כבר קיים");
             return;
           }
 
@@ -1174,7 +1194,7 @@
         }
         function createGoal() {
           // Ask the user for the name of the new goal
-          const goalName = prompt("Please enter the name of the new goal");
+          const goalName = prompt("הכניסו את השם של המטרה החדשה");
           if (!goalName) {
             showModal("A goal must have a name");
             return;
@@ -1183,7 +1203,7 @@
           // Check if the goal already exists
           if (goalState[goalName]) {
             showModal(
-              `The goal "${goalName}" already exists. Please choose a different name.`
+              `המטרה "${goalName}" כבר קיימת יש לבחור שם אחר.`
             );
             return;
           }
@@ -1209,12 +1229,15 @@
 
           // Confirm with the user before deleting
           const isConfirmed = confirm(
-            "Are you sure you want to delete this goal?"
+            "האם אתם בטוחים שאתם רוצים למחוק את המטרה הזו?"
           );
           if (!isConfirmed) {
-            showModal("Goal deletion cancelled.");
+            showModal("מחיקת המטרה בוטלה");
             return;
           }
+
+
+          
 
           // Delete the goal from the goalState object
           delete goalState[selectedGoal];
@@ -1227,7 +1250,7 @@
             goalDropdown.removeChild(goalOption);
           }
 
-          showModal("Goal deleted successfully");
+          showModal("מטרה נמחקה");
           saveData();
         }
 
@@ -1238,16 +1261,16 @@
 
           // Check if at least one goal is selected
           if (selectedGoals.length === 0) {
-            showModal("Please select at least one goal first!");
+            showModal("יש לבחור מטרה קודם");
             return;
           }
 
           // Ask the user for the name
           const initiativeName = prompt(
-            "Please enter the name of the new initiative"
+            "הכניסו את השם של היוזמה החדשה"
           );
           if (!initiativeName) {
-            showModal("An initiative must have a name");
+            showModal("ליוזמה חיב להיות שם");
             return;
           }
 
@@ -1261,7 +1284,7 @@
             // Check if name is already existing
             if (goalState[selectedGoal].initiatives[initiativeName]) {
               showModal(
-                `The name "${initiativeName}" already exists under the selected goal(s). Please choose a different name.`
+                `השם "${initiativeName}" כבר קיים ליוזמה אחרת, בבקשה להכניס שם אחר`
               );
               return;
             }
@@ -1304,7 +1327,7 @@
           // Confirm with the user before deleting
           const isConfirmed = confirm("האם אתם בטוחים שאתם רוצים למחוק?");
           if (!isConfirmed) {
-            showModal("Initiative deletion cancelled.");
+            showModal("מחיקת היוזמה בוטלה");
             return;
           }
 
@@ -1343,23 +1366,23 @@
             !goalState[selectedGoal] ||
             !goalState[selectedGoal].initiatives[selectedInitiative]
           ) {
-            showModal("Please select a valid initiative to rename!");
+            showModal("בחרו קודם ביוזמה לשנות את שמה");
             return;
           }
 
           // Ask the user for the new name
           const newName = prompt(
-            `Rename the initiative "${selectedInitiative}". Please enter the new name:`
+            `בחר שם חדש ל"${selectedInitiative}`
           );
 
           if (!newName || newName.trim() === "") {
-            alert("Invalid name provided. Renaming cancelled.");
+            alert("שם לא תקיו, שינוי השם בוטל");
             return;
           }
 
           if (goalState[selectedGoal][newName]) {
             alert(
-              "An initiative with this name already exists. Please choose a different name."
+              "יוזמה בשם זה כבר קיימת, יש לבחור שם אחר."
             );
             return;
           }
@@ -1386,7 +1409,7 @@
             existingPoint.id = `point-${newName}`;
           }
 
-          alert("Initiative renamed successfully!");
+          alert("השם של היוזמה שונה בהצלחה");
 
           saveData();
         }
@@ -1475,7 +1498,7 @@
             
 
       /* justify-content: space-between; */
-      width: 100%; /* Keep the container full width */
+      width: 1600px; /* Keep the container full width */
       
       /* margin: 5px; */
       /* padding: 5px; */
@@ -1489,6 +1512,7 @@
       margin-right: 10px;
       padding-right: 10px;
       padding-left: 10px;
+      /* background-color: black; */
       
       
     }
@@ -1512,44 +1536,57 @@
       /* Additional styling for left and rig0ht as needed */
     }
 aside {
+  text-align: right;
   border: 6px solid gray;
+
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* This will push the bottom content to the end */
-    height: 685px;
+    /* justify-content: space-between; This will push the bottom content to the end */
+    /* height: 685px; */
     margin-left: 15px;
+    padding-right: 10px;
     background-color: rgb(255, 255, 255);
     border-radius: 20px; /* Rounded corners for the container */
+    align-items:end;
 }
 aside img {
       width: 200px;
       padding: 20px;
+      
       /* height: auto; */
     }
 
 .buttons {
-  
-    display: flex;
+    
+    /* display: flex; */
     flex-direction: column;
     /* Additional styles if needed */
+    text-align: right;
+    
 }
     
 
     .buttons button {
-    display: block;
-    width: 80%; /* Makes button take the full width */
-    margin-bottom: 10px; /* Adds space below each button */
+    /* display: block; */
+    padding: 5px;
+    
+    
+    
+    
+    
 }
     button {
       display: flexbox;
-      margin:  10px;
+      margin-top: 10px;
       border: none;
       background-color: rgb(144, 235, 202);
       color: black;
       border-radius: 5px;
       cursor: grabbing;
       font-size: 18px;
+        text-align: right; /* Aligns the buttons to the right */
     }
+    
 
     button:hover {
       background-color: rgb(144, 235, 202);
@@ -1572,6 +1609,9 @@ aside img {
     text-align: center;
     /* margin-top: 60px; */
     width: 100%; /* Adjust as needed */
+    margin-top: 150px;
+    
+    
     /* Other styles for bottomContent... */
 }
 
@@ -1603,6 +1643,22 @@ aside img {
 
       /* Adjusted text color for better readability on the gradient background */
     }
+    /* האזור של קביעת פרמטרים */
+    table {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+    /* רווח בין שורות טקסט */
+    td {
+      padding: 0px;
+      padding-bottom: 5px;
+    }
+    h3 {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding-bottom: 10px;
+  /* Add other styles as needed */
+}
     
     .black-background {
       background-color: #202523;
@@ -1611,6 +1667,7 @@ aside img {
       text-align: right; /* Align text to the right within each option */
       /* Optional: To make the text readable */
       font-size: 20px; /* Increased font size */
+      
     }
 
     .green-background {
@@ -1618,7 +1675,7 @@ aside img {
 
       color: rgb(32, 37, 35);
       text-align: right; /* Align text to the right within each option */
-      margin-bottom: 5px; 
+      margin-top: 10px;
 
       /* Optional: To make the text readable */
     }
@@ -1627,7 +1684,7 @@ aside img {
       background-color: rgb(20, 25, 23);
       color: white;
       text-align: right; /* Align text to the right within each option */
-      padding-bottom: 20px;
+      /* padding-bottom: 20px; */
       /* Optional: To make the text readable */
     }
     /* Divider */
@@ -1659,7 +1716,7 @@ aside img {
 
     .tick-label {
       position: absolute;
-      /* font-size: 12px; */
+      font-size: 12px;
     }
     .axis {
       position: absolute;
@@ -1762,19 +1819,7 @@ aside img {
       color: white;
       /* Adjusted text color for better readability on the gradient background */
     }
-    /* האזור של קביעת פרמטרים */
-    table {
-      width: 100%;
-    }
-    /* רווח בין שורות טקסט */
-    td {
-      padding: 0px;
-    }
-    h3 {
-  margin-top: 5px;
-  margin-bottom: 5px;
-  /* Add other styles as needed */
-}
+    
 
 
     .slider {
@@ -1834,7 +1879,17 @@ aside img {
       cursor: pointer;
       transition: transform 0.1s;
     }
-
+    #refreshPage {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      color: black;
+      background: linear-gradient(45deg, #ff7e5f, #feb47b);
+      cursor: pointer;
+      transition: transform 0.1s;
+    }
+    
     #clearButton:hover {
       transform: scale(1.05);
     }
@@ -1888,8 +1943,8 @@ aside img {
 
     .current-initiative {
       /* font-size: 20px; */
-      font-weight: bold;
-      /* width: 30%; */
+      padding-right: 2px;
+      
     }
 
     .goal-select {
