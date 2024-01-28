@@ -2,24 +2,20 @@
 <html lang="he">
   <head>
     <meta charset="UTF-8" />
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Civix App</title>
-    <!-- title for the page -->
-    <!-- <link rel="stylesheet" href="https://use.typekit.net/your-project-id.css" /> -->
   </head>
   <body>
-    <!-- <header></header> -->
-    <div class="container" >
-      <!-- left side -->
-<!-- --------------------------------------------------------------------- -->
+    
+    <div class="container" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
       <div class="left">
         <div class="black-background">
           
             <h1 style="
             margin-top: 0px;
             margin-bottom: 0px; text-align: center; padding-top: 10px;
-        " >Clickable<span style="  color: rgb(144, 235, 202)">Impact</span>Tool
-          
+        " >Clickable<span style="  color: rgb(144, 235, 202)">Impact</span>Tool</h1>
+
 
           <h3  >מטרה
           <select id="goal" class="goal-select">
@@ -47,36 +43,22 @@
           <button id="editGoal">עריכת שם מטרה</button>
           <button id="deleteGoal">מחיקת מטרה </button>
 
-          <h3 > יוזמה
-          <select id="initative"></select>
+          <h3 > יוזמה</h3>
+          <select id="initative">-</select>
           <button id="createInitiative">יצירת יוזמה</button>
           <button id="renameInitiative">עריכת שם יוזמה</button>
           <button id="deleteInitiative">מחיקת יוזמה</button>
         </div>
 <!-- ----------------------------------------------------------- -->
         <div class="green-background">
-          <div
-            style="
-              text-align: right;
-            "
-          >
-
-          <h2 style="
-          margin-top: 0px;
-          margin-bottom: 0px;
-      ">מדדי ישימות</h2>
+          <div>
+          <h2>מדדי ישימות</h2>
           </div>
 
           <table>
-            <tr>
+            <tr >
               <td>
-                <div
-                  style="
-                    display: flex;
-                    align-items: center;
-                    justify-content: flex-end;
-                  "
-                >
+                <div class="flex-end-container">
                   <span>0</span>
                   <input
                     type="range"
@@ -99,11 +81,7 @@
             <tr>
               <td>
                 <div
-                  style="
-                    display: flex;
-                    align-items: center;
-                    justify-content: flex-end;
-                  "
+                class="flex-end-container"
                 >
                   <span>10</span>
                   <input
@@ -127,11 +105,7 @@
             <tr>
               <td>
                 <div
-                  style="
-                    display: flex;
-                    align-items: center;
-                    justify-content: flex-end;
-                  "
+                class="flex-end-container"
                 >
                   <span>0</span>
                   <input
@@ -155,11 +129,7 @@
             <tr>
               <td>
                 <div
-                  style="
-                    display: flex;
-                    align-items: center;
-                    justify-content: flex-end;
-                  "
+                class="flex-end-container"
                 >
                   <span>10</span>
                   <input
@@ -183,11 +153,7 @@
             <tr>
               <td>
                 <div
-                  style="
-                    display: flex;
-                    align-items: center;
-                    justify-content: flex-end;
-                  "
+                class="flex-end-container"
                 >
                   <span>0</span>
                   <input
@@ -242,11 +208,7 @@
             <tr>
               <td>
                 <div
-                  style="
-                    display: flex;
-                    align-items: center;
-                    justify-content: flex-end;
-                  "
+                class="flex-end-container"
                 >
                   <span>0</span>
                   <input
@@ -272,11 +234,7 @@
             <tr>
               <td>
                 <div
-                  style="
-                    display: flex;
-                    align-items: center;
-                    justify-content: flex-end;
-                  "
+                class="flex-end-container"
                 >
                   <span>0</span>
                   <input
@@ -302,11 +260,7 @@
             <tr>
               <td>
                 <div
-                  style="
-                    display: flex;
-                    align-items: center;
-                    justify-content: flex-end;
-                  "
+                class="flex-end-container"
                 >
                   <span>0</span>
                   <input
@@ -331,11 +285,7 @@
             <tr>
               <td>
                 <div
-                  style="
-                    display: flex;
-                    align-items: center;
-                    justify-content: flex-end;
-                  "
+                class="flex-end-container"
                 >
                   <span>0</span>
                   <input
@@ -360,11 +310,7 @@
             <tr>
               <td>
                 <div
-                  style="
-                    display: flex;
-                    align-items: center;
-                    justify-content: flex-end;
-                  "
+                class="flex-end-container"
                 >
                   <span>0</span>
                   <input
@@ -414,29 +360,13 @@
 
           <div class="crosshair-vertical">
             <span class="crosshair-label">
-              <h3
-                style="
-                  background-color: rgb(144, 235, 202);
-                  display: inline-block;
-                  border-radius: 10px;
-                "
-              >
-                אימפקט
-              </h3>
+              <h4> אימפקט </h4>
             </span>
           </div>
           
           <div class="crosshair-horizontal">
             <span class="crosshair-label">
-              <h3
-                style="
-                  background-color: rgb(144, 235, 202);
-                  display: inline-block;
-                  border-radius: 10px;
-                "
-              >
-                ישימות
-              </h3>
+              <h4> ישימות </h4>
             </span>
           </div>
 
@@ -502,7 +432,7 @@
 
       <!-- -------------------------------------------------------------------------------------------------------------- -->
       <aside >
-        <img src="civixNew.jpg" alt="Negev Logo" />
+        <img src="civixNew.jpg" alt="Negev Logo"  style="width: 200px;"/>
         <img src="+.jpg" alt="+ Logo" style="width: 60px;" />
         
         
@@ -530,7 +460,7 @@
         <img src="i.jpg" alt="i logo" style="width: 60px;"  />
 
         <div id="bottomContent" >
-          <h3>:יוזמה שנבחרה</h3>
+          <h2>:יוזמה שנבחרה</h2>
           <span id="currentInitiative" class="current-initiative" style="background-color: rgb(144, 235, 202); border-radius: 10px;"></span>
 
           <br>
@@ -1538,25 +1468,23 @@ document.getElementById('helpLink').addEventListener('click', function(event) {
       margin: 1%;
       display: flex;
       background-color: rgb(255, 255, 255);
-      
-            
-
-      /* justify-content: space-between; */
       width: 1600px; /* Keep the container full width */
-      
+      /* justify-content: space-between; */
       /* margin: 5px; */
       /* padding: 5px; */
     }
+
     /* Optional: Centering the left and right divs within the container */
     .left {
       width: 700px;
       /* min-width: 500px; */
       /* max-width: 600px; */
-      height: 700px;
+      /* height: 700px; */
       margin-right: 10px;
       /* padding-right: 10px; */
       /* padding-left: 10px; */
       /* background-color: black; */
+      
       
       
     }
@@ -1583,12 +1511,13 @@ document.getElementById('helpLink').addEventListener('click', function(event) {
   margin-left: 10px;
   text-align: center; /* Center align all content */
   border: 6px solid gray;
-  display: flex;
+  border-radius: 20px; /* Rounded corners */
+  
   flex-direction: column;
   justify-content: space-between; /* Distribute space evenly */
   padding: 10px;
-  background-color: rgb(255, 255, 255);
-  border-radius: 20px; /* Rounded corners */
+  /* background-color: rgb(255, 255, 255); */
+  
   height: 700px;
 }
 
@@ -1596,7 +1525,7 @@ aside img {
   display: block; /* Makes the image a block-level element */
   margin: 0 auto; /* Centers the image */
   width: 100px; /* Sets a fixed width for the images */
-  margin-bottom: 10px; /* Adds space below each image */
+  /* margin-bottom: 10px; Adds space below each image */
 }
 
 
@@ -1619,7 +1548,7 @@ aside img {
 }
 #bottomContent {
   text-align: center; /* Center text */
-  margin-top: 10px; /* Space above bottom content */
+  /* margin-top: 10px; Space above bottom content */
 }
 
     button {
@@ -1686,12 +1615,24 @@ aside img {
       padding: 0px;
       padding-bottom: 5px;
     }
+
+    h2 {
+      margin-top: 0px;
+      margin-bottom: 0px;
+    }
     h3 {
       padding: 5px;
-  /* margin-top: 5px;
-  margin-bottom: 5px;
-  padding-bottom: 5px; */
-  /* Add other styles as needed */
+      margin-bottom: 5px;
+    }
+    h4 {
+      background-color: rgb(144, 235, 202);
+                  display: inline-block;
+                  border-radius: 10px;
+    }
+    .flex-end-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 }
     
     .black-background {
@@ -2040,7 +1981,7 @@ aside img {
     box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Optional: Adds a subtle shadow */
 
     /* Text Styles */
-    font-family: Arial, sans-serif; /* You can choose a different font */
+    font-family: Grey; /* You can choose a different font */
     font-size: 16px; /* Adjust font size as needed */
     line-height: 1.5; /* Adjust line height for readability */
     color: #333; /* Dark color for the text */
