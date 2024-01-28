@@ -344,6 +344,7 @@
           <option value="90"></option>
           <option value="100"></option>
         </datalist>
+        <p style="text-align: left;">All rights reserved to Yaniv Almagor &copy</p>
       </div>
 
       <!-- right side of the app------------------------------------------------ ---->
@@ -423,8 +424,8 @@
         </div>
 
         
-        <p style="text-align: left;">All rights reserved to Yaniv Almagor &copy</p>
       </div>
+      
     </div>
 
       <!-- -------------------------------------------------------------------------------------------------------------- -->
@@ -432,19 +433,23 @@
         <img src="civixNew.jpg" alt="Negev Logo"  style="width: 200px;"/>
         <img src="+.jpg" alt="+ Logo" style="width: 60px;" />
         
-        
+        <!--  team + challenge -->
         <div class="rtl-container" >
+          
           <div class="input-group">
             <label for="teamInput">צוות:</label>
             <input type="text" id="teamInput" />
-            <button onclick="saveToLocalStorage('team', document.getElementById('teamInput').value)">שמור</button>
+            <button id="saveTeamButton">שמור</button>
           </div>
+
           <div class="input-group">
             <label for="challengeInput">אתגר:</label>
             <input type="text" id="challengeInput" />
-            <button onclick="saveToLocalStorage('challenge', document.getElementById('challengeInput').value)">שמור</button>
+            <button id="saveChallengeButton">שמור</button>
           </div>
         </div>
+
+        
         
         <div class="buttons">
           <button id="exportData">שמירת הקובץ</button>
@@ -458,13 +463,10 @@
 
         <div id="bottomContent" >
           <h2>:יוזמה שנבחרה</h2>
-          <span id="currentInitiative" class="current-initiative" style="background-color: rgb(144, 235, 202); border-radius: 10px;"></span>
-
-          <br>
+          <span id="currentInitiative" class="current-initiative" ></span>
           <br>
           <span  style="background-color: rgb(144, 235, 202); border-radius: 10px;">ישימות</span>
           <span id="xValueDisplay" style="background-color: rgb(144, 235, 202); border-radius: 10px;"></span>
-          <br>
           <br>
           <span style="background-color: rgb(144, 235, 202); border-radius: 10px;">אימפקט</span>
           <span id="yValueDisplay" style="background-color: rgb(144, 235, 202); border-radius: 10px;"></span><br>
@@ -486,7 +488,7 @@
     <script>
 
 
-
+//help link for showing the manual
 document.getElementById('helpLink').addEventListener('click', function(event) {
     event.preventDefault(); // Prevents default action of the link
 
@@ -580,6 +582,17 @@ document.getElementById('helpLink').addEventListener('click', function(event) {
       //
       //
       //
+
+        //       function saveTeam() {
+        //     goalState.team = document.getElementById('teamInput').value;
+        //     saveData(); // Save the entire state including the team
+        // }
+
+        // function saveChallenge() {
+        //     goalState.challenge = document.getElementById('challengeInput').value;
+        //     saveData(); // Save the entire state including the challenge
+        // }
+        
       document.addEventListener("DOMContentLoaded", function () {
         // Load goalState from localStorage
         const savedGoalState = localStorage.getItem("goalState");
@@ -593,12 +606,43 @@ document.getElementById('helpLink').addEventListener('click', function(event) {
             "initializeGoalsAndInitiatives function called with default values"
           );
         }
-        if (goalState.team) {
-          document.getElementById("teamInput").value = goalState.team;
+
+        function saveTeam() {
+        const teamValue = document.getElementById('teamInput').value;
+        localStorage.setItem('team', teamValue);
+        console.log("Team saved:", teamValue);
         }
-        if (goalState.challenge) {
-          document.getElementById("challengeInput").value = goalState.challenge;
+        function saveChallenge() {
+            const challengeValue = document.getElementById('challengeInput').value;
+            localStorage.setItem('challenge', challengeValue);
+            console.log("Challenge saved:", challengeValue);
         }
+        function loadTeam() {
+        const savedTeam = localStorage.getItem('team');
+          if (savedTeam) {
+            document.getElementById('teamInput').value = savedTeam;
+           }
+        }
+        function loadChallenge() {
+        const savedChallenge = localStorage.getItem('challenge');
+        if (savedChallenge) {
+            document.getElementById('challengeInput').value = savedChallenge;
+        }
+    }
+    // Attach event listeners to buttons
+    const saveTeamBtn = document.getElementById('saveTeamButton');
+    const saveChallengeBtn = document.getElementById('saveChallengeButton');
+    
+    if(saveTeamBtn) {
+      saveTeamBtn.addEventListener('click', saveTeam);
+    }
+    
+    if(saveChallengeBtn) {
+      saveChallengeBtn.addEventListener('click', saveChallenge);
+    }
+    
+    loadTeam();
+    loadChallenge();
 
         // Initialize the goal dropdown with values from goalState
         goalDropdown.innerHTML = "";
@@ -660,15 +704,7 @@ document.getElementById('helpLink').addEventListener('click', function(event) {
           }
         }
 
-        function saveTeam() {
-            goalState.team = document.getElementById('teamInput').value;
-            saveData(); // Save the entire state including the team
-        }
 
-        function saveChallenge() {
-            goalState.challenge = document.getElementById('challengeInput').value;
-            saveData(); // Save the entire state including the challenge
-        }
 
         function editGoal() {
           const selectedGoalKey = goalDropdown.value;
@@ -1504,11 +1540,12 @@ document.getElementById('helpLink').addEventListener('click', function(event) {
     }
 
     .rightb {
-      height:  685px;
+      height:  700px;
       border-radius: 20px; /* Rounded corners for the container */
+      
     }
     .right { 
-      margin: 1px;
+      
       margin-left: 15px;
       margin-right: 20px;
       min-width: 700px;
@@ -1519,7 +1556,7 @@ document.getElementById('helpLink').addEventListener('click', function(event) {
       /* Additional styling for left and rig0ht as needed */
 
     }
-    aside {
+  aside {
   margin-left: 10px;
   text-align: center; /* Center align all content */
   border: 6px solid gray;
@@ -1530,7 +1567,7 @@ document.getElementById('helpLink').addEventListener('click', function(event) {
   padding: 10px;
   /* background-color: rgb(255, 255, 255); */
   
-  height: 700px;
+  height: 680px;
 }
 
 aside img {
@@ -1549,7 +1586,7 @@ aside img {
 }
 .buttons button {
   width: 100%; /* Full width buttons */
-  padding: 10px;
+  padding: 5px;
   margin-bottom: 10px; /* Space between buttons */
   border: none;
   background-color: rgb(144, 235, 202);
@@ -1560,6 +1597,7 @@ aside img {
 }
     #bottomContent {
       text-align: center; /* Center text */
+      background-color: rgb(144, 235, 202); border-radius: 10px;
   
   
     }
@@ -1629,8 +1667,9 @@ aside img {
       margin-bottom: 0px;
     }
     h3 {
-      padding: 5px;
+      padding: px;
       margin-bottom: 5px;
+      margin-top: 5px;
     }
     h4 {
       background-color: rgb(144, 235, 202);
