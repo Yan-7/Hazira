@@ -11,13 +11,10 @@
       <div class="left">
         <div class="black-background">
           
-            <h1 style="
-            margin-top: 0px;
-            margin-bottom: 0px; text-align: center; padding-top: 10px;
-        " >Clickable<span style="  color: rgb(144, 235, 202)">Impact</span>Tool</h1>
-
-
-          <h3  >מטרה
+            <h1> Clickable 
+              <span style="  color: rgb(144, 235, 202)"> Impact </span>Tool
+            </h1>
+          <h3>מטרה
           <select id="goal" class="goal-select">
             <option value="goal1">מטרה 1</option>
             <option value="goal2">
@@ -83,7 +80,7 @@
                 <div
                 class="flex-end-container"
                 >
-                  <span>10</span>
+                  <span>0</span>
                   <input
                     type="range"
                     min="1"
@@ -94,7 +91,7 @@
                     style="margin: 0 10px"
                     reversed
                   />
-                  <span>0 </span>
+                  <span>10</span>
                 </div>
               </td>
               <td>
@@ -131,7 +128,7 @@
                 <div
                 class="flex-end-container"
                 >
-                  <span>10</span>
+                  <span>0</span>
                   <input
                     type="range"
                     min="1"
@@ -142,7 +139,7 @@
                     style="margin: 0 10px"
                     reversed
                   />
-                  <span>0 </span>
+                  <span>10</span>
                 </div>
               </td>
               <td>
@@ -465,7 +462,7 @@
 
           <br>
           <br>
-          <span style="background-color: rgb(144, 235, 202); border-radius: 10px;">ישימות</span>
+          <span  style="background-color: rgb(144, 235, 202); border-radius: 10px;">ישימות</span>
           <span id="xValueDisplay" style="background-color: rgb(144, 235, 202); border-radius: 10px;"></span>
           <br>
           <br>
@@ -487,6 +484,7 @@
     </div>
 
     <script>
+
 
 
 document.getElementById('helpLink').addEventListener('click', function(event) {
@@ -523,7 +521,10 @@ document.getElementById('helpLink').addEventListener('click', function(event) {
       //   console.log("clearSavedData function called");
       //   localStorage.removeItem("goalState");
       // }
-
+      function saveToLocalStorage(key, value) {
+        console.log("saveToLocalStorage");
+      localStorage.setItem(key, value);
+  }
       function clearSavedData() {
   console.log("clearSavedData function called");
 
@@ -592,6 +593,12 @@ document.getElementById('helpLink').addEventListener('click', function(event) {
             "initializeGoalsAndInitiatives function called with default values"
           );
         }
+        if (goalState.team) {
+          document.getElementById("teamInput").value = goalState.team;
+        }
+        if (goalState.challenge) {
+          document.getElementById("challengeInput").value = goalState.challenge;
+        }
 
         // Initialize the goal dropdown with values from goalState
         goalDropdown.innerHTML = "";
@@ -651,6 +658,16 @@ document.getElementById('helpLink').addEventListener('click', function(event) {
             // console.log("goal.name: " + goal.name);
             goalDropdown.appendChild(option);
           }
+        }
+
+        function saveTeam() {
+            goalState.team = document.getElementById('teamInput').value;
+            saveData(); // Save the entire state including the team
+        }
+
+        function saveChallenge() {
+            goalState.challenge = document.getElementById('challengeInput').value;
+            saveData(); // Save the entire state including the challenge
         }
 
         function editGoal() {
@@ -976,9 +993,9 @@ document.getElementById('helpLink').addEventListener('click', function(event) {
 
           sliders.forEach((slider) => {
             let sliderValue = parseInt(slider.value);
-            if (slider.id === "param2" || slider.id === "param4") {
-              sliderValue = 100 - sliderValue;
-            }
+            // if (slider.id === "param2" || slider.id === "param4") {
+            //   sliderValue = 100 - sliderValue;
+            // }
 
             if (
               slider.id.includes("param1") ||
@@ -1484,28 +1501,23 @@ document.getElementById('helpLink').addEventListener('click', function(event) {
       /* padding-right: 10px; */
       /* padding-left: 10px; */
       /* background-color: black; */
-      
-      
-      
     }
 
     .rightb {
       height:  685px;
       border-radius: 20px; /* Rounded corners for the container */
     }
-    .right {
-      
+    .right { 
       margin: 1px;
       margin-left: 15px;
       margin-right: 20px;
       min-width: 700px;
-      
-      /* max-width: 700px; */
       width: 685x; /* Example fixed width, adjust as needed */
       height: 685px;
       /* border: 6px solid gray; */
-      
+      /* max-width: 700px; */
       /* Additional styling for left and rig0ht as needed */
+
     }
     aside {
   margin-left: 10px;
@@ -1546,10 +1558,11 @@ aside img {
   cursor: pointer;
   font-size: 18px;
 }
-#bottomContent {
-  text-align: center; /* Center text */
-  /* margin-top: 10px; Space above bottom content */
-}
+    #bottomContent {
+      text-align: center; /* Center text */
+  
+  
+    }
 
     button {
       display: flexbox;
@@ -1564,29 +1577,20 @@ aside img {
         text-align: center; /* Aligns the buttons to the right */
     }
 
-    
-    /* Other styles for bottomContent... */
-
     button:hover {
       background-color: rgb(144, 235, 202);
     }
-
 
     #graph {
       position: sticky;
       background-image: url('grid.jpg');
       background-size: cover; /* Ensures the image covers the entire area */
-    background-position: center; /* Centers the image in the div */
-    background-repeat: no-repeat; /* Prevents the image from repeating */
-    
-
+      background-position: center; /* Centers the image in the div */
+      background-repeat: no-repeat; /* Prevents the image from repeating */
       width: 100%; /* Adjust width as necessary */
       height: 100%; /* Adjust height as necessary */
     }
     
-
-
-
     .slider {
       color: #202523;
     }
@@ -1615,6 +1619,10 @@ aside img {
       padding: 0px;
       padding-bottom: 5px;
     }
+    h1 {
+      margin-top: 0px;
+      margin-bottom: 0px; text-align: center; padding-top: 10px;
+    }
 
     h2 {
       margin-top: 0px;
@@ -1626,14 +1634,14 @@ aside img {
     }
     h4 {
       background-color: rgb(144, 235, 202);
-                  display: inline-block;
-                  border-radius: 10px;
+      display: inline-block;
+      border-radius: 10px;
     }
     .flex-end-container {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-}
+  }
     
     .black-background {
       background-color: #202523;
@@ -1676,7 +1684,6 @@ aside img {
 
 
     .tick {
-      
       position: relative;
       flex-grow: 1;
     }
@@ -1723,7 +1730,7 @@ aside img {
       transform: translateY(-50%);
     }
     .x-axis .tick-label {
-      bottom: 20px;
+      bottom: 10px;
       /* right: 1px; */
       transform: translateX(-50%);
     }
@@ -1755,7 +1762,7 @@ aside img {
     }
     .x-axis .tick::after {
       /* right: 3; */
-      width: 2px;
+      width: 4px;
       height: 10px;
       bottom: -10px;
       transform: translateY(-50%);
@@ -1800,8 +1807,6 @@ aside img {
       /* Adjusted text color for better readability on the gradient background */
     }
     
-
-
     .slider {
       width: 100%;
       background: repeating-linear-gradient(
