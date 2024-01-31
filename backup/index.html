@@ -76,7 +76,7 @@
             <td>
               <div class="flex-end-container">
                 <span>0</span>
-                <input type="range" min="1" max="100" class="slider" id="param1" list="tickmarks" style="margin: 0 10px"
+                <input type="range" min="1" max="100" class="slider" id="param2" list="tickmarks" style="margin: 0 10px"
                   reversed />
                 <span>10</span>
               </div>
@@ -90,7 +90,7 @@
             <td>
               <div class="flex-end-container">
                 <span>0</span>
-                <input type="range" min="1" max="100" class="slider" id="param1" list="tickmarks" style="margin: 0 10px"
+                <input type="range" min="1" max="100" class="slider" id="param3" list="tickmarks" style="margin: 0 10px"
                   reversed />
                 <span>10 </span>
               </div>
@@ -104,7 +104,7 @@
             <td>
               <div class="flex-end-container">
                 <span>0</span>
-                <input type="range" min="1" max="100" class="slider" id="param1" list="tickmarks" style="margin: 0 10px"
+                <input type="range" min="1" max="100" class="slider" id="param4" list="tickmarks" style="margin: 0 10px"
                   reversed />
                 <span>10</span>
               </div>
@@ -118,7 +118,7 @@
             <td>
               <div class="flex-end-container">
                 <span>0</span>
-                <input type="range" min="1" max="100" class="slider" id="param1" list="tickmarks" style="margin: 0 10px"
+                <input type="range" min="1" max="100" class="slider" id="param5" list="tickmarks" style="margin: 0 10px"
                   reversed />
                 <span>10 </span>
               </div>
@@ -144,7 +144,7 @@
         </datalist>
       </div>
 
-      <div class="orange-background">
+      <div  class="orange-background">
         <h2 style="margin-bottom: 4px; margin-top: 0px;">מדדי אימפקט </h2>
         <table ">
             <tr>
@@ -166,7 +166,7 @@
         <td>
           <div class="flex-end-container">
             <span>0</span>
-            <input type="range" min="1" max="100" class="slider" id="param6" list="tickmarks2" style="margin: 0 10px" />
+            <input type="range" min="1" max="100" class="slider" id="param7" list="tickmarks2" style="margin: 0 10px" />
             <span>10 </span>
           </div>
         </td>
@@ -180,7 +180,7 @@
         <td>
           <div class="flex-end-container">
             <span>0</span>
-            <input type="range" min="1" max="100" class="slider" id="param6" list="tickmarks2" style="margin: 0 10px" />
+            <input type="range" min="1" max="100" class="slider" id="param8" list="tickmarks2" style="margin: 0 10px" />
             <span>10 </span>
           </div>
         </td>
@@ -194,7 +194,7 @@
         <td>
           <div class="flex-end-container">
             <span>0</span>
-            <input type="range" min="1" max="100" class="slider" id="param6" list="tickmarks2" style="margin: 0 10px" />
+            <input type="range" min="1" max="100" class="slider" id="param9" list="tickmarks2" style="margin: 0 10px" />
             <span>10 </span>
           </div>
         </td>
@@ -207,7 +207,7 @@
         <td>
           <div class="flex-end-container">
             <span>0</span>
-            <input type="range" min="1" max="100" class="slider" id="param6" list="tickmarks2" style="margin: 0 10px" />
+            <input type="range" min="1" max="100" class="slider" id="param9" list="tickmarks2" style="margin: 0 10px" />
             <span>10 </span>
           </div>
         </td>
@@ -218,12 +218,6 @@
         <!-- <td>כמות הרשויות עליהן היוזמה תשפיע <span class="edit-icon">✏️</span></td> -->
       </tr>
       </table>
-      <!-- Add Parameter Button -->
-      <button id="addParameter">Add Parameter</button>
-
-      <!-- Remove Parameter Button -->
-      <button id="removeParameter">Remove Parameter</button>
-
     </div>
     <datalist id="tickmarks2">
       <option value="10"></option>
@@ -468,6 +462,20 @@
       goal7: "#C0C0C0", // Silver
     };
 
+    // Event listener for DOMContentLoaded
+    //
+    //
+    //
+
+    //       function saveTeam() {
+    //     goalState.team = document.getElementById('teamInput').value;
+    //     saveData(); // Save the entire state including the team
+    // }
+
+    // function saveChallenge() {
+    //     goalState.challenge = document.getElementById('challengeInput').value;
+    //     saveData(); // Save the entire state including the challenge
+    // }
 
     document.addEventListener("DOMContentLoaded", function () {
       // Load goalState from localStorage
@@ -872,159 +880,103 @@
         graphContainer.appendChild(point);
       }
 
-
-      // --------------------------------->
-      // --------------------------------->
       // plotting points on the graph based on the selected goal and initiative.
-
       function plotPoint() {
         const selectedGoal = goalDropdown.value;
         const selectedInitiative = initativeDropdown.value;
 
-        // Ensure the selected goal and initiative exist in goalState
-        if (!goalState[selectedGoal] || !goalState[selectedGoal].initiatives ||
-          !goalState[selectedGoal].initiatives[selectedInitiative]) {
-          console.error(`Initiative "${selectedInitiative}" does not exist under the goal "${selectedGoal}" in the goalState.`);
+        // Ensure the selected goal exists in the goalState object
+        if (!goalState[selectedGoal]) {
+          console.error(
+            `Goal "${selectedGoal}" does not exist in the goalState.`
+          );
           return;
         }
 
-        let xTotal = 0, yTotal = 0;
-        let xCount = 0, yCount = 0;
+        // Ensure the selected initiative exists under the selected goal in the goalState object
+        if (
+          !goalState[selectedGoal].initiatives ||
+          !goalState[selectedGoal].initiatives[selectedInitiative]
+        ) {
+          console.error(
+            `Initiative "${selectedInitiative}" does not exist under the goal "${selectedGoal}" in the goalState.`
+          );
+          return;
+        }
 
-        // Dynamically select all sliders
-        const sliders = document.querySelectorAll(".slider");
+        // Get the stored configurations for the selected initiative
+        const initiativeData =
+          goalState[selectedGoal].initiatives[selectedInitiative];
+
+        let x = 0,
+          y = 0;
 
         sliders.forEach((slider) => {
           let sliderValue = parseInt(slider.value);
+          // if (slider.id === "param2" || slider.id === "param4") {
+          //   sliderValue = 100 - sliderValue;
+          // }
 
-          // Logic to determine if the slider affects the X or Y axis
-          // This needs to be aligned with how you assign IDs to your sliders
-          if (slider.id.startsWith("param1")) {
-            xTotal += sliderValue;
-            xCount++;
-          } else if (slider.id.startsWith("param6")) {
-            yTotal += sliderValue;
-            yCount++;
+          if (
+            slider.id.includes("param1") ||
+            slider.id.includes("param2") ||
+            slider.id.includes("param3") ||
+            slider.id.includes("param4") ||
+            slider.id.includes("param5")
+          ) {
+            x += sliderValue;
+          } else if (
+            slider.id.includes("param6") ||
+            slider.id.includes("param7") ||
+            slider.id.includes("param8") ||
+            slider.id.includes("param9") ||
+            slider.id.includes("param10")
+          ) {
+            y += sliderValue;
           }
         });
 
-        // Calculating the average, making sure not to divide by zero
-        let x = xCount > 0 ? xTotal / xCount : 0;
-        let y = yCount > 0 ? yTotal / yCount : 0;
+        x /= 10;
+        y /= 10;
 
-        // Yaniv's addition
-        x /= 2;
-        y /= 2;
-
-        // Log the count of sliders affecting each axis
-        console.log("Number of sliders affecting X-axis:", xCount);
-        console.log("Number of sliders affecting Y-axis:", yCount);
-
-        // Remove existing point if it exists
-        const existingPoint = document.getElementById(`point-${selectedInitiative}`);
+        const existingPoint = document.getElementById(
+          `point-${selectedInitiative}`
+        );
         if (existingPoint) {
           graphContainer.removeChild(existingPoint);
         }
 
-        // Plot the new point
-        plotStoredPoint(selectedInitiative, x, y, goalState[selectedGoal].color, selectedGoal);
+        plotStoredPoint(
+          selectedInitiative,
+          x,
+          y,
+          goalState[selectedGoal].color,
+          selectedGoal
+        );
 
-        // Update the displayed x and y values
         document.getElementById("xValueDisplay").textContent = x.toFixed(0);
         document.getElementById("yValueDisplay").textContent = y.toFixed(0);
 
-        // Save the new x and y values in goalState
+        const sum = x + y;
+        const meanX = x / 5;
+        const meanY = y / 5;
+
+        // document.getElementById("sum").textContent = sum.toFixed(0);
+        // document.getElementById("meanX").textContent = meanX.toFixed(0);
+        // document.getElementById("meanY").textContent = meanY.toFixed(0);
+
         goalState[selectedGoal].initiatives[selectedInitiative].x = x;
         goalState[selectedGoal].initiatives[selectedInitiative].y = y;
 
-        // Save the updated goalState to localStorage
+        // Save the current slider values to the initialConfig property
+        goalState[selectedGoal].initiatives[
+          selectedInitiative
+        ].initialConfig = {
+          sliders: Array.from(sliders).map((slider) => slider.value),
+        };
+
         saveData();
       }
-
-      // <--------------------------------->
-      // <--------------------------------->
-
-      function addSlider(axis) {
-        // Define the container based on the axis
-        const container = axis === 'X' ?
-          document.querySelector('.green-background') :
-          document.querySelector('.orange-background');
-
-        // Create new slider elements
-        const tr = document.createElement('tr');
-        const td1 = document.createElement('td');
-        const div = document.createElement('div');
-        div.className = 'flex-end-container';
-
-        const span0 = document.createElement('span');
-        span0.textContent = '0';
-        div.appendChild(span0);
-
-        const input = document.createElement('input');
-        input.type = 'range';
-        input.className = 'slider';
-        // Adjust the id based on the axis and the count of existing sliders
-        input.id = axis === 'X' ? `param1-${document.querySelectorAll('.green-background .slider').length + 1}` : `param6-${document.querySelectorAll('.orange-background .slider').length + 1}`;
-        input.min = '1';
-        input.max = '100';
-        input.style.margin = '0 10px';
-        input.addEventListener('input', plotPoint); // Attach the plotPoint function to the new slider
-        div.appendChild(input);
-
-        const span10 = document.createElement('span');
-        span10.textContent = '10';
-        div.appendChild(span10);
-
-        td1.appendChild(div);
-        tr.appendChild(td1);
-
-        const td2 = document.createElement('td');
-        const spanName = document.createElement('span');
-        spanName.textContent = 'New Parameter'; // Default name, you can make this editable
-        spanName.className = 'rename-target';
-        td2.appendChild(spanName);
-
-        tr.appendChild(td2);
-
-        container.appendChild(tr);
-      }
-
-      function removeSlider(axis) {
-        const container = axis === 'X' ?
-          document.querySelector('.green-background') :
-          document.querySelector('.orange-background');
-
-        // Remove the last slider row in the specified section
-        if (container.lastChild) {
-          container.removeChild(container.lastChild);
-        }
-      }
-
-      // Example usage:
-      // addSlider('X'); // To add a slider to the X-axis section
-      // addSlider('Y'); // To add a slider to the Y-axis section
-      // removeSlider('X'); // To remove a slider from the X-axis section
-      // removeSlider('Y'); // To remove a slider from the Y-axis section
-
-
-      function removeSlider() {
-        // Get the container of sliders
-        const sliderContainer = document.querySelector(".green-background table");
-        const sliders = sliderContainer.querySelectorAll("tr");
-
-        if (sliders.length > 1) {
-          // Remove the last slider
-          sliderContainer.removeChild(sliders[sliders.length - 1]);
-        } else {
-          alert("You must have at least one slider.");
-        }
-      }
-      // <-------------------------------------------->
-      document.getElementById('addParameter').addEventListener('click', addSlider);
-      document.getElementById('removeParameter').addEventListener('click', removeSlider);
-
-      //---------------------------------------------------------------->
-      //---------------------------------------------------------------->
 
       function updateSliders() {
         const selectedGoal = goalDropdown.value;
