@@ -1,0 +1,2202 @@
+<!DOCTYPE html>
+<html lang="he">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Civix App</title>
+</head>
+
+<body>
+
+    <div class="container" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+        <div class="left">
+            <div class="black-background">
+
+                <h1> Clickable
+                    <span style="  color: rgb(144, 235, 202)"> Impact </span>Tool
+                </h1>
+                <h3>מטרה
+                    <select id="goal" class="goal-select">
+                        <option value="goal1">מטרה 1</option>
+                        <option value="goal2">
+                            <!-- חשיפה להזדמנויות , תנאי העסקה ומצב השוק -->
+                            מטרה 2
+                        </option>
+                        <option value="goal3"> מטרה 3</option>
+                        <option value="goal4">
+                            מטרה 4
+                        </option>
+                        <option value="goal5">
+                            מטרה 5
+                        </option>
+                        <option value="goal6">
+                            <!-- צמצום פערי השפה בחברה הבדואית לטובת קידום תעסוקת נשים -->
+                        </option>
+                        <option value="goal7">
+                            <!-- ניעות תעסוקתית לאורך הקריירה בחייה של אישה -->
+                        </option>
+                    </select>
+                    <div style=" padding: 10px;">
+                        <button id="createGoal"> מטרה חדשה</button>
+                        <button id="editGoal">עריכת שם מטרה</button>
+                        <button id="deleteGoal">מחיקת מטרה </button>
+                    </div>
+                    <h3> יוזמה</h3>
+
+                    <select id="initative">-</select>
+                    <div style=" padding: 10px;">
+                        <button id="createInitiative">יצירת יוזמה</button>
+                        <button id="renameInitiative">עריכת שם יוזמה</button>
+                        <button id="deleteInitiative">מחיקת יוזמה</button>
+                    </div>
+
+            </div>
+            <!-- ----------------------------------------------------------- -->
+            <div class="green-background">
+                <div>
+                    <h2>מדדי ישימות</h2>
+                </div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="flex-end-container">
+                                <span>0</span>
+                                <input type="range" min="1" max="100" class="slider" id="param1" list="tickmarks"
+                                    style="margin: 0 10px" reversed />
+                                <span>10 </span>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="rename-target">מימון ומשאבים </span>
+                            <span class="edit-icon">✏️</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="flex-end-container">
+                                <span>0</span>
+                                <input type="range" min="1" max="100" class="slider" id="param1" list="tickmarks"
+                                    style="margin: 0 10px" reversed />
+                                <span>10</span>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="rename-target">מורכבות וזמן עד הוצאה לפועל </span>
+                            <span class="edit-icon">✏️</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="flex-end-container">
+                                <span>0</span>
+                                <input type="range" min="1" max="100" class="slider" id="param1" list="tickmarks"
+                                    style="margin: 0 10px" reversed />
+                                <span>10 </span>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="rename-target">מידת מחויבות האונר והארגון </span>
+                            <span class="edit-icon">✏️</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="flex-end-container">
+                                <span>0</span>
+                                <input type="range" min="1" max="100" class="slider" id="param1" list="tickmarks"
+                                    style="margin: 0 10px" reversed />
+                                <span>10</span>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="rename-target">מורכבות בירוקרטית וחוקתית</span>
+                            <span class="edit-icon">✏️</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="flex-end-container">
+                                <span>0</span>
+                                <input type="range" min="1" max="100" class="slider" id="param1" list="tickmarks"
+                                    style="margin: 0 10px" reversed />
+                                <span>10 </span>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="rename-target">מידת גיוס ורתימת שותפים </span>
+                            <span class="edit-icon">✏️</span>
+                        </td>
+                    </tr>
+                </table>
+
+                <datalist id="tickmarks">
+                    <option value="10"></option>
+                    <option value="20"></option>
+                    <option value="30"></option>
+                    <option value="40"></option>
+                    <option value="50"></option>
+                    <option value="60"></option>
+                    <option value="70"></option>
+                    <option value="80"></option>
+                    <option value="90"></option>
+                    <option value="100"></option>
+                </datalist>
+                <div>
+                    <!-- Add Parameter Button for X-axis -->
+                    <button id="addParameterX">הוספת פרמטר ישימות</button>
+
+                    <!-- Remove Parameter Button for X-axis -->
+                    <button id="removeParameterX">מחיקת פרמטר ישימות</button>
+
+                </div>
+            </div>
+
+            <div class="orange-background">
+                <h2 style="margin-bottom: 4px; margin-top: 0px;">מדדי אימפקט </h2>
+                <table ">
+            <tr>
+              <td>
+                <div
+                class=" flex-end-container">
+                    <span>0</span>
+                    <input type="range" min="1" max="100" class="slider" id="param6" list="tickmarks2"
+                        style="margin: 0 10px" />
+                    <span>10 </span>
+            </div>
+            </td>
+            <td>
+                <span class="rename-target">עד כמה היוזמה עונה למטרת הביניים</span>
+                <span class="edit-icon">✏️</span>
+            </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div class="flex-end-container">
+                        <span>0</span>
+                        <input type="range" min="1" max="100" class="slider" id="param6" list="tickmarks2"
+                            style="margin: 0 10px" />
+                        <span>10 </span>
+                    </div>
+                </td>
+                <td>
+                    <span class="rename-target">כמות תושבים שהיוזמה תשפיע עליהם</span>
+                    <span class="edit-icon">✏️</span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div class="flex-end-container">
+                        <span>0</span>
+                        <input type="range" min="1" max="100" class="slider" id="param6" list="tickmarks2"
+                            style="margin: 0 10px" />
+                        <span>10 </span>
+                    </div>
+                </td>
+                <td>
+                    <span class="rename-target">מידת השפעת היוזמה על תושב\ת בודדים
+                    </span>
+                    <span class="edit-icon">✏️</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="flex-end-container">
+                        <span>0</span>
+                        <input type="range" min="1" max="100" class="slider" id="param6" list="tickmarks2"
+                            style="margin: 0 10px" />
+                        <span>10 </span>
+                    </div>
+                </td>
+                <td>
+                    <span class="rename-target">מידת נחיצות היוזמה ליצירת שינוי במרחב</span>
+                    <span class="edit-icon">✏️</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="flex-end-container">
+                        <span>0</span>
+                        <input type="range" min="1" max="100" class="slider" id="param6" list="tickmarks2"
+                            style="margin: 0 10px" />
+                        <span>10 </span>
+                    </div>
+                </td>
+                <td>
+                    <span class="rename-target">כמות הרשויות עליהן היוזמה תשפיע</span>
+                    <span class="edit-icon">✏️</span>
+                </td>
+                <!-- <td>כמות הרשויות עליהן היוזמה תשפיע <span class="edit-icon">✏️</span></td> -->
+            </tr>
+            </table>
+
+            <!-- Add Parameter Button -->
+            <button id="addParameterY">הוספת פרמטר אימפקט</button>
+
+            <!-- Remove Parameter Button -->
+            <button id="removeParameterY">מחיקת פרמטר אימפקט</button>
+
+        </div>
+        <datalist id="tickmarks2">
+            <option value="10"></option>
+            <option value="20"></option>
+            <option value="30"></option>
+            <option value="40"></option>
+            <option value="50"></option>
+            <option value="60"></option>
+            <option value="70"></option>
+            <option value="80"></option>
+            <option value="90"></option>
+            <option value="100"></option>
+        </datalist>
+        <p style="text-align: left;">All rights reserved to Yaniv Almagor &copy</p>
+    </div>
+
+    <!-- right side of the app------------------------------------------------ ---->
+    <!-- right side of the app------------------------------------------------ ---->
+    <!-- right side of the app------------------------------------------------ ---->
+
+    <div class="rightb" style="      border: 6px solid gray;">
+        <div class="right">
+
+            <div id="graph">
+
+                <div class="crosshair-vertical">
+                    <span class="crosshair-label">
+                        <h4> אימפקט </h4>
+                    </span>
+                </div>
+
+                <div class="crosshair-horizontal">
+                    <span class="crosshair-label">
+                        <h4> ישימות </h4>
+                    </span>
+                </div>
+
+                <!-- X and Y axes with tick marks and labels -->
+                <div class="axis x-axis">
+                    <div class="tick" style="--i: 10">
+                        <span class="tick-label">10</span>
+                    </div>
+                    <div class="tick" style="--i: 10">
+                        <span class="tick-label">20</span>
+                    </div>
+                    <div class="tick" style="--i: 20">
+                        <span class="tick-label">30</span>
+                    </div>
+                    <div class="tick" style="--i: 30">
+                        <span class="tick-label">40</span>
+                    </div>
+                    <div class="tick" style="--i: 40">
+                        <span class="tick-label">50</span>
+                    </div>
+                    <div class="tick" style="--i: 50">
+                        <span class="tick-label"></span>
+                    </div>
+                </div>
+                <div class="axis y-axis">
+                    <div class="tick" style="--i: 10">
+                        <span class="tick-label">10</span>
+                    </div>
+                    <div class="tick" style="--i: 10">
+                        <span class="tick-label">20</span>
+                    </div>
+                    <div class="tick" style="--i: 20">
+                        <span class="tick-label">30</span>
+                    </div>
+                    <div class="tick" style="--i: 30">
+                        <span class="tick-label">40</span>
+                    </div>
+                    <div class="tick" style="--i: 40">
+                        <span class="tick-label">50</span>
+                    </div>
+                    <div class="tick" style="--i: 50">
+                        <span class="tick-label"></span>
+                    </div>
+                </div>
+                <!-- Text boxes in the corners of the graph -->
+                <!-- <div class="graph-text-box top-left-box"></div>
+          <div class="graph-text-box top-right-box"></div>
+          <div class="graph-text-box bottom-left-box"></div>
+          <div class="graph-text-box bottom-right-box"></div> -->
+
+                <div id="graphContainer" style="position: relative; width: 100%; height: 100% ">
+                    <!-- Dot will be appended here -->
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <!-- -------------------------------------------------------------------------------------------------------------- -->
+    <aside>
+        <img src="civixNew.jpg" alt="Negev Logo" style="width: 200px;" />
+        <img src="+.jpg" alt="+ Logo" style="width: 60px;" />
+
+        <!--  team + challenge -->
+        <div class="rtl-container">
+
+            <div class="input-group">
+                <label for="teamInput">צוות:</label>
+                <input type="text" id="teamInput" />
+                <button id="saveTeamButton">שמור</button>
+            </div>
+
+            <div class="input-group">
+                <label for="challengeInput">אתגר:</label>
+                <input type="text" id="challengeInput" />
+                <button id="saveChallengeButton">שמור</button>
+            </div>
+        </div>
+
+
+
+        <div class="buttons">
+            <button id="exportData">שמירת הקובץ</button>
+            <button id="importData">טעינת הקובץ</button>
+            <button id="clearButton" onclick="clearSavedData()">מחיקת כל המידע</button>
+            <button id="refreshPage">רענן מסך</button>
+            <input type="file" id="importDataFile" style="display: none" />
+        </div>
+
+        <img src="i.jpg" alt="i logo" style="width: 60px;" />
+
+        <div id="bottomContent">
+            <h2>:יוזמה שנבחרה</h2>
+            <span id="currentInitiative" class="current-initiative"></span>
+            <br>
+            <span style="background-color: rgb(144, 235, 202); border-radius: 10px;">ישימות</span>
+            <span id="xValueDisplay" style="background-color: rgb(144, 235, 202); border-radius: 10px;"></span>
+            <br>
+            <span style="background-color: rgb(144, 235, 202); border-radius: 10px;">אימפקט</span>
+            <span id="yValueDisplay" style="background-color: rgb(144, 235, 202); border-radius: 10px;"></span><br>
+            <br>
+        </div>
+
+    </aside>
+    </div>
+
+
+
+    <div>
+        <!-- Link for showing the manual -->
+        <a href="#" id="helpLink">צריכים עזרה? לחצו עליי</a>
+        <!-- Container for the manual's text -->
+        <div id="manualContent" style="display: none;"></div>
+    </div>
+
+    <script>
+
+
+        //help link for showing the manual
+        document.getElementById('helpLink').addEventListener('click', function (event) {
+            event.preventDefault(); // Prevents default action of the link
+
+            var manualContent = document.getElementById('manualContent');
+
+            // Check if iframe already exists, if not create it
+            var existingIframe = manualContent.querySelector('iframe');
+            if (!existingIframe) {
+                // Create an iframe element
+                var iframe = document.createElement('iframe');
+                // Set the source of the iframe to your PDF file
+                iframe.src = 'manual.pdf';
+                iframe.style.width = '100%';
+                iframe.style.height = '600px'; // Set the height as needed
+                // Append the iframe to the manualContent div
+                manualContent.appendChild(iframe);
+            }
+
+            // Display the manualContent div
+            manualContent.style.display = 'block';
+
+            // Scroll to the manual content
+            manualContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+
+
+        //----------------------------------------------------------------
+        //----------------------------------------------------------------
+        //----------------------------------------------------------------
+
+        // function clearSavedData() {
+        //   console.log("clearSavedData function called");
+        //   localStorage.removeItem("goalState");
+        // }
+        function saveToLocalStorage(key, value) {
+            console.log("saveToLocalStorage");
+            localStorage.setItem(key, value);
+        }
+        function clearSavedData() {
+            console.log("clearSavedData function called");
+
+            // Prompt the user for confirmation
+            var confirmation = confirm("האם אתם בטוחים שאתם רוצים למחוק את כל המידע שנשמר ולהתחיל מסך חדש?");
+
+
+            // If the user confirms, remove the item from localStorage
+            if (confirmation) {
+                localStorage.removeItem("goalState");
+                console.log("Data deleted successfully.");
+                alert("המידע נמחק.");
+                // Optionally, you can add additional code here to handle the post-deletion scenario
+            } else {
+                console.log("Data deletion cancelled.");
+            }
+        }
+
+
+        // Initialize an empty object to store the state of goals and initiatives
+        let goalState = {};
+        // Declare selectedGoal as a global variable
+        let selectedGoal;
+
+        // Get the dropdown element
+        const goalDropdown = document.getElementById("goal");
+        // Get the dropdown element
+        const initiativeDropdown = document.getElementById("initative");
+        // Get the span element where the current initiative will be displayed
+
+        const currentInitiativeSpan =
+            document.getElementById("currentInitiative");
+
+        const goalColors = {
+            goal1: "#FF0000", // Red
+            goal2: "#00FF00", // Green
+            goal3: "#0000FF", // Blue
+            goal4: "#FFFF00", // Yellow
+            goal5: "#FF00FF", // Magenta
+            goal6: "#00FFFF", // Cyan
+            goal7: "#C0C0C0", // Silver
+        };
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            loadParametersFromLocalStorage();
+
+            const savedGoalState = localStorage.getItem("goalState");
+            if (savedGoalState) {
+                goalState = JSON.parse(savedGoalState);
+                console.log("saved goal state: " + savedGoalState);
+            } else {
+                // Initialize goalState with default values if not present in localStorage
+                initializeGoalsAndInitiatives();
+                console.log(
+                    "initializeGoalsAndInitiatives function called with default values"
+                );
+            }
+
+            function saveTeam() {
+                const teamValue = document.getElementById('teamInput').value;
+                localStorage.setItem('team', teamValue);
+                console.log("Team saved:", teamValue);
+            }
+            function saveChallenge() {
+                const challengeValue = document.getElementById('challengeInput').value;
+                localStorage.setItem('challenge', challengeValue);
+                console.log("Challenge saved:", challengeValue);
+            }
+            function loadTeam() {
+                const savedTeam = localStorage.getItem('team');
+                if (savedTeam) {
+                    document.getElementById('teamInput').value = savedTeam;
+                }
+            }
+            function loadChallenge() {
+                const savedChallenge = localStorage.getItem('challenge');
+                if (savedChallenge) {
+                    document.getElementById('challengeInput').value = savedChallenge;
+                }
+            }
+            // Attach event listeners to buttons
+            const saveTeamBtn = document.getElementById('saveTeamButton');
+            const saveChallengeBtn = document.getElementById('saveChallengeButton');
+
+            if (saveTeamBtn) {
+                saveTeamBtn.addEventListener('click', saveTeam);
+            }
+
+            if (saveChallengeBtn) {
+                saveChallengeBtn.addEventListener('click', saveChallenge);
+            }
+
+            loadTeam();
+            loadChallenge();
+
+            // Initialize the goal dropdown with values from goalState
+            goalDropdown.innerHTML = "";
+            for (const goalKey in goalState) {
+                const goal = goalState[goalKey];
+                const option = document.createElement("option");
+                option.value = goalKey;
+                option.textContent = goal.name; // Use the goal's name for display
+                goalDropdown.appendChild(option);
+            }
+
+            // DOM references
+            const sliders = document.querySelectorAll(".slider");
+
+            goalDropdown.setAttribute("multiple", "multiple");
+            const initativeDropdown = document.getElementById("initative");
+            const graphContainer = document.getElementById("graphContainer");
+            // Buttons for creating, deleting, and renaming initiatives
+            const createInitiativeBtn = document.getElementById("createInitiative");
+            const deleteInitiativeBtn = document.getElementById("deleteInitiative");
+            const renameInitiativeBtn = document.getElementById("renameInitiative");
+            const createGoalBtn = document.getElementById("createGoal");
+            const deleteGoalBtn = document.getElementById("deleteGoal");
+            const editGoalBtn = document.getElementById("editGoal");
+
+            // event listeners for goals
+            createInitiativeBtn.addEventListener("click", createInitiative);
+            deleteInitiativeBtn.addEventListener("click", deleteInitiative);
+            renameInitiativeBtn.addEventListener("click", renameInitiative);
+
+            createGoalBtn.addEventListener("click", createGoal);
+            deleteGoalBtn.addEventListener("click", deleteGoal);
+            editGoalBtn.addEventListener("click", editGoal);
+
+            // Event listeners for goal and initiative dropdowns
+            goalDropdown.addEventListener("change", updateInitiativesDropdown);
+            initativeDropdown.addEventListener("change", updateSliders);
+
+            // Event listeners for sliders
+            sliders.forEach((slider) => {
+                slider.addEventListener("input", plotPoint);
+            });
+
+            // Initialize the goal dropdown:
+            // initializeGoalsAndInitiatives(); - needed only on first run
+            updateGoalDropdownWithColors();
+            updateInitiativesDropdown();
+
+            // Function to update the goal dropdown with current goalState
+            function updateGoalDropdown() {
+                goalDropdown.innerHTML = "";
+                for (const goalKey in goalState) {
+                    const goal = goalState[goalKey];
+                    const option = document.createElement("option");
+                    option.value = goalKey;
+                    option.textContent = goal.name; // Display the actual goal name
+                    // console.log("goal.name: " + goal.name);
+                    goalDropdown.appendChild(option);
+                }
+            }
+
+
+
+            function editGoal() {
+                const selectedGoalKey = goalDropdown.value;
+                const selectedGoal = goalState[selectedGoalKey];
+
+                if (!selectedGoal) {
+                    alert("יש לבחור מטרה ורק אז ניתן לערוך את השם שלה");
+                    return;
+                }
+
+                const newName = prompt(
+                    `הכניסו שם חדש ל "${selectedGoal.name}":`
+                );
+
+                if (!newName || newName.trim() === "") {
+                    alert("שם לא תקין");
+                    return;
+                }
+
+                // Check if newName already exists in goalState (to avoid duplicates)
+                if (Object.values(goalState).some((goal) => goal.name === newName)) {
+                    alert("שם זה כבר קיים");
+                    return;
+                }
+
+                // Update the name of the goal in goalState
+                goalState[selectedGoalKey].name = newName;
+
+                // Update the text of the dropdown option
+                const goalOption = Array.from(goalDropdown.options).find(
+                    (option) => option.value === selectedGoalKey
+                );
+                if (goalOption) {
+                    goalOption.textContent = newName;
+                }
+
+                saveData(); // Save updated goalState
+            }
+
+            function updateGoalDropdownWithColors() {
+                const goalDropdown = document.getElementById("goal");
+                const goals = Array.from(goalDropdown.options);
+
+                goals.forEach((optionElement, index) => {
+                    const goal = optionElement.value;
+                    const color = goalState[goal] ? goalState[goal].color : "#000000"; // Default to black if color is not set
+
+                    // Create a color box element
+                    const colorBox = document.createElement("span");
+                    colorBox.style.backgroundColor = color;
+                    colorBox.style.width = "20px";
+                    colorBox.style.height = "20px";
+                    colorBox.style.display = "inline-block";
+                    colorBox.style.borderRadius = "100%";
+                    colorBox.style.marginLeft = "10px";
+
+                    // Append the color box to the option element
+                    optionElement.innerHTML = `${optionElement.text}<span>${colorBox.outerHTML}</span>`;
+                });
+            }
+
+            function initializeGoalsAndInitiatives() {
+                console.log("function initializeGoalsAndInitiatives called");
+                const savedGoalState = localStorage.getItem("goalState");
+                if (savedGoalState) {
+                    goalState = JSON.parse(savedGoalState);
+                } else {
+                    // Initialize goalState with default values if not present in localStorage
+
+                    const goals = Array.from(goalDropdown.options).map(
+                        (opt) => opt.value
+                    );
+                    let goalInitiativeList = [
+                        {
+                            goal: "goal1",
+                            name: "מטרה 1",
+                            initiatives: [" A", " B", " C", " D"],
+                        },
+                        {
+                            goal: "goal2",
+                            name: "מטרה 2",
+                            initiatives: [" A", " B", " C", " D"],
+                        },
+                        {
+                            goal: "goal3",
+                            name: "מטרה 3",
+                            initiatives: [" A", " B", " C", " D"],
+                        },
+                        {
+                            goal: "goal4",
+                            name: "מטרה 4",
+                            initiatives: [" A", " B", " C", " D"],
+                        },
+                        // {
+                        //   goal: "goal5",
+                        //   name: "סביבה תומכת, מעודדת ונותנת השראה והשפעה בדרך לתעסוקה איכותית",
+                        //   initiatives: ["עצמאיות בחורה", "הצלחתך, הצלחתי"],
+                        // },
+                        // {
+                        //   goal: "goal6",
+                        //   name: "צמצום פערי השפה בחברה הבדואית לטובת קידום תעסוקת נשים",
+                        //   initiatives: ["חוגי עברית "],
+                        // },
+                        // {
+                        //   goal: "goal7",
+                        //   name: "ניעות תעסוקתית לאורך הקריירה בחייה של אישה",
+                        //   initiatives: [
+                        //     "הדבר הבא: מורשת דימונה",
+                        //     "הסעה ליעד הבא ",
+                        //     "מורתי / معلمي ",
+                        //   ],
+                        // },
+                    ];
+                    goals.forEach((goal) => {
+                        if (!goalState[goal]) {
+                            // Find the matching goal in the goalInitiativeList to get its name and color
+                            const matchingGoal = goalInitiativeList.find(
+                                (g) => g.goal === goal
+                            );
+                            if (matchingGoal) {
+                                // Set color for the goal, default to black if not set
+                                const goalColor = goalColors[goal] || "#000000";
+
+                                // Initialize goal in goalState with name, color, and empty initiatives
+                                goalState[goal] = {
+                                    name: matchingGoal.name, // Save the name of the goal
+                                    color: goalColor, // Save the color of the goal
+                                    initiatives: {}, // Initialize an empty initiatives object
+                                };
+
+                                // Loop through initiatives of the matching goal and add them
+                                matchingGoal.initiatives.forEach((initiativeName) => {
+                                    if (!goalState[goal].initiatives[initiativeName]) {
+                                        // Initialize initiative if it does not already exist
+                                        goalState[goal].initiatives[initiativeName] = {
+                                            color: goalColor,
+                                            x: null,
+                                            y: null,
+                                        };
+                                    }
+                                });
+                            }
+                        }
+                    });
+                    updateGoalDropdownWithNames(goalInitiativeList);
+                }
+            }
+
+            function updateGoalDropdownWithNames(goalInitiativeList) {
+                goalDropdown.innerHTML = "";
+                goalInitiativeList.forEach((goalData) => {
+                    const option = document.createElement("option");
+                    option.value = goalData.goal; // Keep the original goal value
+                    option.textContent = goalData.name; // Use the name for display
+                    goalDropdown.appendChild(option);
+                });
+            }
+
+            function updateInitiativesDropdown() {
+                const selectedGoals = Array.from(goalDropdown.selectedOptions).map(
+                    (opt) => opt.value
+                );
+                let initiatives = [];
+
+                selectedGoals.forEach((selectedGoal) => {
+                    initiatives.push(
+                        ...Object.keys(goalState[selectedGoal]?.initiatives || {})
+                    );
+                });
+
+                // Remove duplicates
+                const uniqueInitiatives = [...new Set(initiatives)];
+                // Clear the initiatives dropdown
+                initativeDropdown.innerHTML = "";
+                // Populate the dropdown with initiatives for the selected goals
+                uniqueInitiatives.forEach((initiative) => {
+                    const option = document.createElement("option");
+                    option.value = initiative;
+                    option.textContent = initiative;
+                    initativeDropdown.appendChild(option);
+                });
+
+                // Clear all points from the graph
+                clearGraph();
+
+                // Re-plot the points for the selected goals' initiatives
+                selectedGoals.forEach((selectedGoal) => {
+                    const goalInitiatives = Object.keys(
+                        goalState[selectedGoal]?.initiatives || {}
+                    );
+                    goalInitiatives.forEach((initiative) => {
+                        if (
+                            goalState[selectedGoal].initiatives &&
+                            goalState[selectedGoal].initiatives[initiative] &&
+                            goalState[selectedGoal].initiatives[initiative].x !== null &&
+                            goalState[selectedGoal].initiatives[initiative].y !== null
+                        ) {
+                            plotStoredPoint(
+                                initiative,
+                                goalState[selectedGoal].initiatives[initiative].x,
+                                goalState[selectedGoal].initiatives[initiative].y,
+                                goalState[selectedGoal].initiatives[initiative].color,
+                                selectedGoal // Pass the current goal here
+                            );
+                        }
+                    });
+                });
+            }
+
+            function replotPoints() {
+                const goals = Array.from(goalDropdown.selectedOptions).map(
+                    (opt) => opt.value
+                );
+                console.log("Replotting points for goals:", goals);
+                clearGraph();
+                goals.forEach((goal) => {
+                    const initiatives = Object.keys(goalState[goal]?.initiatives || {});
+                    initiatives.forEach((initiative) => {
+                        const initiativeData = goalState[goal]?.initiatives[initiative];
+                        if (
+                            initiativeData &&
+                            initiativeData.x !== null &&
+                            initiativeData.y !== null
+                        ) {
+                            plotStoredPoint(
+                                initiative,
+                                initiativeData.x,
+                                initiativeData.y,
+                                initiativeData.color,
+                                goal // Pass the current goal here
+                            );
+                        }
+                    });
+                });
+            }
+
+            function clearGraph() {
+                const points = document.querySelectorAll("#graphContainer > div");
+                points.forEach((point) => {
+                    graphContainer.removeChild(point);
+                });
+            }
+            // Existing function to plot points
+            function plotStoredPoint(initiative, x, y, color, currentGoal) {
+                if (
+                    !goalState[currentGoal] ||
+                    !goalState[currentGoal].initiatives ||
+                    !goalState[currentGoal].initiatives[initiative]
+                ) {
+                    console.error("No data for the current goal:", currentGoal);
+                    return;
+                }
+
+                // Get the initiative data using the currentGoal parameter
+                // const initiativeData = goalState[currentGoal].initiatives[initiative];
+
+                // Create a new div element to represent the point
+                const point = document.createElement("div");
+                point.id = `point-${initiative}`;
+                point.style.width = "15px";
+                point.style.height = "15px";
+                point.style.backgroundColor = goalState[currentGoal].color; // Use the color assigned to the current goal
+                point.style.borderRadius = "50%";
+                point.style.position = "absolute";
+                point.style.transform = "translate(-50%, -50%)"; // This centers the dot on the exact coordinates
+
+                // Calculate the adjusted x and y values based on the graph container dimensions
+                const adjustedX = (graphContainer.clientWidth - 10) * (x / 50);
+                const adjustedY = (graphContainer.clientHeight - 10) * (1 - y / 50); // Subtracting from 1 to invert the Y-axis
+
+                // Set the left and top style properties to position the point based on the adjusted x and y values
+                point.style.left = `${adjustedX}px`;
+                point.style.top = `${adjustedY}px`;
+
+                // Create a new div element to display the initiative name below the point
+                const text = document.createElement("div");
+                text.textContent = initiative;
+                text.style.position = "absolute";
+                text.style.transform = "translate(-50%, -50%)";
+                text.style.left = "50%";
+                text.style.bottom = "-20px";
+                text.style.fontSize = "18px"; // Increase this value to make the text larger
+                text.style.color = "#000";
+
+                // Append the text element as a child of the point element
+                point.appendChild(text);
+
+                // Append the point element as a child of the graph container
+                graphContainer.appendChild(point);
+            }
+
+
+            // --------------------------------->
+            // --------------------------------->
+            // plotting points on the graph based on the selected goal and initiative.
+
+            function plotPoint() {
+                const selectedGoal = goalDropdown.value;
+                const selectedInitiative = initativeDropdown.value;
+
+                // Ensure the selected goal and initiative exist in goalState
+                if (!goalState[selectedGoal] || !goalState[selectedGoal].initiatives ||
+                    !goalState[selectedGoal].initiatives[selectedInitiative]) {
+                    console.error(`Initiative "${selectedInitiative}" does not exist under the goal "${selectedGoal}" in the goalState.`);
+                    return;
+                }
+
+                let xTotal = 0, yTotal = 0;
+                let xCount = 0, yCount = 0;
+
+                // Dynamically select all sliders
+                const sliders = document.querySelectorAll(".slider");
+
+                sliders.forEach((slider) => {
+                    let sliderValue = parseInt(slider.value);
+
+                    // Logic to determine if the slider affects the X or Y axis
+                    // This needs to be aligned with how you assign IDs to your sliders
+                    if (slider.id.startsWith("param1")) {
+                        xTotal += sliderValue;
+                        xCount++;
+                    } else if (slider.id.startsWith("param6")) {
+                        yTotal += sliderValue;
+                        yCount++;
+                    }
+                });
+
+                // Calculating the average, making sure not to divide by zero
+                let x = xCount > 0 ? xTotal / xCount : 0;
+                let y = yCount > 0 ? yTotal / yCount : 0;
+
+                // Yaniv's addition
+                x /= 2;
+                y /= 2;
+
+                // Log the count of sliders affecting each axis
+                console.log("Number of sliders affecting X-axis:", xCount);
+                console.log("Number of sliders affecting Y-axis:", yCount);
+
+                // Remove existing point if it exists
+                const existingPoint = document.getElementById(`point-${selectedInitiative}`);
+                if (existingPoint) {
+                    graphContainer.removeChild(existingPoint);
+                }
+
+                // Plot the new point
+                plotStoredPoint(selectedInitiative, x, y, goalState[selectedGoal].color, selectedGoal);
+
+                // Update the displayed x and y values
+                document.getElementById("xValueDisplay").textContent = x.toFixed(0);
+                document.getElementById("yValueDisplay").textContent = y.toFixed(0);
+
+                // Save the new x and y values in goalState
+                goalState[selectedGoal].initiatives[selectedInitiative].x = x;
+                goalState[selectedGoal].initiatives[selectedInitiative].y = y;
+
+                // Save the updated goalState to localStorage
+                saveData();
+            }
+            //------> param x
+            function addParameterX() {
+                addSlider('X');
+
+            }
+            function removeParameterX() {
+                removeLastRow('.green-background');
+            }
+
+            function removeParameterY() {
+                removeLastRow('.orange-background');
+                // removeSlider('Y');
+                // saveParametersToLocalStorage(); // Ensure local storage is updated after deletion
+            }
+
+
+
+            // <--------------------------------->
+            // <--------------------------------->
+
+            function addSlider(axis, sliderData) {
+                // Define the container based on the axis
+                const container = axis === 'X' ?
+                    document.querySelector('.green-background') :
+                    document.querySelector('.orange-background');
+
+                // Create new slider elements
+                const tr = document.createElement('tr');
+                tr.classList.add('dynamic-slider');  // Add class to identify dynamic sliders
+
+                const td1 = document.createElement('td');
+                const div = document.createElement('div');
+                div.className = 'flex-end-container';
+
+                const span0 = document.createElement('span');
+                span0.textContent = '0';
+                div.appendChild(span0);
+
+                const input = document.createElement('input');
+                input.type = 'range';
+                input.className = 'slider';
+                input.id = sliderData ? sliderData.id :
+                    (axis === 'X' ? `param1-${document.querySelectorAll('.green-background .slider').length + 1}` :
+                        `param6-${document.querySelectorAll('.orange-background .slider').length + 1}`);
+                input.min = '1';
+                input.max = '100';
+                input.style.margin = '0px 10px';
+
+                if (sliderData) {
+                    input.value = sliderData.value;
+                }
+
+                div.appendChild(input);
+
+                const span10 = document.createElement('span');
+                span10.textContent = '10';
+                span10.style.marginRight = '10px'; // Adjust the margin here for spacing
+                div.appendChild(span10);
+
+                td1.appendChild(div);
+                tr.appendChild(td1);
+
+                const td2 = document.createElement('td');
+                const spanName = document.createElement('span');
+                spanName.className = 'rename-target';
+                spanName.textContent = sliderData && sliderData.name ? sliderData.name : 'פרמטר חדש';
+
+                // Create the span element for the pen icon
+                const penIcon = document.createElement('span');
+                penIcon.className = 'edit-icon';
+                penIcon.textContent = '✏️';
+                penIcon.style.cursor = 'pointer';  // Change cursor to pointer when hovering over the icon
+                penIcon.addEventListener('click', function () {
+                    // Prompt for a new name when the pen icon is clicked
+                    const newName = prompt('הכניסו שם חדש לפרמטר:', spanName.textContent);
+                    if (newName && newName.trim() !== '') {
+                        spanName.textContent = newName;
+                        saveParametersToLocalStorage(); // Update the name in local storage
+                    }
+                });
+
+                td2.appendChild(spanName);
+                td2.appendChild(penIcon);  // Append the pen icon next to the label
+                tr.appendChild(td2);
+
+                container.appendChild(tr);
+
+                input.addEventListener('input', plotPoint);
+
+                saveParametersToLocalStorage();
+            }
+
+
+
+            function saveParametersToLocalStorage() {
+                const sliders = document.querySelectorAll('.slider');
+                const sliderData = Array.from(sliders).map(slider => ({
+                    id: slider.id,
+                    value: slider.value,
+                    axis: slider.id.startsWith('param1') ? 'X' : 'Y'
+                }));
+                localStorage.setItem('sliders', JSON.stringify(sliderData));
+                console.log("Saved slider data:", sliderData);
+            }
+
+
+            // Function to load parameters from local storage on page load
+            function loadParametersFromLocalStorage() {
+                const savedSliders = JSON.parse(localStorage.getItem('sliders'));
+                if (savedSliders && savedSliders.length) {
+                    savedSliders.forEach(sliderData => {
+                        // Check if the slider with this ID already exists on the page
+                        if (!document.getElementById(sliderData.id)) {
+                            // Only add the slider if it doesn't exist
+                            addSlider(sliderData.axis, sliderData);
+                        }
+                    });
+                }
+            }
+
+
+            function removeSlider(axis) {
+                const container = axis === 'X' ?
+                    document.querySelector('.green-background') :
+                    document.querySelector('.orange-background');
+
+                // Remove the last slider row in the specified section
+                if (container.lastChild) {
+                    container.removeChild(container.lastChild);
+                }
+            }
+            // Modify the removeSlider function
+            function removeLastRow(containerSelector) {
+                const sliderContainer = document.querySelector(containerSelector);
+
+                if (!sliderContainer) {
+                    console.error('Slider container not found for:', containerSelector);
+                    return;
+                }
+
+                // Get the last 'tr' element directly under the specified container
+                const rows = sliderContainer.querySelectorAll('tr');
+                if (rows.length > 1) {
+                    const lastRow = rows[rows.length - 1];
+
+                    // Check if lastRow is indeed a child of sliderContainer
+                    if (sliderContainer.contains(lastRow)) {
+                        sliderContainer.removeChild(lastRow);
+                    } else {
+                        console.error('The node to be removed is not a child of the specified container.');
+                    }
+                } else {
+                    alert('You must have at least one slider in ' + containerSelector + '.');
+                }
+                saveParametersToLocalStorage();
+            }
+
+            //x buttons are
+            document.getElementById('addParameterX').addEventListener('click', addParameterX);
+            document.getElementById('removeParameterX').addEventListener('click', removeParameterX);
+            // y buttons
+            document.getElementById('addParameterY').addEventListener('click', addSlider);
+            document.getElementById('removeParameterY').addEventListener('click', removeParameterY);
+
+            // <-------------------------------------------->
+
+            //---------------------------------------------------------------->
+            //---------------------------------------------------------------->
+
+            function updateSliders() {
+                const selectedGoal = goalDropdown.value;
+                const selectedInitiative = initativeDropdown.value;
+
+                // Check if the selected goal and initiative exist in the goalState object
+                if (
+                    goalState[selectedGoal] &&
+                    goalState[selectedGoal].initiatives &&
+                    goalState[selectedGoal].initiatives[selectedInitiative]
+                ) {
+                    // Get the stored configurations for the selected initiative
+                    const initiativeData =
+                        goalState[selectedGoal].initiatives[selectedInitiative];
+
+                    // If the initiative has been set before (has x and y values), set the sliders accordingly
+                    if (initiativeData.x !== null && initiativeData.y !== null) {
+                        sliders.forEach((slider, index) => {
+                            slider.value = initiativeData.initialConfig
+                                ? initiativeData.initialConfig.sliders[index]
+                                : 5;
+                        });
+                    } else {
+                        // If the initiative hasn't been set before, set all sliders to 5
+                        sliders.forEach((slider) => {
+                            slider.addEventListener("input", function () {
+                                plotPoint();
+                                saveParametersToLocalStorage(); // Add this line
+                            });
+                        });
+                    }
+                } else {
+                    // If the initiative doesn't exist, set all sliders to 5
+                    sliders.forEach((slider) => {
+                        slider.value = 5;
+                    });
+                }
+            }
+
+            // Function to update the current initiative
+            function updateCurrentInitiative() {
+                if (initiativeDropdown.selectedIndex >= 0) {
+                    const selectedOption =
+                        initiativeDropdown.options[initiativeDropdown.selectedIndex].text;
+                    currentInitiativeSpan.textContent = "" + selectedOption;
+                    console.log(selectedOption);
+                } else {
+                    currentInitiativeSpan.textContent = "יש לבחור יוזמה "; // Default text when no initiative is selected
+                }
+            }
+
+            initiativeDropdown.addEventListener("change", updateCurrentInitiative);
+            updateCurrentInitiative();
+
+            // Function to load saved parameter names from localStorage
+            function loadSavedParameterNames() {
+                document.querySelectorAll(".rename-target").forEach((spanElement) => {
+                    const paramId = spanElement
+                        .closest("tr")
+                        .querySelector(".slider").id;
+                    const savedName = localStorage.getItem(paramId);
+                    if (savedName) {
+                        spanElement.textContent = savedName;
+                    }
+                });
+            }
+            // Load saved parameter names when the page loads
+            window.addEventListener("DOMContentLoaded", loadSavedParameterNames);
+
+            // Edit the names of the parameters
+            document.querySelectorAll(".edit-icon").forEach((icon) => {
+                icon.addEventListener("click", (e) => {
+                    const parentElement = e.target.closest("td");
+                    if (parentElement) {
+                        const spanElement = parentElement.querySelector(".rename-target");
+                        const paramId = parentElement
+                            .closest("tr")
+                            .querySelector(".slider").id;
+                        const newName = prompt(
+                            "הכנס שם חדש למדד זה",
+                            spanElement.textContent.trim()
+                        );
+                        if (newName && newName.length <= 60) {
+                            spanElement.textContent = newName;
+                            // Save the new name to localStorage
+                            localStorage.setItem(paramId, newName);
+                        }
+                    } else {
+                        console.error("No parent element with the specified class found");
+                    }
+                });
+            });
+
+            // Function to save goalState to localStorage
+            function saveData() {
+                try {
+                    localStorage.setItem("goalState", JSON.stringify(goalState));
+                } catch (e) {
+                    console.error("Failed to save data to localStorage:", e);
+                    alert("Failed to save data. Storage might be full.");
+                }
+            }
+
+            // Function to load saved goalState from localStorage
+            function loadData() {
+                const savedGoalState = localStorage.getItem("goalState");
+                if (savedGoalState) {
+                    goalState = JSON.parse(savedGoalState);
+                } else {
+                    initializeGoalsAndInitiatives();
+                    console.log(
+                        "Initialized goalState with default values:",
+                        goalState
+                    );
+                }
+                updateInitiativesDropdown();
+                replotPoints();
+            }
+            // Function to display error messages
+            function showError(message) {
+                document.getElementById("error-message").textContent = message;
+            }
+            function createGoal() {
+                // Ask the user for the name of the new goal
+                const goalName = prompt("הכניסו את השם של המטרה החדשה");
+                if (!goalName) {
+                    showModal("A goal must have a name");
+                    return;
+                }
+
+                // Check if the goal already exists
+                if (goalState[goalName]) {
+                    showModal(
+                        `המטרה "${goalName}" כבר קיימת יש לבחור שם אחר.`
+                    );
+                    return;
+                }
+
+                // Create a new goal in the goalState object
+                goalState[goalName] = {
+                    color: goalColors[goalName] || "#000000", // Default to black if color is not set
+                    initiatives: {},
+                };
+
+                // Add the new goal to the goal dropdown
+                const option = document.createElement("option");
+                option.value = goalName;
+                option.textContent = goalName;
+                goalDropdown.appendChild(option);
+
+                // Save the data after creating the goal
+                saveData();
+            }
+
+            function deleteGoal() {
+                const selectedGoal = goalDropdown.value;
+
+                // Confirm with the user before deleting
+                const isConfirmed = confirm(
+                    "האם אתם בטוחים שאתם רוצים למחוק את המטרה הזו?"
+                );
+                if (!isConfirmed) {
+                    showModal("מחיקת המטרה בוטלה");
+                    return;
+                }
+
+
+
+
+                // Delete the goal from the goalState object
+                delete goalState[selectedGoal];
+
+                // Remove the goal from the goal dropdown
+                const goalOption = Array.from(goalDropdown.options).find(
+                    (option) => option.value === selectedGoal
+                );
+                if (goalOption) {
+                    goalDropdown.removeChild(goalOption);
+                }
+
+                showModal("מטרה נמחקה");
+                saveData();
+            }
+
+            function createInitiative() {
+                const selectedGoals = Array.from(goalDropdown.selectedOptions).map(
+                    (opt) => opt.value
+                );
+
+                // Check if at least one goal is selected
+                if (selectedGoals.length === 0) {
+                    showModal("יש לבחור מטרה קודם");
+                    return;
+                }
+
+                // Ask the user for the name
+                const initiativeName = prompt(
+                    "הכניסו את השם של היוזמה החדשה"
+                );
+                if (!initiativeName) {
+                    showModal("ליוזמה חיב להיות שם");
+                    return;
+                }
+
+                selectedGoals.forEach((selectedGoal) => {
+                    if (!goalState[selectedGoal]) {
+                        // Unique color
+                        const goalColor = goalColors[selectedGoal] || "#000000"; // Default to white if color is not set
+                        goalState[selectedGoal] = { color: goalColor, initiatives: {} };
+                    }
+
+                    // Check if name is already existing
+                    if (goalState[selectedGoal].initiatives[initiativeName]) {
+                        showModal(
+                            `השם "${initiativeName}" כבר קיים ליוזמה אחרת, בבקשה להכניס שם אחר`
+                        );
+                        return;
+                    }
+
+                    // Add the new initiative to the goalState object
+                    goalState[selectedGoal].initiatives[initiativeName] = {
+                        color: goalState[selectedGoal].color, // Use the color from the corresponding goal
+                        x: null,
+                        y: null,
+                    };
+                });
+
+                // Add the new initiative to the initiatives dropdown
+                const option = document.createElement("option");
+                option.value = initiativeName;
+                option.textContent = initiativeName;
+                initativeDropdown.appendChild(option);
+
+                // Optionally, reset the sliders
+                sliders.forEach((slider) => {
+                    slider.value = slider.min;
+                });
+
+                // Save the data after creating the initiative
+                saveData();
+            }
+
+            function deleteInitiative() {
+                const selectedGoal = goalDropdown.value;
+                const selectedInitiative = initativeDropdown.value;
+
+                if (
+                    !goalState[selectedGoal] ||
+                    !goalState[selectedGoal].initiatives[selectedInitiative]
+                ) {
+                    showModal("יש לבחור יוזמה למחיקה");
+                    return;
+                }
+
+                // Confirm with the user before deleting
+                const isConfirmed = confirm("האם אתם בטוחים שאתם רוצים למחוק?");
+                if (!isConfirmed) {
+                    showModal("מחיקת היוזמה בוטלה");
+                    return;
+                }
+
+                // Delete the initiative from the goalState object
+                delete goalState[selectedGoal].initiatives[selectedInitiative];
+
+                // Remove the initiative from the initiatives dropdown
+                const initiativeOption = Array.from(initativeDropdown.options).find(
+                    (option) => option.value === selectedInitiative
+                );
+                if (initiativeOption) {
+                    initativeDropdown.removeChild(initiativeOption);
+                }
+
+                // Clear the graph point for this initiative
+                const existingPoint = document.getElementById(
+                    `point-${selectedInitiative}`
+                );
+                if (existingPoint) {
+                    graphContainer.removeChild(existingPoint);
+                }
+
+                showModal("היוזמה נמחקה בהצלחה");
+                saveData();
+            }
+
+            function showModal(message) {
+                alert(message);
+            }
+
+            function renameInitiative() {
+                const selectedGoal = goalDropdown.value;
+                const selectedInitiative = initativeDropdown.value;
+
+                if (
+                    !goalState[selectedGoal] ||
+                    !goalState[selectedGoal].initiatives[selectedInitiative]
+                ) {
+                    showModal("בחרו קודם ביוזמה לשנות את שמה");
+                    return;
+                }
+
+                // Ask the user for the new name
+                const newName = prompt(
+                    `בחר שם חדש ל"${selectedInitiative}`
+                );
+
+                if (!newName || newName.trim() === "") {
+                    alert("שם לא תקיו, שינוי השם בוטל");
+                    return;
+                }
+
+                if (goalState[selectedGoal][newName]) {
+                    alert(
+                        "יוזמה בשם זה כבר קיימת, יש לבחור שם אחר."
+                    );
+                    return;
+                }
+
+                // Rename the initiative in the goalState object
+                goalState[selectedGoal].initiatives[newName] =
+                    goalState[selectedGoal].initiatives[selectedInitiative];
+                delete goalState[selectedGoal].initiatives[selectedInitiative];
+
+                // Update the initiative in the initiatives dropdown
+                const initiativeOption = Array.from(initativeDropdown.options).find(
+                    (option) => option.value === selectedInitiative
+                );
+                if (initiativeOption) {
+                    initiativeOption.value = newName;
+                    initiativeOption.textContent = newName; // Set the displayed text to the new name
+                }
+
+                // Update the graph point id for this initiative
+                const existingPoint = document.getElementById(
+                    `point-${selectedInitiative}`
+                );
+                if (existingPoint) {
+                    existingPoint.id = `point-${newName}`;
+                }
+
+                alert("השם של היוזמה שונה בהצלחה");
+
+                saveData();
+            }
+
+            // Export Data
+            document
+                .getElementById("exportData")
+                .addEventListener("click", function () {
+                    const data = localStorage.getItem("goalState");
+                    const blob = new Blob([data], { type: "application/json" });
+
+                    // Prompt the user for a file name
+                    const fileName = prompt(
+                        "Enter a name for the exported file:",
+                        "goalState.json"
+                    );
+                    if (!fileName) {
+                        // If the user cancels the prompt, exit the function
+                        return;
+                    }
+
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement("a");
+                    a.href = url;
+                    a.download = fileName; // Use the user-provided file name
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                });
+
+            // Import Data
+            document
+                .getElementById("importData")
+                .addEventListener("click", function () {
+                    document.getElementById("importDataFile").click();
+                });
+
+
+            document
+                .getElementById("importDataFile")
+                .addEventListener("change", function (event) {
+                    const file = event.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function (e) {
+                            const data = JSON.parse(e.target.result);
+                            localStorage.setItem("goalState", JSON.stringify(data));
+                            // Reload or reinitialize data in the app as needed
+                        };
+                        reader.readAsText(file);
+                    }
+                });
+
+
+            document.getElementById("refreshPage").addEventListener("click", function () {
+                window.location.reload();
+                console.log("refreshin page");
+            });
+
+
+            // Rest of your loadData() function or other scripts
+            loadData();
+        });
+
+
+    </script>
+</body>
+
+<style>
+    @font-face {
+        font-family: 'GreyCliff';
+        src: url('font.otf') format('opentype');
+        font-weight: bold;
+    }
+
+    @font-face {
+        font-family: 'GreyCliffHebrewCF';
+        src: url('Ffont.otf') format('opentype');
+        font-weight: bold;
+        font-style: oblique;
+    }
+
+    @font-face {
+        font-family: 'GreyCliffHebrewCF';
+        src: url('font.otf') format('opentype');
+        font-weight: 600;
+        /* Demibold */
+    }
+
+    /* Continue with @font-face for each style you have */
+
+
+    header {
+        display: none;
+    }
+
+    body {
+        font-family: greycliff-hebrew-cf, sans-serif;
+        font-style: normal;
+        font-weight: 100;
+        text-align: right;
+        margin: 0px;
+        background-color: #f4f4f4;
+    }
+
+
+
+    .container {
+        margin: 1%;
+        display: flex;
+        background-color: rgb(255, 255, 255);
+        width: 1600px;
+        /* Keep the container full width */
+        /* justify-content: space-between; */
+        /* margin: 5px; */
+        /* padding: 5px; */
+    }
+
+    /* Optional: Centering the left and right divs within the container */
+    .left {
+        width: 700px;
+        /* min-width: 500px; */
+        /* max-width: 600px; */
+        /* height: 700px; */
+        margin-right: 10px;
+        /* padding-right: 10px; */
+        /* padding-left: 10px; */
+        /* background-color: black; */
+    }
+
+    .rightb {
+        height: 700px;
+        border-radius: 20px;
+        /* Rounded corners for the container */
+
+    }
+
+    .right {
+
+        margin-left: 15px;
+        margin-right: 20px;
+        min-width: 700px;
+        width: 685x;
+        /* Example fixed width, adjust as needed */
+        height: 685px;
+        /* border: 6px solid gray; */
+        /* max-width: 700px; */
+        /* Additional styling for left and rig0ht as needed */
+
+    }
+
+    aside {
+        margin-left: 10px;
+        text-align: center;
+        /* Center align all content */
+        border: 6px solid gray;
+        border-radius: 20px;
+        /* Rounded corners */
+
+        flex-direction: column;
+        justify-content: space-between;
+        /* Distribute space evenly */
+        padding: 10px;
+        /* background-color: rgb(255, 255, 255); */
+
+        height: 680px;
+    }
+
+    aside img {
+        display: block;
+        /* Makes the image a block-level element */
+        margin: 0 auto;
+        /* Centers the image */
+        width: 100px;
+        /* Sets a fixed width for the images */
+        /* margin-bottom: 10px; Adds space below each image */
+    }
+
+
+    .buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* Center-align buttons */
+        margin-bottom: 10px;
+        /* Space below button section */
+    }
+
+    .buttons button {
+        width: 100%;
+        /* Full width buttons */
+        padding: 5px;
+        margin-bottom: 10px;
+        /* Space between buttons */
+        border: none;
+        background-color: rgb(144, 235, 202);
+        color: black;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 18px;
+    }
+
+    #bottomContent {
+        text-align: center;
+        /* Center text */
+        background-color: rgb(144, 235, 202);
+        border-radius: 10px;
+        margin-top: 10px;
+
+
+    }
+
+    button {
+        display: flexbox;
+        /* margin-top: 10px; */
+        /* margin: 5px; */
+        border: none;
+        background-color: rgb(144, 235, 202);
+        color: black;
+        border-radius: 10px;
+        cursor: grabbing;
+        font-size: 18px;
+        text-align: center;
+        /* Aligns the buttons to the right */
+    }
+
+    button:hover {
+        background-color: rgb(144, 235, 202);
+    }
+
+    #graph {
+        position: sticky;
+        background-image: url('grid.jpg');
+        background-size: cover;
+        /* Ensures the image covers the entire area */
+        background-position: center;
+        /* Centers the image in the div */
+        background-repeat: no-repeat;
+        /* Prevents the image from repeating */
+        width: 100%;
+        /* Adjust width as necessary */
+        height: 100%;
+        /* Adjust height as necessary */
+    }
+
+    .slider {
+        color: #202523;
+    }
+
+    select {
+        padding: 1px;
+        border: 1px solid #b3b0da;
+        width: 90%;
+        /* margin-bottom: 10px; */
+        /* Border color with a mix of blue and purple */
+        border-radius: 5px;
+        background-color: #f3f3f3;
+        cursor: pointer;
+        color: #413e98;
+        /* Darker shade of purple */
+        direction: rtl;
+        /* Add this to align text right-to-left */
+        text-align: right;
+        /* Align text to the right within each option */
+        font-size: 18px;
+        /* Increased font size */
+    }
+
+    /* האזור של קביעת פרמטרים */
+    table {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    /* רווח בין שורות טקסט */
+    td {
+        padding: 0px;
+        padding-bottom: 5px;
+    }
+
+    h1 {
+        margin-top: 0px;
+        margin-bottom: 0px;
+        text-align: center;
+        padding-top: 10px;
+    }
+
+    h2 {
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+
+    h3 {
+        padding: 5px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+
+    h4 {
+        background-color: rgb(144, 235, 202);
+        display: inline-block;
+        border-radius: 10px;
+    }
+
+    .flex-end-container {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+    .black-background {
+        background-color: #202523;
+        color: white;
+        direction: rtl;
+        /* Add this to align text right-to-left */
+        text-align: right;
+        /* Align text to the right within each option */
+        margin-bottom: 10px;
+        font-size: 20px;
+        /* Increased font size */
+
+    }
+
+    .green-background {
+        background-color: rgb(144, 235, 202);
+
+        color: rgb(32, 37, 35);
+        text-align: right;
+        /* Align text to the right within each option */
+        /* margin-top: 10px; */
+        padding-right: 10px;
+        padding-left: 10px;
+
+        /* Optional: To make the text readable */
+    }
+
+    .orange-background {
+        background-color: rgb(20, 25, 23);
+        color: white;
+        text-align: right;
+        /* Align text to the right within each option */
+        padding-right: 10px;
+        padding-left: 10px;
+
+        /* padding-bottom: 20px; */
+        /* Optional: To make the text readable */
+    }
+
+    /* Divider */
+    td[colspan="2"] {
+        text-align: center;
+        border-bottom: 1px solid #696798;
+        /* Darker shade of purple */
+    }
+
+
+    .tick {
+        position: relative;
+        flex-grow: 1;
+    }
+
+    .tick:last-child {
+        flex-grow: 0;
+    }
+
+    .tick::after {
+        content: "";
+        position: absolute;
+        background: black;
+        width: 5px;
+        height: 100%;
+        /* left: 50%; */
+    }
+
+    .tick-label {
+        position: absolute;
+        font-size: 12px;
+    }
+
+    .axis {
+        position: absolute;
+        display: flex;
+    }
+
+    .x-axis {
+        /* left: 1px; */
+        bottom: 0;
+        width: calc(100% - 2px);
+        align-items: flex-end;
+    }
+
+    .x-axis .tick::after {
+        bottom: 0;
+
+    }
+
+    .y-axis .tick-label {
+        left: 20px;
+        top: 2px;
+
+        /* top: 50%; */
+        transform: translateY(-50%);
+    }
+
+    .x-axis .tick-label {
+        bottom: 10px;
+        /* right: 1px; */
+        transform: translateX(-50%);
+    }
+
+    .y-axis {
+        /* top: 10px; */
+
+        left: 0;
+        height: 100%;
+        flex-direction: column-reverse;
+        align-items: flex-start;
+    }
+
+    .y-axis .tick {
+        flex-grow: 1;
+    }
+
+    .y-axis .tick:last-child {
+        flex-grow: 0;
+
+    }
+
+    .y-axis .tick::after {
+        right: 3;
+        width: 10px;
+        height: 2px;
+        /* top: 50%; */
+        transform: translateY(-50%);
+    }
+
+    .x-axis .tick::after {
+        /* right: 3; */
+        width: 4px;
+        height: 10px;
+        bottom: -10px;
+        transform: translateY(-50%);
+    }
+
+    /* Crosshair styles */
+    .crosshair-vertical,
+    .crosshair-horizontal {
+        position: absolute;
+        background-color: black;
+        pointer-events: none;
+        /* Ensures the lines don't interfere with any interactions */
+    }
+
+    .crosshair-vertical {
+        width: 1px;
+        height: 100%;
+        left: 50%;
+        top: 0;
+    }
+
+    .crosshair-horizontal {
+        height: 1px;
+        width: 100%;
+        top: 50%;
+        left: 0;
+    }
+
+    .graph-text-box {
+        position: absolute;
+        background: linear-gradient(160deg,
+                rgba(142, 138, 177, 0.9),
+                rgba(60, 58, 120, 0.9));
+        /* Gradient with semi-transparent shades of purple */
+        padding: 1px;
+        /* border: 1px solid #b3b0da; */
+        border-radius: 5px;
+        color: white;
+        /* Adjusted text color for better readability on the gradient background */
+    }
+
+    .slider {
+        width: 100%;
+        background: repeating-linear-gradient(to right,
+                #ddd,
+                #ddd 2px,
+                /* Increased width of the tick mark */
+                #fff 2px,
+                #fff 10%
+                /* Adjusted spacing between tick marks to represent 10 units */
+            );
+    }
+
+    .initiative-controls {
+        /* display: flex; */
+        justify-content: space-between;
+        padding: 20px 0;
+        /* background-color: #f5f5f5; */
+        border-top: 1px solid #e0e0e0;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .initiative-controls button {
+        /* padding: 10px 20px; */
+        border: none;
+        /* border-radius: 5px; */
+
+        font-size: 18px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    /* Color for the create button */
+    #createInitiative {
+        background-color: rgb(144, 235, 202);
+
+        color: black;
+    }
+
+    /* Color for the delete button */
+    #deleteInitiative {
+        background-color: rgb(144, 235, 202);
+        color: black;
+    }
+
+    /* Color for the rename button */
+    #renameInitiative {
+        background-color: rgb(144, 235, 202);
+        color: black;
+    }
+
+    #clearButton {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        color: white;
+        background: black;
+        cursor: pointer;
+        transition: transform 0.1s;
+    }
+
+    #refreshPage {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        color: white;
+        background: black;
+        cursor: pointer;
+        transition: transform 0.1s;
+    }
+
+    #clearButton:hover {
+        transform: scale(1.05);
+    }
+
+    #clearButton:active {
+        transform: scale(1);
+    }
+
+    /* The Modal (background) */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        /* padding-top: 60px; */
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    /* Modal Content */
+    .modal-content {
+        background-color: #fefefe;
+        /* margin: 5% auto; */
+        /* padding: 20px; */
+        /* border: 1px solid #888; */
+        width: 80%;
+    }
+
+    /* The Close Button */
+    .close-button {
+        color: #ac0707;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close-button:hover,
+    .close-button:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    /* Error Message */
+    .error-message {
+        color: red;
+        font-weight: bold;
+    }
+
+
+    .current-initiative {
+        /* font-size: 20px; */
+        padding-right: 2px;
+
+    }
+
+    .goal-select {
+        font-size: px;
+        padding: 2px 2px;
+        width: 90%;
+        /* margin: 2px auto; */
+        display: block;
+        direction: rtl;
+        /* Add this to align text right-to-left */
+        text-align: right;
+        /* Align text to the right within each option */
+        margin-right: 0;
+        /* Align to the right */
+        margin-left: auto;
+        /* Auto margin for left to maintain layout */
+    }
+
+    .rtl-container {
+        direction: rtl;
+        /* Sets the text direction to right-to-left */
+        padding: 10px;
+    }
+
+
+    .input-group {
+        display: flex;
+        justify-content: center;
+        /* Center the input group */
+        align-items: center;
+        gap: 10px;
+        /* Space between label, input, and button */
+        margin-bottom: 10px;
+        /* Space between each input group */
+    }
+
+    .input-group label,
+    .input-group input[type="text"],
+    .input-group button {
+        padding: 5px 10px;
+        border-radius: 5px;
+
+    }
+
+    .input-group input[type="text"] {
+        width: 100px;
+        /* Auto width based on content */
+        border: 1px solid #ddd;
+        /* Light border for inputs */
+    }
+
+    /* Ensure the save button has similar style to other buttons */
+    .input-group button {
+        background-color: rgb(144, 235, 202);
+        color: black;
+        border: none;
+        cursor: pointer;
+    }
+
+    #manualContent {
+        /* Container Styles */
+        margin-top: 20px;
+        padding: 15px;
+        background-color: #fff;
+        /* Light background for readability */
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        /* Optional: Adds a subtle shadow */
+
+        /* Text Styles */
+        font-family: Grey;
+        /* You can choose a different font */
+        font-size: 16px;
+        /* Adjust font size as needed */
+        line-height: 1.5;
+        /* Adjust line height for readability */
+        color: #333;
+        /* Dark color for the text */
+        text-align: right;
+        /* Since your language is Hebrew */
+
+        /* Handling Overflow */
+        max-height: 400px;
+        /* Set a max height */
+        overflow-y: auto;
+        /* Add scrollbar for long text */
+    }
+
+    #helpLink {
+        /* Styles for the help link */
+        display: block;
+        /* margin-top: 10px; */
+        text-align: center;
+        text-decoration: underline;
+        cursor: pointer;
+        color: #007bff;
+        /* Optional: Change link color */
+
+    }
+
+
+
+
+
+
+    /* .top-left-box {
+      top: 10px;
+      left: 10px;
+    }
+
+    .top-right-box {
+      top: 10px;
+      right: 10px;
+    }
+
+    .bottom-left-box {
+      bottom: 10px;
+      left: 10px;
+    }
+
+    .bottom-right-box {
+      bottom: 10px;
+      right: 10px;
+    } */
+    /* 
+    #initiativeControls {
+      display: flex;
+      align-items: center;
+    }
+
+    #initiativeControls > {
+      margin-right: 100px;
+    } */
+</style>
+
+</html>
