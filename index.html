@@ -72,7 +72,7 @@
                             <span class="edit-icon">✏️</span>
                         </td>
                     </tr>
-                    <tr>
+                    <!-- <tr>
                         <td>
                             <div class="flex-end-container">
                                 <span>0</span>
@@ -127,7 +127,11 @@
                             <span class="rename-target">מידת גיוס ורתימת שותפים </span>
                             <span class="edit-icon">✏️</span>
                         </td>
-                    </tr>
+                    </tr> -->
+                    <!-- Remove Parameter Button for X-axis -->
+                    <button id="removeParameterX">מחיקת פרמטר ישימות</button>
+                    <!-- Add Parameter Button for X-axis -->
+                    <button id="addParameterX">הוספת פרמטר ישימות</button>
                 </table>
 
                 <datalist id="tickmarks">
@@ -143,15 +147,11 @@
                     <option value="100"></option>
                 </datalist>
                 <div>
-                    <!-- Add Parameter Button for X-axis -->
-                    <button id="addParameterX">הוספת פרמטר ישימות</button>
-
-                    <!-- Remove Parameter Button for X-axis -->
-                    <button id="removeParameterX">מחיקת פרמטר ישימות</button>
 
                 </div>
             </div>
 
+            <!-- impact box: -->
             <div class="orange-background">
                 <h2 style="margin-bottom: 4px; margin-top: 0px;">מדדי אימפקט </h2>
                 <table ">
@@ -166,17 +166,20 @@
             </div>
             </td>
             <td>
-                <span class="rename-target">עד כמה היוזמה עונה למטרת הביניים</span>
+                <span class="rename-target">א</span>
                 <span class="edit-icon">✏️</span>
             </td>
             </tr>
+            <button id="removeParameterY">מחיקת פרמטר אימפקט</button>
+            <!-- Add Parameter y Button -->
+            <button id="addParameterY">הוספת פרמטר אימפקט</button>
 
-            <tr>
+            <!-- <tr>
                 <td>
                     <div class="flex-end-container">
                         <span>0</span>
                         <input type="range" min="1" max="100" class="slider" id="param6" list="tickmarks2"
-                            style="margin: 0 10px" />
+                        style="margin: 0 10px" />
                         <span>10 </span>
                     </div>
                 </td>
@@ -227,16 +230,14 @@
                 <td>
                     <span class="rename-target">כמות הרשויות עליהן היוזמה תשפיע</span>
                     <span class="edit-icon">✏️</span>
-                </td>
-                <!-- <td>כמות הרשויות עליהן היוזמה תשפיע <span class="edit-icon">✏️</span></td> -->
+                </td> -->
+
             </tr>
+            <!-- Remove Parameter y Button -->
             </table>
 
-            <!-- Add Parameter Button -->
-            <button id="addParameterY">הוספת פרמטר אימפקט</button>
 
-            <!-- Remove Parameter Button -->
-            <button id="removeParameterY">מחיקת פרמטר אימפקט</button>
+
 
         </div>
         <datalist id="tickmarks2">
@@ -986,6 +987,7 @@
                 div.appendChild(span0);
 
                 const input = document.createElement('input');
+                input.style.width = '100%'; // Set the width of the slider to 100%
                 input.type = 'range';
                 input.className = 'slider';
                 input.id = sliderData ? sliderData.id :
@@ -993,7 +995,8 @@
                         `param6-${document.querySelectorAll('.orange-background .slider').length + 1}`);
                 input.min = '1';
                 input.max = '100';
-                input.style.margin = '0px 10px';
+                input.style.margin = '10px 10px';
+                input.style.width = '300px'
 
                 if (sliderData) {
                     input.value = sliderData.value;
@@ -1018,15 +1021,7 @@
                 const penIcon = document.createElement('span');
                 penIcon.className = 'edit-icon';
                 penIcon.textContent = '✏️';
-                penIcon.style.cursor = 'pointer';  // Change cursor to pointer when hovering over the icon
-                penIcon.addEventListener('click', function () {
-                    // Prompt for a new name when the pen icon is clicked
-                    const newName = prompt('הכניסו שם חדש לפרמטר:', spanName.textContent);
-                    if (newName && newName.trim() !== '') {
-                        spanName.textContent = newName;
-                        saveParametersToLocalStorage(); // Update the name in local storage
-                    }
-                });
+                penIcon.style.cursor = 'pointer';
 
                 td2.appendChild(spanName);
                 td2.appendChild(penIcon);  // Append the pen icon next to the label
@@ -1038,6 +1033,8 @@
 
                 saveParametersToLocalStorage();
             }
+
+
 
 
 
@@ -1686,6 +1683,22 @@
         /* Adjust height as necessary */
     }
 
+    #removeParameterX {
+        background-color: black;
+        color: white;
+        ;
+    }
+
+    #addParameterX {
+        background-color: black;
+        color: white;
+        margin: 10px
+    }
+
+    #addParameterY {
+        margin: 10px
+    }
+
     .slider {
         color: #202523;
     }
@@ -1746,9 +1759,22 @@
     }
 
     .flex-end-container {
+        width: 350px;
         display: flex;
-        align-items: center;
+        /* align-items: right; */
         justify-content: flex-end;
+    }
+
+    .slider {
+        width: 100%;
+        background: repeating-linear-gradient(to right,
+                #ddd,
+                #ddd 2px,
+                /* Increased width of the tick mark */
+                #fff 2px,
+                #fff 10%
+                /* Adjusted spacing between tick marks to represent 10 units */
+            );
     }
 
     .black-background {
@@ -1773,6 +1799,7 @@
         padding-right: 10px;
         padding-left: 10px;
 
+
         /* Optional: To make the text readable */
     }
 
@@ -1785,7 +1812,6 @@
         padding-left: 10px;
 
         /* padding-bottom: 20px; */
-        /* Optional: To make the text readable */
     }
 
     /* Divider */
@@ -1920,17 +1946,6 @@
         /* Adjusted text color for better readability on the gradient background */
     }
 
-    .slider {
-        width: 100%;
-        background: repeating-linear-gradient(to right,
-                #ddd,
-                #ddd 2px,
-                /* Increased width of the tick mark */
-                #fff 2px,
-                #fff 10%
-                /* Adjusted spacing between tick marks to represent 10 units */
-            );
-    }
 
     .initiative-controls {
         /* display: flex; */
