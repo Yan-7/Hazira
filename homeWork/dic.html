@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dictionary App</title>
+</head>
+
+<body>
+    <h2>Add New Dictionary Entry</h2>
+    <form id="addEntryForm">
+        <input type="text" id="word" placeholder="Word" required>
+        <input type="text" id="definition" placeholder="Definition" required>
+        <textarea id="examples" placeholder="Examples (comma separated)" required></textarea>
+        <button type="submit">Add Entry</button>
+    </form>
+
+    <h2>Get Dictionary Entry by ID</h2>
+    <input type="number" id="getEntryId" placeholder="Entry ID" required>
+    <button onclick="getEntry()">Get Entry</button>
+
+    <h2>All Dictionary Entries</h2>
+    <button onclick="listEntries()">List All Entries</button>
+    <div id="entries"></div>
+
+    <script>
+
+        const cors = require('cors');
+        app.use(cors());
+
+        // Handle the form submission for adding a new dictionary entry
+        document.getElementById('addEntryForm').onsubmit = async function (event) {
+            event.preventDefault();
+            const word = document.getElementById('word').value;
+            const definition = document.getElementById('definition').value;
+            const examplesText = document.getElementById('examples').value;
+            const examples = examplesText.split(',').map(example => example.trim());
+            try {
+                const response = await fetch('/dictionary', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ word, definition, examples }),
+                });
+                const result = await response.json();
+                alert(result.message);
+                document.getElementById('addEntryForm').reset(); // Reset form fields after submission
+            } catch (error) {
+                alert('Failed to add entry');
+            }
+        };
+
+        // Function to get a dictionary entry by ID
+        async function getEntry() {
+            const id = document.getElementById('getEntryId').value;
+            try {
+                const response = await fetch(`/dictionary/${id}`);
+                if (response.ok) {
+                    const entry = await response.json();
+                    document.getElementById('entries').innerHTML = `
+                        <p><strong>Word:</strong> ${entry.word}</p>
+                        <p><strong>Definition:</strong> ${entry.definition}</p>
+                        <p><strong>Examples:</strong> ${entry.examples.join(', ')}</p>
+                    `;
+                } else {
+                    alert('Entry not found');
+                }
+            } catch (error) {
+                alert('Error fetching entry');
+            }
+        }
+
+        // Function to list all dictionary entries
+        async function listEntries() {
+            try {
+                const response = await fetch('/dictionary');
+                const entries = await response.json();
+                const entriesHtml = entries.map(entry => `
+                    <div>
+                        <h4>${entry.word}</h4>
+                        <p>${entry.definition}</p>
+                        <p>${entry.examples.join(', ')}</p>
+                    </div>
+                `).join('');
+                document.getElementById('entries').innerHTML = entriesHtml;
+            } catch (error) {
+                alert('Error listing entries');
+            }
+        }
+    </script>
+</body>
+
+</html>

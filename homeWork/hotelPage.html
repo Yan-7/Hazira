@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hotel Information</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+        line-height: 1.6;
+        color: #333;
+      }
+      header {
+        background-color: #0056b3;
+        color: #fff;
+        padding: 1.5em 0;
+        text-align: center;
+      }
+      header h1 {
+        margin: 0;
+        font-size: 2.5em;
+      }
+      .container {
+        width: 80%;
+        margin: auto;
+        overflow: hidden;
+      }
+      #hotelInfo {
+        background-color: #fff;
+        margin: 20px 0;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      }
+      h2 {
+        color: #333;
+        text-align: center;
+        margin-top: 0;
+      }
+      .room-info {
+        background-color: #e7e7e7;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 8px;
+      }
+      .buttons input,
+      .buttons button {
+        padding: 8px;
+        margin: 5px 0;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+      }
+
+      .buttons button {
+        background-color: #0056b3;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+
+      .buttons button:hover {
+        background-color: #003d80;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Welcome to the Hotel</h1>
+    </header>
+    <div class="container">
+      <div id="hotelInfo"></div>
+
+      
+
+
+      <div class="buttons">
+
+        <button id="changeNameButton">chnage hotel name</button> 
+        <input id="newHotelName" type="text" placeholder="enter new hotel name">
+        
+        <button id="addRoomButton">add room</button>
+        <input type="number" id="roomToAdd" placeholder="enter room number" />
+        
+        <button id="deleteRoomButton">delete room</button>
+        <input type="number" id="roomToDelete" placeholder="room id" />
+
+        <button id="addGuestButton">add guest to room</button>
+        <input type="text" id="newGUestname" placeholder="name">
+        <input type="number" id="newGUestRoom" placeholder="room">
+      </div>
+    </div>
+  </body>
+
+  <script>
+    // JAvaScript ---------------------------------------------------------------->
+    // JAvaScript ---------------------------------------------------------------->
+    // JAvaScript ---------------------------------------------------------------->
+
+    //change name
+    document.getElementById("changeNameButton").addEventListener("click", function() {
+      const newName = document.getElementById("newHotelName").value;
+      if (newName) {
+        hotel1.name = newName;
+        console.log("name revised to " + newName );  
+        updateHotelInfo(hotel1); 
+      } else {
+        console.log("cannto change name");
+      }
+    })
+
+    //add guest to room
+    document.getElementById("addGuestButton").addEventListener("click", function() {
+  const guestName = document.getElementById("newGUestname").value;
+  const roomNumber = parseInt(document.getElementById("newGUestRoom").value);
+
+  if (guestName && !isNaN(roomNumber)) {
+    const newGuest = new Guest(guestName);
+    const roomToAddGuest = hotel1.getRoom(roomNumber);
+
+    if (roomToAddGuest) {
+      roomToAddGuest.addGuest(newGuest);
+      updateHotelInfo(hotel1); // Update hotel info on the page
+      console.log(`${newGuest.name} added to room ${roomNumber}`);
+    } else {
+      alert(`Room ${roomNumber} not found`);
+    }
+  } else {
+    alert("Please enter both the guest's name and a room number");
+  }
+});
+    
+
+    document
+      .getElementById("addRoomButton")
+      .addEventListener("click", function () {
+        const roomId = parseInt(document.getElementById("roomToAdd").value);
+        if (roomId) {
+          hotel1.addRoom(roomId);
+        } else {
+          console.log("could not add room");
+        }
+      }),
+
+    document
+      .getElementById("deleteRoomButton")
+      .addEventListener("click", function () {
+        const roomId = parseInt(document.getElementById("roomToDelete").value);
+        if (roomId) {
+          hotel1.deleteRoom(roomId);
+        } else {
+          alert("Please enter id");
+        }
+      });
+
+    class Guest {
+      static lastId = 0;
+      constructor(name, id) {
+        this.name = name;
+        this.id = ++Guest.lastId;
+      }
+    }
+
+    class Room {
+      constructor(id) {
+        this.id = id;
+        this.guests = [];
+        this.maxGuests = 4;
+      }
+
+      addGuest(guest) {
+        if (this.guests.length < this.maxGuests) {
+          this.guests.push(guest);
+          console.log(`Guest ${guest.name} added to room ${this.id}`);
+        } else {
+          console.log(`Room ${this.id} is full`);
+          
+        }
+      }
+      deleteGuest(guestId) {
+        const guestIndex = this.guests.findIndex(
+          (guest) => guest.id === guestId
+        );
+        if (guestIndex !== -1) {
+          this.guests.splice(guestIndex, 1);
+          console.log(
+            `Guest with ID ${guestId} has been removed from room ${this.id}`
+          );
+        }
+      }
+
+      updateGUest(guestId, newName) {
+        const guest = this.guests.find((guest) => guest.id === guestId);
+        if (guest) {
+          guest.name = newName;
+          console.log(guest.name + " has been updated to " + newName);
+        }
+      }
+
+    }
+
+    // ----------------HOTEL  PROPERTIES ----------------
+    // ----------------HOTEL  PROPERTIES ----------------
+
+    class Hotel {
+      constructor(name) {
+        this.name = name;
+        this.rooms = [];
+        this.maxRooms = 10;
+      }
+
+      changeHotelName(newName) {
+        this.name = newName;
+        updateHotelInfo(this.name);
+      }
+
+      getRoom (roomId) {
+         const room = this.rooms.find(r => r.id === roomId)
+         return room;
+      }
+
+      getAllRooms() {
+        this.rooms.forEach((room) => {
+          console.log(
+            `Room ID: ${room.id}, Guests: ${room.guests
+              .map((guest) => guest.name)
+              .join(", ")}`
+          );
+        });
+        return this.rooms;
+      }
+
+      addRoom(roomId) {
+        const existingRoom = this.rooms.find(room=> room.id === roomId);
+        if (!existingRoom) {
+          const newRoom = new Room(roomId)
+          this.rooms.push(newRoom);
+          console.log(`Room ${newRoom.id} added`);
+          updateHotelInfo(this)
+        } else {
+          console.log("could not add room");
+        }
+      }
+      deleteRoom(roomId) {
+        const roomIndex = this.rooms.findIndex((room) => room.id === roomId);
+        if (roomIndex !== -1) {
+          this.rooms.splice(roomIndex, 1);
+          console.log(`Room with ID ${roomId} deleted`);
+          updateHotelInfo(this)
+        } else {
+          console.log("Could not find room");
+        }
+      }
+    }
+    //-------functions--------------------------------
+    //-------functions--------------------------------
+    //-------functions--------------------------------
+
+    function updateHotelInfo(hotel) {
+      const hotelDiv = document.getElementById("hotelInfo");
+      let hotelInfo = `Hotel Name: ${hotel.name}<br>`;
+      hotelInfo += `Rooms:<br>`;
+      hotel.rooms.forEach((room) => {
+        hotelInfo += `Room ID: ${room.id}, Guests: ${room.guests
+          .map((guest) => guest.name)
+          .join(", ")}<br>`;
+      });
+      hotelDiv.innerHTML = hotelInfo;
+    }
+
+    const guest1 = new Guest("Bob1");
+    const guest2 = new Guest("Bob2");
+    const guest3 = new Guest("Bo3");
+    const room1 = new Room(1); // Removed the redundant parameter
+    const hotel1 = new Hotel("Hiltam");
+
+    hotel1.addRoom(room1);
+    room1.addGuest(guest1);
+
+    hotel1.getAllRooms();
+
+    updateHotelInfo(hotel1);
+
+    // room1.updateGUest(1, "neBOB");
+    // room1.deleteGuest(1);
+
+    // hotel1.deleteRoom(1);
+
+    // console.log(JSON.stringify(hotel1, null, 2)); // Improved logging for hotel object
+
+    console.log("");
+    console.log("end================================>");
+    console.log("");
+  </script>
+</html>
