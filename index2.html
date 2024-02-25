@@ -72,7 +72,7 @@
                             <span class="edit-icon">✏️</span>
                         </td>
                     </tr>
-                    <tr>
+                    <!-- <tr>
                         <td>
                             <div class="flex-end-container">
                                 <span>0</span>
@@ -127,7 +127,11 @@
                             <span class="rename-target">מידת גיוס ורתימת שותפים </span>
                             <span class="edit-icon">✏️</span>
                         </td>
-                    </tr>
+                    </tr> -->
+                    <!-- Remove Parameter Button for X-axis -->
+                    <button id="removeParameterX">מחיקת פרמטר ישימות</button>
+                    <!-- Add Parameter Button for X-axis -->
+                    <button id="addParameterX">הוספת פרמטר ישימות</button>
                 </table>
 
                 <datalist id="tickmarks">
@@ -143,15 +147,11 @@
                     <option value="100"></option>
                 </datalist>
                 <div>
-                    <!-- Add Parameter Button for X-axis -->
-                    <button id="addParameterX">הוספת פרמטר ישימות</button>
-
-                    <!-- Remove Parameter Button for X-axis -->
-                    <button id="removeParameterX">מחיקת פרמטר ישימות</button>
 
                 </div>
             </div>
 
+            <!-- impact box: -->
             <div class="orange-background">
                 <h2 style="margin-bottom: 4px; margin-top: 0px;">מדדי אימפקט </h2>
                 <table ">
@@ -166,17 +166,20 @@
             </div>
             </td>
             <td>
-                <span class="rename-target">עד כמה היוזמה עונה למטרת הביניים</span>
+                <span class="rename-target">א</span>
                 <span class="edit-icon">✏️</span>
             </td>
             </tr>
+            <button id="removeParameterY">מחיקת פרמטר אימפקט</button>
+            <!-- Add Parameter y Button -->
+            <button id="addParameterY">הוספת פרמטר אימפקט</button>
 
-            <tr>
+            <!-- <tr>
                 <td>
                     <div class="flex-end-container">
                         <span>0</span>
                         <input type="range" min="1" max="100" class="slider" id="param6" list="tickmarks2"
-                            style="margin: 0 10px" />
+                        style="margin: 0 10px" />
                         <span>10 </span>
                     </div>
                 </td>
@@ -227,16 +230,14 @@
                 <td>
                     <span class="rename-target">כמות הרשויות עליהן היוזמה תשפיע</span>
                     <span class="edit-icon">✏️</span>
-                </td>
-                <!-- <td>כמות הרשויות עליהן היוזמה תשפיע <span class="edit-icon">✏️</span></td> -->
+                </td> -->
+
             </tr>
+            <!-- Remove Parameter y Button -->
             </table>
 
-            <!-- Add Parameter Button -->
-            <button id="addParameterY">הוספת פרמטר אימפקט</button>
 
-            <!-- Remove Parameter Button -->
-            <button id="removeParameterY">מחיקת פרמטר אימפקט</button>
+
 
         </div>
         <datalist id="tickmarks2">
@@ -492,26 +493,48 @@
 
             function saveTeam() {
                 const teamValue = document.getElementById('teamInput').value;
-                localStorage.setItem('team', teamValue);
+                // Update the goalState object with the new team name
+                goalState.teamName = teamValue;
+                // Save the updated goalState to localStorage
+                localStorage.setItem('goalState', JSON.stringify(goalState));
                 console.log("Team saved:", teamValue);
+                alert("שם צוות חדש נשמר");
             }
+
             function saveChallenge() {
                 const challengeValue = document.getElementById('challengeInput').value;
-                localStorage.setItem('challenge', challengeValue);
+                // Update the goalState object with the new challenge name
+                goalState.challengeName = challengeValue;
+                // Save the updated goalState to localStorage
+                localStorage.setItem('goalState', JSON.stringify(goalState));
                 console.log("Challenge saved:", challengeValue);
+                alert("שם אתגר חדש נשמר");
             }
+
             function loadTeam() {
-                const savedTeam = localStorage.getItem('team');
-                if (savedTeam) {
-                    document.getElementById('teamInput').value = savedTeam;
+                // Retrieve the entire goalState object from localStorage
+                const savedGoalState = localStorage.getItem('goalState');
+                if (savedGoalState) {
+                    const goalState = JSON.parse(savedGoalState);
+                    // Check if the team name exists within the goalState object
+                    if (goalState.teamName) {
+                        document.getElementById('teamInput').value = goalState.teamName;
+                    }
                 }
             }
+
             function loadChallenge() {
-                const savedChallenge = localStorage.getItem('challenge');
-                if (savedChallenge) {
-                    document.getElementById('challengeInput').value = savedChallenge;
+                // Retrieve the entire goalState object from localStorage
+                const savedGoalState = localStorage.getItem('goalState');
+                if (savedGoalState) {
+                    const goalState = JSON.parse(savedGoalState);
+                    // Check if the challenge name exists within the goalState object
+                    if (goalState.challengeName) {
+                        document.getElementById('challengeInput').value = goalState.challengeName;
+                    }
                 }
             }
+
             // Attach event listeners to buttons
             const saveTeamBtn = document.getElementById('saveTeamButton');
             const saveChallengeBtn = document.getElementById('saveChallengeButton');
@@ -586,8 +609,6 @@
                     goalDropdown.appendChild(option);
                 }
             }
-
-
 
             function editGoal() {
                 const selectedGoalKey = goalDropdown.value;
@@ -681,25 +702,7 @@
                             name: "מטרה 4",
                             initiatives: [" A", " B", " C", " D"],
                         },
-                        // {
-                        //   goal: "goal5",
-                        //   name: "סביבה תומכת, מעודדת ונותנת השראה והשפעה בדרך לתעסוקה איכותית",
-                        //   initiatives: ["עצמאיות בחורה", "הצלחתך, הצלחתי"],
-                        // },
-                        // {
-                        //   goal: "goal6",
-                        //   name: "צמצום פערי השפה בחברה הבדואית לטובת קידום תעסוקת נשים",
-                        //   initiatives: ["חוגי עברית "],
-                        // },
-                        // {
-                        //   goal: "goal7",
-                        //   name: "ניעות תעסוקתית לאורך הקריירה בחייה של אישה",
-                        //   initiatives: [
-                        //     "הדבר הבא: מורשת דימונה",
-                        //     "הסעה ליעד הבא ",
-                        //     "מורתי / معلمي ",
-                        //   ],
-                        // },
+
                     ];
                     goals.forEach((goal) => {
                         if (!goalState[goal]) {
@@ -974,7 +977,6 @@
                     document.querySelector('.orange-background');
 
                 // Create new slider elements
-                // Ensure 'tr' is declared at the beginning of the function
                 const tr = document.createElement('tr');
                 tr.classList.add('dynamic-slider');  // Add class to identify dynamic sliders
 
@@ -988,13 +990,14 @@
 
                 const input = document.createElement('input');
                 input.type = 'range';
+                input.style.width = '100%'; // Set the width of the slider to 100%
                 input.className = 'slider';
                 input.id = sliderData ? sliderData.id :
                     (axis === 'X' ? `param1-${document.querySelectorAll('.green-background .slider').length + 1}` :
                         `param6-${document.querySelectorAll('.orange-background .slider').length + 1}`);
                 input.min = '1';
                 input.max = '100';
-                input.style.margin = '0 10px';
+                input.style.margin = '0px 10px';
 
                 if (sliderData) {
                     input.value = sliderData.value;
@@ -1004,6 +1007,7 @@
 
                 const span10 = document.createElement('span');
                 span10.textContent = '10';
+                span10.style.marginRight = '10px'; // Adjust the margin here for spacing
                 div.appendChild(span10);
 
                 td1.appendChild(div);
@@ -1014,7 +1018,14 @@
                 spanName.className = 'rename-target';
                 spanName.textContent = sliderData && sliderData.name ? sliderData.name : 'פרמטר חדש';
 
+                // Create the span element for the pen icon
+                const penIcon = document.createElement('span');
+                penIcon.className = 'edit-icon';
+                penIcon.textContent = '✏️';
+                penIcon.style.cursor = 'pointer';
+
                 td2.appendChild(spanName);
+                td2.appendChild(penIcon);  // Append the pen icon next to the label
                 tr.appendChild(td2);
 
                 container.appendChild(tr);
@@ -1025,16 +1036,26 @@
             }
 
 
+
             function saveParametersToLocalStorage() {
                 const sliders = document.querySelectorAll('.slider');
-                const sliderData = Array.from(sliders).map(slider => ({
-                    id: slider.id,
-                    value: slider.value,
-                    axis: slider.id.startsWith('param1') ? 'X' : 'Y'
-                }));
+                const sliderData = Array.from(sliders).map(slider => {
+                    // Fetch any existing custom name for the slider, defaulting to a placeholder if none is found.
+                    // This approach ensures we don't overwrite custom names with defaults.
+                    const customName = localStorage.getItem(slider.id) || `Slider ${slider.id}`;
+                    return {
+                        id: slider.id,
+                        value: slider.value,
+                        axis: slider.id.startsWith('param1') ? 'X' : 'Y',
+                        name: customName // Persisting custom names across sessions
+                    };
+                });
+                // Save the structured slider data to localStorage, preserving custom names.
                 localStorage.setItem('sliders', JSON.stringify(sliderData));
                 console.log("Saved slider data:", sliderData);
             }
+
+
 
 
             // Function to load parameters from local storage on page load
@@ -1083,7 +1104,7 @@
                         console.error('The node to be removed is not a child of the specified container.');
                     }
                 } else {
-                    alert('You must have at least one slider in ' + containerSelector + '.');
+                    alert('חייב להיות לפחות פרמטר אחד ');
                 }
                 saveParametersToLocalStorage();
             }
@@ -1168,29 +1189,40 @@
             // Load saved parameter names when the page loads
             window.addEventListener("DOMContentLoaded", loadSavedParameterNames);
 
+
+            function updateSliderNameInLocalStorage(sliderId, newName) {
+                const savedSliders = JSON.parse(localStorage.getItem('sliders'));
+                if (savedSliders && savedSliders.length) {
+                    const sliderIndex = savedSliders.findIndex(slider => slider.id === sliderId);
+                    if (sliderIndex !== -1) {
+                        savedSliders[sliderIndex].name = newName; // Assuming 'name' is the correct property to update
+                        localStorage.setItem('sliders', JSON.stringify(savedSliders));
+                        console.log("Slider name updated:", sliderId, newName);
+                    }
+                }
+            }
+
             // Edit the names of the parameters
+            // Correctly capturing and saving edits
             document.querySelectorAll(".edit-icon").forEach((icon) => {
                 icon.addEventListener("click", (e) => {
+                    // Existing logic to capture the new name and save it
                     const parentElement = e.target.closest("td");
                     if (parentElement) {
                         const spanElement = parentElement.querySelector(".rename-target");
-                        const paramId = parentElement
-                            .closest("tr")
-                            .querySelector(".slider").id;
-                        const newName = prompt(
-                            "הכנס שם חדש למדד זה",
-                            spanElement.textContent.trim()
-                        );
+                        const paramId = parentElement.closest("tr").querySelector(".slider").id;
+                        const newName = prompt("Enter a new name for this metric:", spanElement.textContent.trim());
                         if (newName && newName.length <= 60) {
                             spanElement.textContent = newName;
-                            // Save the new name to localStorage
-                            localStorage.setItem(paramId, newName);
+                            localStorage.setItem(paramId, newName); // Immediate persistence of the edit
                         }
                     } else {
                         console.error("No parent element with the specified class found");
                     }
                 });
             });
+
+
 
             // Function to save goalState to localStorage
             function saveData() {
@@ -1510,27 +1542,12 @@
 
 <style>
     @font-face {
-        font-family: 'GreyCliff';
+        font-family: 'GreycliffCF';
+
         src: url('font.otf') format('opentype');
-        font-weight: bold;
+        font-weight: normal;
+        font-style: normal;
     }
-
-    @font-face {
-        font-family: 'GreyCliffHebrewCF';
-        src: url('Ffont.otf') format('opentype');
-        font-weight: bold;
-        font-style: oblique;
-    }
-
-    @font-face {
-        font-family: 'GreyCliffHebrewCF';
-        src: url('font.otf') format('opentype');
-        font-weight: 600;
-        /* Demibold */
-    }
-
-    /* Continue with @font-face for each style you have */
-
 
     header {
         display: none;
@@ -1685,6 +1702,22 @@
         /* Adjust height as necessary */
     }
 
+    #removeParameterX {
+        background-color: black;
+        color: white;
+        ;
+    }
+
+    #addParameterX {
+        background-color: black;
+        color: white;
+        margin: 10px
+    }
+
+    #addParameterY {
+        margin: 10px
+    }
+
     .slider {
         color: #202523;
     }
@@ -1746,8 +1779,20 @@
 
     .flex-end-container {
         display: flex;
-        align-items: center;
-        justify-content: flex-end;
+        align-items: right;
+        /* justify-content: flex-end; */
+    }
+
+    .slider {
+        width: 100%;
+        background: repeating-linear-gradient(to right,
+                #ddd,
+                #ddd 2px,
+                /* Increased width of the tick mark */
+                #fff 2px,
+                #fff 10%
+                /* Adjusted spacing between tick marks to represent 10 units */
+            );
     }
 
     .black-background {
@@ -1765,13 +1810,13 @@
 
     .green-background {
         background-color: rgb(144, 235, 202);
-
         color: rgb(32, 37, 35);
         text-align: right;
         /* Align text to the right within each option */
         /* margin-top: 10px; */
         padding-right: 10px;
         padding-left: 10px;
+
 
         /* Optional: To make the text readable */
     }
@@ -1785,7 +1830,6 @@
         padding-left: 10px;
 
         /* padding-bottom: 20px; */
-        /* Optional: To make the text readable */
     }
 
     /* Divider */
@@ -1920,17 +1964,6 @@
         /* Adjusted text color for better readability on the gradient background */
     }
 
-    .slider {
-        width: 100%;
-        background: repeating-linear-gradient(to right,
-                #ddd,
-                #ddd 2px,
-                /* Increased width of the tick mark */
-                #fff 2px,
-                #fff 10%
-                /* Adjusted spacing between tick marks to represent 10 units */
-            );
-    }
 
     .initiative-controls {
         /* display: flex; */

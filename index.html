@@ -1037,8 +1037,6 @@
 
 
 
-
-
             function saveParametersToLocalStorage() {
                 const sliders = document.querySelectorAll('.slider');
                 const sliderData = Array.from(sliders).map(slider => ({
@@ -1202,7 +1200,7 @@
                             localStorage.setItem(paramId, newName);
                         }
 
-                        
+
                     } else {
                         console.error("No parent element with the specified class found");
                     }
