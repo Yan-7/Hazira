@@ -493,26 +493,48 @@
 
             function saveTeam() {
                 const teamValue = document.getElementById('teamInput').value;
-                localStorage.setItem('team', teamValue);
+                // Update the goalState object with the new team name
+                goalState.teamName = teamValue;
+                // Save the updated goalState to localStorage
+                localStorage.setItem('goalState', JSON.stringify(goalState));
                 console.log("Team saved:", teamValue);
+                alert("שם צוות חדש נשמר");
             }
+
             function saveChallenge() {
                 const challengeValue = document.getElementById('challengeInput').value;
-                localStorage.setItem('challenge', challengeValue);
+                // Update the goalState object with the new challenge name
+                goalState.challengeName = challengeValue;
+                // Save the updated goalState to localStorage
+                localStorage.setItem('goalState', JSON.stringify(goalState));
                 console.log("Challenge saved:", challengeValue);
+                alert("שם אתגר חדש נשמר");
             }
+
             function loadTeam() {
-                const savedTeam = localStorage.getItem('team');
-                if (savedTeam) {
-                    document.getElementById('teamInput').value = savedTeam;
+                // Retrieve the entire goalState object from localStorage
+                const savedGoalState = localStorage.getItem('goalState');
+                if (savedGoalState) {
+                    const goalState = JSON.parse(savedGoalState);
+                    // Check if the team name exists within the goalState object
+                    if (goalState.teamName) {
+                        document.getElementById('teamInput').value = goalState.teamName;
+                    }
                 }
             }
+
             function loadChallenge() {
-                const savedChallenge = localStorage.getItem('challenge');
-                if (savedChallenge) {
-                    document.getElementById('challengeInput').value = savedChallenge;
+                // Retrieve the entire goalState object from localStorage
+                const savedGoalState = localStorage.getItem('goalState');
+                if (savedGoalState) {
+                    const goalState = JSON.parse(savedGoalState);
+                    // Check if the challenge name exists within the goalState object
+                    if (goalState.challengeName) {
+                        document.getElementById('challengeInput').value = goalState.challengeName;
+                    }
                 }
             }
+
             // Attach event listeners to buttons
             const saveTeamBtn = document.getElementById('saveTeamButton');
             const saveChallengeBtn = document.getElementById('saveChallengeButton');
@@ -587,8 +609,6 @@
                     goalDropdown.appendChild(option);
                 }
             }
-
-
 
             function editGoal() {
                 const selectedGoalKey = goalDropdown.value;
@@ -682,25 +702,7 @@
                             name: "מטרה 4",
                             initiatives: [" A", " B", " C", " D"],
                         },
-                        // {
-                        //   goal: "goal5",
-                        //   name: "סביבה תומכת, מעודדת ונותנת השראה והשפעה בדרך לתעסוקה איכותית",
-                        //   initiatives: ["עצמאיות בחורה", "הצלחתך, הצלחתי"],
-                        // },
-                        // {
-                        //   goal: "goal6",
-                        //   name: "צמצום פערי השפה בחברה הבדואית לטובת קידום תעסוקת נשים",
-                        //   initiatives: ["חוגי עברית "],
-                        // },
-                        // {
-                        //   goal: "goal7",
-                        //   name: "ניעות תעסוקתית לאורך הקריירה בחייה של אישה",
-                        //   initiatives: [
-                        //     "הדבר הבא: מורשת דימונה",
-                        //     "הסעה ליעד הבא ",
-                        //     "מורתי / معلمي ",
-                        //   ],
-                        // },
+
                     ];
                     goals.forEach((goal) => {
                         if (!goalState[goal]) {
@@ -987,16 +989,15 @@
                 div.appendChild(span0);
 
                 const input = document.createElement('input');
-                input.style.width = '100%'; // Set the width of the slider to 100%
                 input.type = 'range';
+                input.style.width = '100%'; // Set the width of the slider to 100%
                 input.className = 'slider';
                 input.id = sliderData ? sliderData.id :
                     (axis === 'X' ? `param1-${document.querySelectorAll('.green-background .slider').length + 1}` :
                         `param6-${document.querySelectorAll('.orange-background .slider').length + 1}`);
                 input.min = '1';
                 input.max = '100';
-                input.style.margin = '10px 10px';
-                input.style.width = '300px'
+                input.style.margin = '0px 10px';
 
                 if (sliderData) {
                     input.value = sliderData.value;
@@ -1096,7 +1097,7 @@
                         console.error('The node to be removed is not a child of the specified container.');
                     }
                 } else {
-                    alert('You must have at least one slider in ' + containerSelector + '.');
+                    alert('חייב להיות לפחות פרמטר אחד ');
                 }
                 saveParametersToLocalStorage();
             }
@@ -1196,9 +1197,12 @@
                         );
                         if (newName && newName.length <= 60) {
                             spanElement.textContent = newName;
+
                             // Save the new name to localStorage
                             localStorage.setItem(paramId, newName);
                         }
+
+                        
                     } else {
                         console.error("No parent element with the specified class found");
                     }
@@ -1759,10 +1763,9 @@
     }
 
     .flex-end-container {
-        width: 350px;
         display: flex;
-        /* align-items: right; */
-        justify-content: flex-end;
+        align-items: right;
+        /* justify-content: flex-end; */
     }
 
     .slider {
