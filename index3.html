@@ -961,17 +961,17 @@
             // ---------------------------------------------------------------->
             //------> param x
             function addParameterX() {
-                addSlider('X');
-
+                addSlider('X', null); // Pass 'X' axis and null for sliderData as it's a new slider
             }
+
+            // Improved function to remove a parameter for X axis
             function removeParameterX() {
                 removeLastRow('.green-background');
             }
 
+            // Correctly calling removeLastRow for Y axis, previously commented-out logic included
             function removeParameterY() {
                 removeLastRow('.orange-background');
-                // removeSlider('Y');
-                // saveParametersToLocalStorage(); // Ensure local storage is updated after deletion
             }
 
 
@@ -980,10 +980,14 @@
             // <--------------------------------->
 
             function addSlider(axis, sliderData) {
-                // Define the container based on the axis
                 const container = axis === 'X' ?
                     document.querySelector('.green-background') :
                     document.querySelector('.orange-background');
+
+                if (!container) {
+                    console.error('Container not found for axis:', axis);
+                    return;
+                }
 
                 // Create new slider elements
                 const tr = document.createElement('tr');
@@ -1036,12 +1040,73 @@
                 td2.appendChild(spanName);
                 td2.appendChild(penIcon);  // Append the pen icon next to the label
                 tr.appendChild(td2);
+                // Add event listener for dynamic content handling
+                attachDynamicContentEventListeners(tr);
 
                 container.appendChild(tr);
 
                 input.addEventListener('input', plotPoint);
 
                 saveParametersToLocalStorage();
+            }
+
+            function removeLastRow(containerSelector) {
+                const sliderContainer = document.querySelector(containerSelector);
+
+                if (!sliderContainer) {
+                    console.error('Slider container not found for:', containerSelector);
+                    return;
+                }
+
+                // Get the last 'tr' element directly under the specified container
+                const rows = sliderContainer.querySelectorAll('tr');
+                if (rows.length > 1) {
+                    const lastRow = rows[rows.length - 1];
+
+                    // Check if lastRow is indeed a child of sliderContainer
+                    if (sliderContainer.contains(lastRow)) {
+                        sliderContainer.removeChild(lastRow);
+                    } else {
+                        console.error('The node to be removed is not a child of the specified container.');
+                    }
+                } else {
+                    alert('חייב להיות לפחות פרמטר אחד ');
+                }
+                saveParametersToLocalStorage();
+            }
+
+            // Modify the initialization of button event listeners to match function capabilities
+            document.addEventListener('DOMContentLoaded', function () {
+                document.getElementById('addParameterX').addEventListener('click', addParameterX);
+                document.getElementById('removeParameterX').addEventListener('click', removeParameterX);
+                // Initialize Y parameter buttons with correct functions
+                document.getElementById('addParameterY').addEventListener('click', function () {
+                    addSlider('Y', null); // Pass 'Y' axis and null for sliderData as it's a new slider
+                });
+                document.getElementById('removeParameterY').addEventListener('click', removeParameterY);
+
+                // Call functions to load parameters and set up the initial state
+                loadParametersFromLocalStorage();
+                setupDynamicContentEventListeners();
+            });
+
+            // Function to set up event listeners for dynamically added content
+            function setupDynamicContentEventListeners() {
+                // Add event delegation for edit icons
+                document.addEventListener('click', function (e) {
+                    if (e.target && e.target.matches('.edit-icon')) {
+                        const parentElement = e.target.closest("td");
+                        if (parentElement) {
+                            const spanElement = parentElement.querySelector(".rename-target");
+                            const paramId = parentElement.closest("tr").querySelector(".slider").id;
+                            const newName = prompt("Enter a new name for this metric:", spanElement.textContent.trim());
+                            if (newName && newName.length <= 60) {
+                                spanElement.textContent = newName;
+                                updateSliderNameInLocalStorage(paramId, newName); // Use the dedicated function for updates
+                            }
+                        }
+                    }
+                });
             }
 
 
@@ -1093,30 +1158,7 @@
                 }
             }
             // Modify the removeSlider function
-            function removeLastRow(containerSelector) {
-                const sliderContainer = document.querySelector(containerSelector);
 
-                if (!sliderContainer) {
-                    console.error('Slider container not found for:', containerSelector);
-                    return;
-                }
-
-                // Get the last 'tr' element directly under the specified container
-                const rows = sliderContainer.querySelectorAll('tr');
-                if (rows.length > 1) {
-                    const lastRow = rows[rows.length - 1];
-
-                    // Check if lastRow is indeed a child of sliderContainer
-                    if (sliderContainer.contains(lastRow)) {
-                        sliderContainer.removeChild(lastRow);
-                    } else {
-                        console.error('The node to be removed is not a child of the specified container.');
-                    }
-                } else {
-                    alert('חייב להיות לפחות פרמטר אחד ');
-                }
-                saveParametersToLocalStorage();
-            }
 
             //x buttons are
             document.getElementById('addParameterX').addEventListener('click', addParameterX);
@@ -1210,6 +1252,23 @@
                     }
                 }
             }
+
+            function attachDynamicContentEventListeners(element) {
+                // Example: Attaching an event listener to the 'edit-icon' of a newly added slider
+                const editIcon = element.querySelector('.edit-icon');
+                if (editIcon) {
+                    editIcon.addEventListener('click', function (e) {
+                        // Handle edit-icon click event
+                        // This logic is simplified; you'll want to integrate with your existing code
+                    });
+                }
+            }
+
+            // Load parameters and names from localStorage on page load
+            window.addEventListener("DOMContentLoaded", function () {
+                loadParametersFromLocalStorage();
+                loadSavedParameterNames();
+            });
 
             // Edit the names of the parameters
             // Correctly capturing and saving edits

@@ -961,29 +961,38 @@
             // ---------------------------------------------------------------->
             //------> param x
             function addParameterX() {
-                addSlider('X');
-
+                addSlider('X', null); // Pass 'X' axis and null for sliderData as it's a new slider
             }
+
+            // Improved function to remove a parameter for X axis
             function removeParameterX() {
                 removeLastRow('.green-background');
             }
 
+            // Correctly calling removeLastRow for Y axis, previously commented-out logic included
             function removeParameterY() {
                 removeLastRow('.orange-background');
-                // removeSlider('Y');
-                // saveParametersToLocalStorage(); // Ensure local storage is updated after deletion
             }
 
 
-
-            // <--------------------------------->
-            // <--------------------------------->
-
             function addSlider(axis, sliderData) {
-                // Define the container based on the axis
                 const container = axis === 'X' ?
                     document.querySelector('.green-background') :
                     document.querySelector('.orange-background');
+
+                if (!container) {
+                    console.error('Container not found for axis:', axis);
+                    return;
+                }
+
+                // Prompt user for slider name upon creation if sliderData is null or name is not provided
+                let sliderName = 'New Parameter'; // Default name
+                let isNewSlider = !sliderData; // Check if it's a new slider
+                if (!sliderData || !sliderData.name) { // If sliderData is null or sliderData.name is not provided
+                    sliderName = prompt("Enter a name for the new slider:", sliderName) || sliderName;
+                } else {
+                    sliderName = sliderData.name; // Use the provided name
+                }
 
                 // Create new slider elements
                 const tr = document.createElement('tr');
@@ -1025,7 +1034,7 @@
                 const td2 = document.createElement('td');
                 const spanName = document.createElement('span');
                 spanName.className = 'rename-target';
-                spanName.textContent = sliderData && sliderData.name ? sliderData.name : 'פרמטר חדש';
+                spanName.textContent = sliderName; // Use the name from prompt or sliderData
 
                 // Create the span element for the pen icon
                 const penIcon = document.createElement('span');
@@ -1039,12 +1048,77 @@
 
                 container.appendChild(tr);
 
+                // Assuming an existing 'plotPoint' function that needs to be bound to the input slider
                 input.addEventListener('input', plotPoint);
 
+                // Now that the 'input' element is initialized, save the name to localStorage
+                if (isNewSlider) {
+                    localStorage.setItem(input.id, sliderName);
+                }
+
+                // Save the new slider data, including the name, to localStorage
                 saveParametersToLocalStorage();
             }
 
 
+            function removeLastRow(containerSelector) {
+                const sliderContainer = document.querySelector(containerSelector);
+
+                if (!sliderContainer) {
+                    console.error('Slider container not found for:', containerSelector);
+                    return;
+                }
+
+                // Get the last 'tr' element directly under the specified container
+                const rows = sliderContainer.querySelectorAll('tr');
+                if (rows.length > 1) {
+                    const lastRow = rows[rows.length - 1];
+
+                    // Check if lastRow is indeed a child of sliderContainer
+                    if (sliderContainer.contains(lastRow)) {
+                        sliderContainer.removeChild(lastRow);
+                    } else {
+                        console.error('The node to be removed is not a child of the specified container.');
+                    }
+                } else {
+                    alert('חייב להיות לפחות פרמטר אחד ');
+                }
+                saveParametersToLocalStorage();
+            }
+
+            // Modify the initialization of button event listeners to match function capabilities
+            document.addEventListener('DOMContentLoaded', function () {
+                document.getElementById('addParameterX').addEventListener('click', addParameterX);
+                document.getElementById('removeParameterX').addEventListener('click', removeParameterX);
+                // Initialize Y parameter buttons with correct functions
+                document.getElementById('addParameterY').addEventListener('click', function () {
+                    addSlider('Y', null); // Pass 'Y' axis and null for sliderData as it's a new slider
+                });
+                document.getElementById('removeParameterY').addEventListener('click', removeParameterY);
+
+                // Call functions to load parameters and set up the initial state
+                loadParametersFromLocalStorage();
+                setupDynamicContentEventListeners();
+            });
+
+            // Function to set up event listeners for dynamically added content
+            function setupDynamicContentEventListeners() {
+                // Add event delegation for edit icons
+                document.addEventListener('click', function (e) {
+                    if (e.target && e.target.matches('.edit-icon')) {
+                        const parentElement = e.target.closest("td");
+                        if (parentElement) {
+                            const spanElement = parentElement.querySelector(".rename-target");
+                            const paramId = parentElement.closest("tr").querySelector(".slider").id;
+                            const newName = prompt("Enter a new name for this metric:", spanElement.textContent.trim());
+                            if (newName && newName.length <= 60) {
+                                spanElement.textContent = newName;
+                                updateSliderNameInLocalStorage(paramId, newName); // Use the dedicated function for updates
+                            }
+                        }
+                    }
+                });
+            }
 
             function saveParametersToLocalStorage() {
                 const sliders = document.querySelectorAll('.slider');
@@ -1063,9 +1137,6 @@
                 localStorage.setItem('sliders', JSON.stringify(sliderData));
                 console.log("Saved slider data:", sliderData);
             }
-
-
-
 
             // Function to load parameters from local storage on page load
             function loadParametersFromLocalStorage() {
@@ -1093,30 +1164,7 @@
                 }
             }
             // Modify the removeSlider function
-            function removeLastRow(containerSelector) {
-                const sliderContainer = document.querySelector(containerSelector);
 
-                if (!sliderContainer) {
-                    console.error('Slider container not found for:', containerSelector);
-                    return;
-                }
-
-                // Get the last 'tr' element directly under the specified container
-                const rows = sliderContainer.querySelectorAll('tr');
-                if (rows.length > 1) {
-                    const lastRow = rows[rows.length - 1];
-
-                    // Check if lastRow is indeed a child of sliderContainer
-                    if (sliderContainer.contains(lastRow)) {
-                        sliderContainer.removeChild(lastRow);
-                    } else {
-                        console.error('The node to be removed is not a child of the specified container.');
-                    }
-                } else {
-                    alert('חייב להיות לפחות פרמטר אחד ');
-                }
-                saveParametersToLocalStorage();
-            }
 
             //x buttons are
             document.getElementById('addParameterX').addEventListener('click', addParameterX);
@@ -1126,9 +1174,6 @@
             document.getElementById('removeParameterY').addEventListener('click', removeParameterY);
 
             // <-------------------------------------------->
-
-            //---------------------------------------------------------------->
-            //---------------------------------------------------------------->
 
             function updateSliders() {
                 const selectedGoal = goalDropdown.value;
@@ -1210,6 +1255,23 @@
                     }
                 }
             }
+
+            function attachDynamicContentEventListeners(element) {
+                // Example: Attaching an event listener to the 'edit-icon' of a newly added slider
+                const editIcon = element.querySelector('.edit-icon');
+                if (editIcon) {
+                    editIcon.addEventListener('click', function (e) {
+                        // Handle edit-icon click event
+                        // This logic is simplified; you'll want to integrate with your existing code
+                    });
+                }
+            }
+
+            // Load parameters and names from localStorage on page load
+            window.addEventListener("DOMContentLoaded", function () {
+                loadParametersFromLocalStorage();
+                loadSavedParameterNames();
+            });
 
             // Edit the names of the parameters
             // Correctly capturing and saving edits
@@ -1734,9 +1796,6 @@
         margin: 10px
     }
 
-    .slider {
-        color: #202523;
-    }
 
     select {
         padding: 1px;
@@ -1798,19 +1857,22 @@
         align-items: right;
         /* justify-content: flex-end; */
     }
-
     .slider {
+        color: #3e0eff;
         width: 100%;
+
         background: repeating-linear-gradient(to right,
-                #ddd,
-                #ddd 2px,
+                #a70b0b,
+                #cf0c0c 2px,
                 /* Increased width of the tick mark */
-                #fff 2px,
-                #fff 10%
+                #b21313 2px,
+                #c11515 10%
                 /* Adjusted spacing between tick marks to represent 10 units */
             );
     }
 
+
+    
     .black-background {
         background-color: #202523;
         color: white;
@@ -2196,40 +2258,6 @@
         /* Optional: Change link color */
 
     }
-
-
-
-
-
-
-    /* .top-left-box {
-      top: 10px;
-      left: 10px;
-    }
-
-    .top-right-box {
-      top: 10px;
-      right: 10px;
-    }
-
-    .bottom-left-box {
-      bottom: 10px;
-      left: 10px;
-    }
-
-    .bottom-right-box {
-      bottom: 10px;
-      right: 10px;
-    } */
-    /* 
-    #initiativeControls {
-      display: flex;
-      align-items: center;
-    }
-
-    #initiativeControls > {
-      margin-right: 100px;
-    } */
 </style>
 
 </html>
