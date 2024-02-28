@@ -801,7 +801,6 @@
                 });
             }
 
-
             function replotPoints() {
                 const goals = Array.from(goalDropdown.selectedOptions).map(
                     (opt) => opt.value
@@ -929,8 +928,8 @@
                 y /= 2;
 
                 // Log the count of sliders affecting each axis
-                console.log("Number of sliders affecting X-axis:", xCount);
-                console.log("Number of sliders affecting Y-axis:", yCount);
+                // console.log("Number of sliders affecting X-axis:", xCount);
+                // console.log("Number of sliders affecting Y-axis:", yCount);
 
                 // Remove existing point if it exists
                 const existingPoint = document.getElementById(`point-${selectedInitiative}`);
@@ -1000,7 +999,6 @@
                 tr.classList.add('dynamic-slider');  // Add class to identify dynamic sliders
 
                 const td1 = document.createElement('td');
-                td1.style.width = '80%';
                 const div = document.createElement('div');
                 div.className = 'flex-end-container';
 
@@ -1179,41 +1177,35 @@
 
             function updateSliders() {
                 const selectedGoal = goalDropdown.value;
-                const selectedInitiative = initativeDropdown.value;
+                const selectedInitiative = initiativeDropdown.value;
 
-                // Check if the selected goal and initiative exist in the goalState object
-                if (
-                    goalState[selectedGoal] &&
-                    goalState[selectedGoal].initiatives &&
-                    goalState[selectedGoal].initiatives[selectedInitiative]
-                ) {
-                    // Get the stored configurations for the selected initiative
-                    const initiativeData =
-                        goalState[selectedGoal].initiatives[selectedInitiative];
+                console.log(`Selected goal: ${selectedGoal}`);
+                console.log(`Selected initiative: ${selectedInitiative}`);
 
-                    // If the initiative has been set before (has x and y values), set the sliders accordingly
-                    if (initiativeData.x !== null && initiativeData.y !== null) {
-                        sliders.forEach((slider, index) => {
-                            slider.value = initiativeData.initialConfig
-                                ? initiativeData.initialConfig.sliders[index]
-                                : 5;
-                        });
-                    } else {
-                        // If the initiative hasn't been set before, set all sliders to 5
-                        sliders.forEach((slider) => {
-                            slider.addEventListener("input", function () {
-                                plotPoint();
-                                saveParametersToLocalStorage(); // Add this line
-                            });
-                        });
-                    }
-                } else {
-                    // If the initiative doesn't exist, set all sliders to 5
-                    sliders.forEach((slider) => {
-                        slider.value = 50;
+                // Validate if the selected goal and initiative exist in the goalState object
+                if (goalState[selectedGoal] && goalState[selectedGoal].initiatives[selectedInitiative]) {
+                    const initiativeData = goalState[selectedGoal].initiatives[selectedInitiative];
+                    console.log(`Initiative data found: `, initiativeData);
+
+                    // Iterate over all sliders and set their values based on the initiative's x and y values
+                    document.querySelectorAll('.slider').forEach((slider) => {
+                        if (slider.id.includes('param1')) {
+                            console.log(`Setting slider ${slider.id} (x-axis) to value: ${initiativeData.x}`);
+                            slider.value = initiativeData.x; // Set slider to x value
+                        } else if (slider.id.includes('param6')) {
+                            console.log(`Setting slider ${slider.id} (y-axis) to value: ${initiativeData.y}`);
+                            slider.value = initiativeData.y; // Set slider to y value
+                        }
                     });
+
+                    // Optionally, invoke any function needed to refresh the graph or UI
+                    plotPoint(); // Assuming this function uses the updated slider values
+                } else {
+                    console.log("No data found for the selected goal and initiative. Cannot set sliders.");
                 }
             }
+
+
 
             // Function to update the current initiative
             function updateCurrentInitiative() {
@@ -1862,7 +1854,7 @@
 
     .slider {
         color: #3e0eff;
-        width: 80%;
+        width: 100%;
 
         background: repeating-linear-gradient(to right,
                 #a70b0b,

@@ -919,17 +919,9 @@
                     }
                 });
 
-                // Calculating the average, making sure not to divide by zero
-                let x = xCount > 0 ? xTotal / xCount : 0;
-                let y = yCount > 0 ? yTotal / yCount : 0;
-
-                // Yaniv's addition
-                x /= 2;
-                y /= 2;
-
-                // Log the count of sliders affecting each axis
-                // console.log("Number of sliders affecting X-axis:", xCount);
-                // console.log("Number of sliders affecting Y-axis:", yCount);
+                // Map the slider values from 0-100 range to 0-50 range for both x and y
+                let x = (xCount > 0) ? (xTotal / xCount) / 2 : 0; // Assuming xTotal accumulates values from sliders affecting X-axis
+                let y = (yCount > 0) ? (yTotal / yCount) / 2 : 0; // Assuming yTotal accumulates values from sliders affecting Y-axis
 
                 // Remove existing point if it exists
                 const existingPoint = document.getElementById(`point-${selectedInitiative}`);
@@ -944,13 +936,14 @@
                 document.getElementById("xValueDisplay").textContent = x.toFixed(0);
                 document.getElementById("yValueDisplay").textContent = y.toFixed(0);
 
-                // Save the new x and y values in goalState
-                goalState[selectedGoal].initiatives[selectedInitiative].x = x;
-                goalState[selectedGoal].initiatives[selectedInitiative].y = y;
+                // Save the new x and y values in goalState for the selected initiative
+                goalState[selectedGoal].initiatives[selectedInitiative].x = x * 2; // Adjusted to save the original value
+                goalState[selectedGoal].initiatives[selectedInitiative].y = y * 2; // Adjusted to save the original value
 
                 // Save the updated goalState to localStorage
                 saveData();
             }
+
 
 
             // ---------------------------------------------------------------->
@@ -1179,39 +1172,32 @@
                 const selectedGoal = goalDropdown.value;
                 const selectedInitiative = initiativeDropdown.value;
 
-                if (goalState[selectedGoal] && goalState[selectedGoal].initiatives && goalState[selectedGoal].initiatives[selectedInitiative]) {
+                console.log(`Selected goal: ${selectedGoal}`);
+                console.log(`Selected initiative: ${selectedInitiative}`);
+
+                // Validate if the selected goal and initiative exist in the goalState object
+                if (goalState[selectedGoal] && goalState[selectedGoal].initiatives[selectedInitiative]) {
                     const initiativeData = goalState[selectedGoal].initiatives[selectedInitiative];
+                    console.log(`Initiative data found: `, initiativeData);
 
-                    if (initiativeData.x !== null && initiativeData.y !== null) {
-                        console.log("Setting sliders based on x and y values:", initiativeData.x, initiativeData.y);
-
-                        // Assuming your logic to calculate slider positions from x and y values here
-                        // For demonstration, we directly use these values, ensuring they are within the slider's range
-                        const slidersX = document.querySelectorAll('.slider[param="x"]');
-                        const slidersY = document.querySelectorAll('.slider[param="y"]');
-
-                        // Example: Update the first slider for 'x' and the first slider for 'y'
-                        // Adjust this logic based on how your sliders should reflect 'x' and 'y' values
-                        if (slidersX.length > 0) {
-                            slidersX[0].value = initiativeData.x * 20; // Example conversion, adjust as needed
+                    // Iterate over all sliders and set their values based on the initiative's x and y values
+                    document.querySelectorAll('.slider').forEach((slider) => {
+                        if (slider.id.includes('param1')) {
+                            console.log(`Setting slider ${slider.id} (x-axis) to value: ${initiativeData.x}`);
+                            slider.value = initiativeData.x; // Set slider to x value
+                        } else if (slider.id.includes('param6')) {
+                            console.log(`Setting slider ${slider.id} (y-axis) to value: ${initiativeData.y}`);
+                            slider.value = initiativeData.y; // Set slider to y value
                         }
-                        if (slidersY.length > 0) {
-                            slidersY[0].value = initiativeData.y * 4; // Example conversion, adjust as needed
-                        }
-
-                    } else {
-                        console.log("Initiative data for x and y not set. Resetting sliders to default.");
-                        document.querySelectorAll('.slider').forEach(slider => {
-                            slider.value = 50; // Reset to default or middle value
-                        });
-                    }
-                } else {
-                    console.log("Selected initiative or goal not found in goalState. Resetting sliders.");
-                    document.querySelectorAll('.slider').forEach(slider => {
-                        slider.value = 50; // Reset to default or middle value
                     });
+
+                    // Optionally, invoke any function needed to refresh the graph or UI
+                    plotPoint(); // Assuming this function uses the updated slider values
+                } else {
+                    console.log("No data found for the selected goal and initiative. Cannot set sliders.");
                 }
             }
+
 
 
             // Function to update the current initiative
