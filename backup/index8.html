@@ -63,7 +63,7 @@
                             <div class="flex-end-container">
                                 <span>0</span>
                                 <input type="range" min="1" max="100" class="slider" id="param1" list="tickmarks"
-                                    style="margin: 0 10px" reversed />
+                                    style="margin: 0 0px" reversed />
                                 <span>10 </span>
                             </div>
                         </td>
@@ -442,7 +442,7 @@
             // If the user confirms, remove the item from localStorage
             if (confirmation) {
                 localStorage.removeItem("goalState");
-                localStorage.removeItem("sliders");
+                localStorage.removeItem("slider");
                 console.log("Data deleted successfully.");
                 alert("המידע נמחק.");
                 // Optionally, you can add additional code here to handle the post-deletion scenario
@@ -1560,28 +1560,31 @@
             }
 
             // Export Data
-            document.getElementById("exportData").addEventListener("click", function () {
-                const goalStateData = localStorage.getItem("goalState");
-                const slidersData = localStorage.getItem("sliders");
+            document
+                .getElementById("exportData")
+                .addEventListener("click", function () {
+                    const data = localStorage.getItem("goalState");
+                    const blob = new Blob([data], { type: "application/json" });
 
-                console.log("slider data: " + slidersData);
-                const combinedData = JSON.stringify({ goalState: JSON.parse(goalStateData), sliders: JSON.parse(slidersData) });
-                console.log("combined data: " + combinedData.JSON);
+                    // Prompt the user for a file name
+                    const fileName = prompt(
+                        "Enter a name for the exported file:",
+                        "goalState.json"
+                    );
+                    if (!fileName) {
+                        // If the user cancels the prompt, exit the function
+                        return;
+                    }
 
-                const blob = new Blob([combinedData], { type: "application/json" });
-                const fileName = prompt("תנו שם לקובץ שנשמר", "מטריצה") || "appData.json";
-
-                if (fileName) {
                     const url = URL.createObjectURL(blob);
                     const a = document.createElement("a");
                     a.href = url;
-                    a.download = fileName;
+                    a.download = fileName; // Use the user-provided file name
                     document.body.appendChild(a);
                     a.click();
                     document.body.removeChild(a);
                     URL.revokeObjectURL(url);
-                }
-            });
+                });
 
             // Import Data
             document
@@ -1591,30 +1594,25 @@
                 });
 
 
-            document.getElementById("importDataFile").addEventListener("change", function (event) {
-                const file = event.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function (e) {
-                        const importedData = JSON.parse(e.target.result);
-                        if (importedData.goalState && importedData.sliders) {
-                            localStorage.setItem("goalState", JSON.stringify(importedData.goalState));
-                            localStorage.setItem("sliders", JSON.stringify(importedData.sliders));
-                            // Optionally, reload or reinitialize data in the app as needed
-                            alert("הקובץ נטען בהצלחה, כדי לראות את השינויים לחצו על כפתור 'רענן מסך'");
-                        } else {
-                            alert("The imported file does not contain the expected data.");
-                        }
-                    };
-                    reader.readAsText(file);
-                }
-            });
-
+            document
+                .getElementById("importDataFile")
+                .addEventListener("change", function (event) {
+                    const file = event.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function (e) {
+                            const data = JSON.parse(e.target.result);
+                            localStorage.setItem("goalState", JSON.stringify(data));
+                            // Reload or reinitialize data in the app as needed
+                        };
+                        reader.readAsText(file);
+                    }
+                });
 
 
             document.getElementById("refreshPage").addEventListener("click", function () {
                 window.location.reload();
-                console.log("refreshing page");
+                console.log("refreshin page");
             });
             // Listen for changes in goal selection to save the new selection
             goalDropdown.addEventListener('change', function () {
@@ -1884,7 +1882,6 @@
 
 
 
-
     .black-background {
         background-color: #202523;
         color: white;
@@ -1899,6 +1896,7 @@
 
     }
 
+
     .green-background {
         background-color: rgb(144, 235, 202);
         color: rgb(32, 37, 35);
@@ -1910,6 +1908,20 @@
         /* Optional: To make the text readable */
     }
 
+    .flex-end-container {
+        display: flex;
+        align-items: right;
+        /* justify-content: flex-end; */
+    }
+
+    .rename-target {
+        direction: rtl;
+        text-align: right;
+        margin-left: 100px;
+        /* Adjust the margin as needed */
+    }
+
+
     .orange-background {
         background-color: rgb(20, 25, 23);
         color: white;
@@ -1920,21 +1932,6 @@
 
         /* padding-bottom: 20px; */
     }
-
-    .flex-end-container {
-        display: flex;
-        align-items: right;
-        /* justify-content: flex-end; */
-    }
-
-
-    .rename-target {
-        direction: rtl;
-        text-align: right;
-        margin-left: 130px;
-        /* Adjust the margin as needed */
-    }
-
 
     /* Divider */
     td[colspan="2"] {
