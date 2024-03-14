@@ -632,43 +632,55 @@
             }
 
             function updateInitiativesDropdown() {
-                // Retrieve the currently selected goal from the dropdown
-                const selectedGoal = goalDropdown.value;
+                const selectedGoals = Array.from(goalDropdown.selectedOptions).map(
+                    (opt) => opt.value
+                );
                 let initiatives = [];
 
-                // Check if there are initiatives associated with the selected goal in the goalState object
-                if (goalState[selectedGoal] && Object.keys(goalState[selectedGoal].initiatives).length > 0) {
-                    // Extract the initiative names for the selected goal
-                    initiatives = Object.keys(goalState[selectedGoal].initiatives);
+                selectedGoals.forEach((selectedGoal) => {
+                    initiatives.push(
+                        ...Object.keys(goalState[selectedGoal]?.initiatives || {})
+                    );
+                });
 
-                    // Clear the existing options in the initiatives dropdown
-                    initiativeDropdown.innerHTML = "";
+                // Remove duplicates
+                const uniqueInitiatives = [...new Set(initiatives)];
+                // Clear the initiatives dropdown
+                initativeDropdown.innerHTML = "";
+                // Populate the dropdown with initiatives for the selected goals
+                uniqueInitiatives.forEach((initiative) => {
+                    const option = document.createElement("option");
+                    option.value = initiative;
+                    option.textContent = initiative;
+                    initativeDropdown.appendChild(option);
+                });
 
-                    // Populate the initiatives dropdown with the new options
-                    initiatives.forEach((initiative) => {
-                        const option = document.createElement("option");
-                        option.value = initiative;
-                        option.textContent = initiative; // Assuming you have a naming convention for initiatives
-                        initiativeDropdown.appendChild(option);
+                // Clear all points from the graph
+                clearGraph();
+
+                // Re-plot the points for the selected goals' initiatives
+                selectedGoals.forEach((selectedGoal) => {
+                    const goalInitiatives = Object.keys(
+                        goalState[selectedGoal]?.initiatives || {}
+                    );
+                    goalInitiatives.forEach((initiative) => {
+                        if (
+                            goalState[selectedGoal].initiatives &&
+                            goalState[selectedGoal].initiatives[initiative] &&
+                            goalState[selectedGoal].initiatives[initiative].x !== null &&
+                            goalState[selectedGoal].initiatives[initiative].y !== null
+                        ) {
+                            plotStoredPoint(
+                                initiative,
+                                goalState[selectedGoal].initiatives[initiative].x,
+                                goalState[selectedGoal].initiatives[initiative].y,
+                                goalState[selectedGoal].initiatives[initiative].color,
+                                selectedGoal // Pass the current goal here
+                            );
+                        }
                     });
-
-                    // Automatically select the first initiative from the dropdown
-                    initiativeDropdown.selectedIndex = 0;
-                    // Manually trigger an update to ensure the UI reflects the current state
-                    updateCurrentInitiative(); // This function updates the UI to show the selected initiative's name, etc.
-
-                    // Immediately update the sliders to reflect the values of the first initiative for the newly selected goal
-                    updateSliders();
-                } else {
-                    // If no initiatives are found for the selected goal, clear and disable the initiatives dropdown
-                    initiativeDropdown.innerHTML = "<option>No initiatives found</option>";
-                    initiativeDropdown.disabled = true;
-                    console.log("No initiatives found for the selected goal.");
-                }
+                });
             }
-
-            // Ensure this function is called whenever the goal selection changes.
-            goalDropdown.addEventListener('change', updateInitiativesDropdown);
             // Example function to save the current selected goals
             // Save selected goals to localStorage
             function saveSelectedGoals() {
@@ -1063,44 +1075,43 @@
                 const selectedGoal = goalDropdown.value;
                 const selectedInitiative = initiativeDropdown.value;
 
-                // Attempt to fetch the current initiative's data from the goalState
-                const initiativeData = goalState[selectedGoal]?.initiatives[selectedInitiative];
+                console.log(`Selected goal: ${selectedGoal}`);
+                console.log(`Selected initiative: ${selectedInitiative}`);
 
-                if (initiativeData) {
-                    // Log the found data for debugging purposes
-                    console.log(`Initiative data found for "${selectedInitiative}":`, initiativeData);
+                // Validate if the selected goal and initiative exist in the goalState object
+                if (goalState[selectedGoal] && goalState[selectedGoal].initiatives[selectedInitiative]) {
+                    const initiativeData = goalState[selectedGoal].initiatives[selectedInitiative];
+                    console.log(`Initiative data found: `, initiativeData);
 
-                    // Iterate over all sliders and set their values based on the initiative data
+                    // Iterate over all sliders and set their values based on the initiative's x and y values
                     document.querySelectorAll('.slider').forEach((slider) => {
-                        // Example logic for determining which slider value to set
-                        // Adjust based on your actual slider naming and data structure
                         if (slider.id.includes('param1')) {
-                            slider.value = initiativeData.x; // Example for 'x' value
+                            console.log(`Setting slider ${slider.id} (x-axis) to value: ${initiativeData.x}`);
+                            slider.value = initiativeData.x; // Set slider to x value
                         } else if (slider.id.includes('param6')) {
-                            slider.value = initiativeData.y; // Example for 'y' value
+                            console.log(`Setting slider ${slider.id} (y-axis) to value: ${initiativeData.y}`);
+                            slider.value = initiativeData.y; // Set slider to y value
                         }
-                        // Extend this logic for additional sliders/parameters as needed
                     });
 
-                    // Optionally, refresh the UI to reflect the new slider values
-                    plotPoint(); // Assuming this function updates the graph or other UI elements based on slider values
+                    // Optionally, invoke any function needed to refresh the graph or UI
+                    plotPoint(); // Assuming this function uses the updated slider values
                 } else {
-                    console.log("No data found for the selected initiative.");
+                    console.log("No data found for the selected goal and initiative. Cannot set sliders.");
                 }
             }
 
 
 
-
-
             // Function to update the current initiative
             function updateCurrentInitiative() {
-                // This example function assumes you want to display the selected initiative's name somewhere on your page.
-                // Adjust according to your actual implementation details.
                 if (initiativeDropdown.selectedIndex >= 0) {
-                    currentInitiativeSpan.textContent = initiativeDropdown.options[initiativeDropdown.selectedIndex].text;
+                    const selectedOption =
+                        initiativeDropdown.options[initiativeDropdown.selectedIndex].text;
+                    currentInitiativeSpan.textContent = "" + selectedOption;
+                    console.log(selectedOption);
                 } else {
-                    currentInitiativeSpan.textContent = "Please select an initiative";
+                    currentInitiativeSpan.textContent = "יש לבחור יוזמה "; // Default text when no initiative is selected
                 }
             }
 
