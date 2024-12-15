@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="he">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Civix App - Full Code</title>
+</head>
+
+<body>
+    <!--
+       MAIN LAYOUT:
+       - Left side: Goals, Initiatives, Param Sliders
+       - Right side: Graph area
+       - Aside: Team/Challenge, Export/Import, bottom readout
+    -->
+    <div class="container" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+
+        <!-- LEFT COLUMN -->
+        <div class="left">
+            <div class="black-background">
+                <h1>Clickable <span style="color: rgb(144, 235, 202)">Impact</span> Tool</h1>
+
+                <!-- Single-select dropdown for GOALS -->
+                <h3>מטרה</h3>
+                <select id="goal" class="goal-select">
+                    <!-- Predefined goals (modify or remove as you wish) -->
+                    <option value="goal1">מטרה 1</option>
+                    <option value="goal2">מטרה 2</option>
+                    <option value="goal3">מטרה 3</option>
+                    <option value="goal4">מטרה 4</option>
+                    <option value="goal5">מטרה 5</option>
+                    <option value="goal6">מטרה 6</option>
+                    <option value="goal7">מטרה 7</option>
+                </select>
+                <div style="padding: 10px;">
+                    <button id="createGoal">מטרה חדשה</button>
+                    <button id="editGoal">עריכת שם מטרה</button>
+                    <button id="deleteGoal">מחיקת מטרה</button>
+                </div>
+
+
+                <h3>יוזמה</h3>
+                <select id="initative">-</select>
+                <div style="padding: 10px;">
+                    <button id="createInitiative">יצירת יוזמה</button>
+                    <button id="renameInitiative">עריכת שם יוזמה</button>
+                    <button id="deleteInitiative">מחיקת יוזמה</button>
+                </div>
+            </div>
+
+            <!-- FEASIBILITY (X-axis) section -->
+            <div class="green-background">
+                <h2>מדדי ישימות</h2>
+                <!-- Buttons to add/remove feasibility sliders -->
+                <button id="removeParameterX" class="feasibility-button">מחיקת פרמטר ישימות</button>
+                <button id="addParameterX" class="feasibility-button">הוספת פרמטר ישימות</button>
+
+
+                <table>
+                    <tr>
+                        <td>
+                            <div class="flex-end-container">
+                                <span>0</span>
+                                <!-- First slider for X axis, statically in HTML -->
+                                <input type="range" min="1" max="100" class="slider" id="param1" data-axis="X"
+                                    list="tickmarks" style="margin: 0 10px" reversed />
+                                <span>10</span>
+                            </div>
+                        </td>
+                        <td>
+                            <!-- Default parameter name + pencil icon -->
+                            <span class="rename-target">מימון ומשאבים</span>
+                            <span class="edit-icon" style="cursor: pointer;">✏️</span>
+                        </td>
+                    </tr>
+                </table>
+
+                <datalist id="tickmarks">
+                    <option value="10"></option>
+                    <option value="20"></option>
+                    <option value="30"></option>
+                    <option value="40"></option>
+                    <option value="50"></option>
+                    <option value="60"></option>
+                    <option value="70"></option>
+                    <option value="80"></option>
+                    <option value="90"></option>
+                    <option value="100"></option>
+                </datalist>
+            </div>
+
+            <!-- IMPACT (Y-axis) section -->
+            <div class="orange-background">
+                <h2 style="margin-bottom: 4px; margin-top: 0px;">מדדי אימפקט</h2>
+                <button id="removeParameterY">מחיקת פרמטר אימפקט</button>
+                <button id="addParameterY">הוספת פרמטר אימפקט</button>
+
+                <table>
+                    <tr>
+                        <td>
+                            <div class="flex-end-container">
+                                <span>0</span>
+                                <input type="range" min="1" max="100" class="slider" id="param6" data-axis="Y"
+                                    list="tickmarks2" style="margin: 0 10px" />
+                                <span>10</span>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="rename-target">כמות תושבים שהיוזמה תשפיע עליהם</span>
+                            <span class="edit-icon" style="cursor: pointer;">✏️</span>
+                        </td>
+                    </tr>
+                </table>
+
+                <datalist id="tickmarks2">
+                    <option value="10"></option>
+                    <option value="20"></option>
+                    <option value="30"></option>
+                    <option value="40"></option>
+                    <option value="50"></option>
+                    <option value="60"></option>
+                    <option value="70"></option>
+                    <option value="80"></option>
+                    <option value="90"></option>
+                    <option value="100"></option>
+                </datalist>
+            </div>
+
+            <p style="text-align: left;">All rights reserved to Yaniv Almagor &copy</p>
+        </div>
+
+        <!-- RIGHT COLUMN: Graph container -->
+        <div class="rightb" style="border: 6px solid gray;">
+            <div class="right">
+                <div id="graph">
+                    <div class="crosshair-vertical">
+                        <span class="crosshair-label">
+                            <h4> אימפקט </h4>
+                        </span>
+                    </div>
+                    <div class="crosshair-horizontal">
+                        <span class="crosshair-label">
+                            <h4> ישימות </h4>
+                        </span>
+                    </div>
+
+                    <div class="axis x-axis">
+                        <div class="tick" style="--i: 10"><span class="tick-label">10</span></div>
+                        <div class="tick" style="--i: 10"><span class="tick-label">20</span></div>
+                        <div class="tick" style="--i: 20"><span class="tick-label">30</span></div>
+                        <div class="tick" style="--i: 30"><span class="tick-label">40</span></div>
+                        <div class="tick" style="--i: 40"><span class="tick-label">50</span></div>
+                        <div class="tick" style="--i: 50"><span class="tick-label"></span></div>
+                    </div>
+                    <div class="axis y-axis">
+                        <div class="tick" style="--i: 10"><span class="tick-label">10</span></div>
+                        <div class="tick" style="--i: 10"><span class="tick-label">20</span></div>
+                        <div class="tick" style="--i: 20"><span class="tick-label">30</span></div>
+                        <div class="tick" style="--i: 30"><span class="tick-label">40</span></div>
+                        <div class="tick" style="--i: 40"><span class="tick-label">50</span></div>
+                        <div class="tick" style="--i: 50"><span class="tick-label"></span></div>
+                    </div>
+
+                    <div id="graphContainer" style="position: relative; width: 100%; height: 100%;">
+                        <!-- Plotted "dots" appended here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ASIDE: Team/Challenge, Export/Import, bottom content -->
+        <aside>
+            <img src="civixNew.jpg" alt="Negev Logo" style="width:200px;" />
+            <img src="+.jpg" alt="+ Logo" style="width:60px;" />
+
+            <div class="rtl-container">
+                <div class="input-group">
+                    <label for="teamInput">צוות:</label>
+                    <input type="text" id="teamInput" />
+                    <button id="saveTeamButton">שמור</button>
+                </div>
+                <div class="input-group">
+                    <label for="challengeInput">אתגר:</label>
+                    <input type="text" id="challengeInput" />
+                    <button id="saveChallengeButton">שמור</button>
+                </div>
+            </div>
+
+            <div class="buttons">
+                <button id="exportData">שמירת הקובץ</button>
+                <button id="importData">טעינת הקובץ</button>
+                <button id="clearButton" onclick="clearSavedData()">מחיקת כל המידע</button>
+                <button id="refreshPage">רענן מסך</button>
+                <input type="file" id="importDataFile" style="display:none;" />
+            </div>
+
+            <img src="i.jpg" alt="i logo" style="width:60px;" />
+
+            <div id="bottomContent">
+                <h2>:יוזמה שנבחרה</h2>
+                <span id="currentInitiative" class="current-initiative"></span><br>
+                <span style="background-color: rgb(144, 235, 202); border-radius: 10px;">ישימות</span>
+                <span id="xValueDisplay" style="background-color: rgb(144, 235, 202); border-radius: 10px;"></span>
+                <br>
+                <span style="background-color: rgb(144, 235, 202); border-radius: 10px;">אימפקט</span>
+                <span id="yValueDisplay" style="background-color: rgb(144, 235, 202); border-radius: 10px;"></span>
+                <br><br>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Help link + hidden container for PDF iframe -->
+    <div>
+        <a href="#" id="helpLink">צריכים עזרה? לחצו עליי</a>
+        <div id="manualContent" style="display:none;"></div>
+    </div>
+
+    <!-- MAIN JAVASCRIPT -->
+    <script>
+        // ================== HELPMENU LOGIC ================== //
+        document.getElementById('helpLink').addEventListener('click', function (event) {
+            event.preventDefault();
+            var manualContent = document.getElementById('manualContent');
+            var existingIframe = manualContent.querySelector('iframe');
+            if (!existingIframe) {
+                // Close button
+                var closeHelpButton = document.createElement('button');
+                closeHelpButton.textContent = "סגור עזרה";
+                closeHelpButton.style.display = "block";
+                closeHelpButton.style.margin = "10px auto";
+                closeHelpButton.style.background = "rgb(144, 235, 202)";
+                closeHelpButton.style.border = "none";
+                closeHelpButton.style.borderRadius = "10px";
+                closeHelpButton.style.fontSize = "18px";
+                closeHelpButton.style.cursor = "pointer";
+                closeHelpButton.addEventListener('click', function () {
+                    manualContent.style.display = 'none';
+                });
+                manualContent.appendChild(closeHelpButton);
+
+                // PDF Iframe
+                var iframe = document.createElement('iframe');
+                iframe.src = 'manual.pdf';
+                iframe.style.width = '100%';
+                iframe.style.height = '600px';
+                manualContent.appendChild(iframe);
+            }
+            manualContent.style.display = 'block';
+            manualContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+
+        // Clears localStorage data
+        function clearSavedData() {
+            console.log("clearSavedData function called");
+
+            // Prompt the user for confirmation
+            var confirmation = confirm("האם אתם בטוחים שאתם רוצים למחוק את כל המידע שנשמר ולהתחיל מסך חדש?");
+
+            // If the user confirms, remove the item from localStorage
+            if (confirmation) {
+                localStorage.removeItem("goalState");
+                localStorage.removeItem("sliders");
+                console.log("Data deleted successfully.");
+
+                // ---- NEW AUTO-REFRESH ----
+                window.location.reload();
+                // This automatically refreshes the page, giving a fresh screen
+            } else {
+                console.log("Data deletion cancelled.");
+            }
+        }
+
+
+        let goalState = {};
+        let selectedGoal;
+        const goalDropdown = document.getElementById("goal");
+        const initiativeDropdown = document.getElementById("initative");
+        const currentInitiativeSpan = document.getElementById("currentInitiative");
+        const graphContainer = document.getElementById("graphContainer");
+
+        // Predefined goal colors
+        const goalColors = {
+            goal1: "#FF0000",
+            goal2: "#00FF00",
+            goal3: "#0000FF",
+            goal4: "#FFFF00",
+            goal5: "#FF00FF",
+            goal6: "#00FFFF",
+            goal7: "#C0C0C0",
+        };
+
+        document.addEventListener("DOMContentLoaded", function () {
+            // Load dynamic sliders from localStorage
+            loadParametersFromLocalStorage();
+
+            // Load or init goalState
+            const savedGoalState = localStorage.getItem("goalState");
+            if (savedGoalState) {
+                goalState = JSON.parse(savedGoalState);
+            } else {
+                initializeGoalsAndInitiatives();
+            }
+
+            // Setup pen icons (including the default param) for rename
+            setupEditIconListeners();
+
+            // Team / Challenge save & load
+            function saveTeam() {
+                const teamValue = document.getElementById('teamInput').value;
+                goalState.teamName = teamValue;
+                localStorage.setItem('goalState', JSON.stringify(goalState));
+                alert("שם צוות חדש נשמר");
+            }
+            function saveChallenge() {
+                const challengeValue = document.getElementById('challengeInput').value;
+                goalState.challengeName = challengeValue;
+                localStorage.setItem('goalState', JSON.stringify(goalState));
+                alert("שם אתגר חדש נשמר");
+            }
+            function loadTeam() {
+                const savedGoalState = localStorage.getItem('goalState');
+                if (savedGoalState) {
+                    const parsedState = JSON.parse(savedGoalState);
+                    if (parsedState.teamName) {
+                        document.getElementById('teamInput').value = parsedState.teamName;
+                    }
+                }
+            }
+            function loadChallenge() {
+                const savedGoalState = localStorage.getItem('goalState');
+                if (savedGoalState) {
+                    const parsedState = JSON.parse(savedGoalState);
+                    if (parsedState.challengeName) {
+                        document.getElementById('challengeInput').value = parsedState.challengeName;
+                    }
+                }
+            }
+            const saveTeamBtn = document.getElementById('saveTeamButton');
+            const saveChallengeBtn = document.getElementById('saveChallengeButton');
+            if (saveTeamBtn) saveTeamBtn.addEventListener('click', saveTeam);
+            if (saveChallengeBtn) saveChallengeBtn.addEventListener('click', saveChallenge);
+            loadTeam();
+            loadChallenge();
+
+            // Rebuild the GOAL dropdown
+            goalDropdown.innerHTML = "";
+            for (const goalKey in goalState) {
+                if (goalState[goalKey].initiatives !== undefined) {
+                    const option = document.createElement("option");
+                    option.value = goalKey;
+                    option.textContent = goalState[goalKey].name || goalKey;
+                    goalDropdown.appendChild(option);
+                }
+            }
+
+            // Initiative CRUD button references
+            const createInitiativeBtn = document.getElementById("createInitiative");
+            const deleteInitiativeBtn = document.getElementById("deleteInitiative");
+            const renameInitiativeBtn = document.getElementById("renameInitiative");
+            if (createInitiativeBtn) createInitiativeBtn.addEventListener("click", createInitiative);
+            if (deleteInitiativeBtn) deleteInitiativeBtn.addEventListener("click", deleteInitiative);
+            if (renameInitiativeBtn) renameInitiativeBtn.addEventListener("click", renameInitiative);
+
+            // Goal CRUD button references
+            const createGoalBtn = document.getElementById("createGoal");
+            const deleteGoalBtn = document.getElementById("deleteGoal");
+            const editGoalBtn = document.getElementById("editGoal");
+            if (createGoalBtn) createGoalBtn.addEventListener("click", createGoal);
+            if (deleteGoalBtn) deleteGoalBtn.addEventListener("click", deleteGoal);
+            if (editGoalBtn) editGoalBtn.addEventListener("click", editGoal);
+
+            // On dropdown change, update the initiative list
+            goalDropdown.addEventListener("change", updateInitiativesDropdown);
+            initiativeDropdown.addEventListener("change", updateSliders);
+
+            // For each slider, recalc plot on input
+            const sliders = document.querySelectorAll(".slider");
+            sliders.forEach(slider => {
+                slider.addEventListener("input", plotPoint);
+            });
+
+            // Add/Remove dynamic sliders
+            document.getElementById('addParameterX').addEventListener('click', () => addSlider('X', null));
+            document.getElementById('removeParameterX').addEventListener('click', () => removeLastRow('.green-background'));
+            document.getElementById('addParameterY').addEventListener('click', () => addSlider('Y', null));
+            document.getElementById('removeParameterY').addEventListener('click', () => removeLastRow('.orange-background'));
+
+            // Export data as JSON
+            document.getElementById("exportData").addEventListener("click", function () {
+                const goalStateData = localStorage.getItem("goalState");
+                const slidersData = localStorage.getItem("sliders");
+                const combinedData = JSON.stringify({
+                    goalState: JSON.parse(goalStateData),
+                    sliders: JSON.parse(slidersData)
+                });
+                const blob = new Blob([combinedData], { type: "application/json" });
+                const fileName = prompt("תנו שם לקובץ שנשמר", "appData.json") || "appData.json";
+                if (fileName) {
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement("a");
+                    a.href = url;
+                    a.download = fileName;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                }
+            });
+
+            // Import data
+            document.getElementById("importData").addEventListener("click", function () {
+                document.getElementById("importDataFile").click();
+            });
+            // 
+            document.getElementById("importDataFile").addEventListener("change", function (event) {
+                const file = event.target.files[0];
+
+                if (!file) {
+                    alert("לא נבחר קובץ. בחרו קובץ מתאים ונסו שוב.");
+                    return;
+                }
+
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    try {
+                        const importedData = JSON.parse(e.target.result);
+
+                        // Update goalState and sliders
+                        if (importedData.goalState && typeof importedData.goalState === "object") {
+                            localStorage.setItem("goalState", JSON.stringify(importedData.goalState));
+                            goalState = importedData.goalState;
+                        } else {
+                            throw new Error("'goalState' חסר או אינו תקין.");
+                        }
+
+                        if (importedData.sliders && Array.isArray(importedData.sliders)) {
+                            localStorage.setItem("sliders", JSON.stringify(importedData.sliders));
+                        }
+
+                        // Rebuild UI and graph
+                        updateInitiativesDropdown();
+                        loadParametersFromLocalStorage();
+                        replotPoints();
+
+                        // Select the first initiative automatically
+                        if (initiativeDropdown.options.length > 0) {
+                            initiativeDropdown.value = initiativeDropdown.options[0].value;
+                            updateSliders();
+                        }
+
+                        alert("הקובץ נטען בהצלחה והמידע עודכן.");
+
+                    } catch (error) {
+                        console.error("שגיאה בעת עיבוד הקובץ:", error.message);
+                        alert("הקובץ אינו תקין או מכיל מידע שגוי. נסו שוב עם קובץ תקין.");
+                    }
+                };
+
+                reader.readAsText(file);
+            });
+
+
+
+
+
+
+            // Refresh
+            document.getElementById("refreshPage").addEventListener("click", function () {
+                window.location.reload();
+            });
+
+            loadData();
+        }); // DOMContentLoaded end
+
+        /**
+         * setupEditIconListeners()
+         * Called once on DOMContentLoaded: Attaches a click listener to ALL .edit-icon elements, 
+         * including the first default param's pencil. 
+         */
+        function setupEditIconListeners() {
+            document.querySelectorAll('.edit-icon').forEach(icon => {
+                icon.addEventListener('click', function () {
+                    const parentTd = icon.closest('td');
+                    const renameSpan = parentTd.querySelector('.rename-target');
+                    if (renameSpan) {
+                        const currentName = renameSpan.textContent.trim();
+                        const newName = prompt("שנה את שם הפרמטר:", currentName);
+                        if (newName && newName.trim() !== "") {
+                            renameSpan.textContent = newName;
+                            // If there's an associated slider, store the new name
+                            const sliderRow = parentTd.closest('tr');
+                            const slider = sliderRow.querySelector('.slider');
+                            if (slider) {
+                                localStorage.setItem(slider.id, newName);
+                                saveParametersToLocalStorage();
+                            }
+                        }
+                    }
+                });
+            });
+        }
+
+        // ================ GOAL CRUD ================
+        function createGoal() {
+            const goalName = prompt("הכניסו את השם של המטרה החדשה");
+            if (!goalName) { alert("A goal must have a name"); return; }
+            for (let gKey in goalState) {
+                if (goalState[gKey].name === goalName) {
+                    alert(`המטרה "${goalName}" כבר קיימת`);
+                    return;
+                }
+            }
+            const color = goalColors[goalName] || "#000000";
+            goalState[goalName] = { name: goalName, color: color, initiatives: {} };
+
+            const option = document.createElement("option");
+            option.value = goalName;
+            option.textContent = goalName;
+            goalDropdown.appendChild(option);
+            saveData();
+        }
+
+        function deleteGoal() {
+            const selectedGoal = goalDropdown.value;
+            if (!selectedGoal) { alert("בחרו מטרה למחיקה"); return; }
+            const isConfirmed = confirm("האם אתם בטוחים שאתם רוצים למחוק את המטרה הזו?");
+            if (!isConfirmed) return;
+
+            delete goalState[selectedGoal];
+            const goalOption = Array.from(goalDropdown.options).find(opt => opt.value === selectedGoal);
+            if (goalOption) goalDropdown.removeChild(goalOption);
+            saveData();
+            updateInitiativesDropdown();
+        }
+
+        function editGoal() {
+            const selectedGoalKey = goalDropdown.value;
+            if (!goalState[selectedGoalKey]) {
+                alert("יש לבחור מטרה לפני עריכת השם שלה");
+                return;
+            }
+            const newName = prompt(`הכניסו שם חדש ל "${goalState[selectedGoalKey].name}":`);
+            if (!newName || !newName.trim()) { alert("שם לא תקין"); return; }
+            for (let gKey in goalState) {
+                if (goalState[gKey].name === newName) {
+                    alert("שם זה כבר קיים");
+                    return;
+                }
+            }
+            goalState[selectedGoalKey].name = newName;
+            const goalOption = Array.from(goalDropdown.options).find(opt => opt.value === selectedGoalKey);
+            if (goalOption) goalOption.textContent = newName;
+            saveData();
+        }
+
+        // ================ INITIATIVE CRUD ================
+        function createInitiative() {
+            const selectedGoal = goalDropdown.value;
+            if (!selectedGoal) {
+                alert("יש לבחור מטרה קודם");
+                return;
+            }
+            const initiativeName = prompt("הכניסו את השם של היוזמה החדשה");
+            if (!initiativeName) { alert("ליוזמה חייב להיות שם"); return; }
+
+            if (!goalState[selectedGoal]) {
+                goalState[selectedGoal] = { color: "#000000", initiatives: {} };
+            }
+            if (goalState[selectedGoal].initiatives[initiativeName]) {
+                alert(`השם "${initiativeName}" כבר קיים תחת המטרה הנוכחית`);
+                return;
+            }
+            goalState[selectedGoal].initiatives[initiativeName] = { color: goalState[selectedGoal].color, params: {} };
+
+            const option = document.createElement("option");
+            option.value = initiativeName;
+            option.textContent = initiativeName;
+            initiativeDropdown.appendChild(option);
+            initiativeDropdown.value = initiativeName;
+            saveData();
+        }
+
+        function deleteInitiative() {
+            const selectedGoal = goalDropdown.value;
+            const selectedInitiative = initiativeDropdown.value;
+            if (!goalState[selectedGoal] || !goalState[selectedGoal].initiatives[selectedInitiative]) {
+                alert("יש לבחור יוזמה למחיקה");
+                return;
+            }
+            const isConfirmed = confirm("האם אתם בטוחים שאתם רוצים למחוק?");
+            if (!isConfirmed) return;
+
+            delete goalState[selectedGoal].initiatives[selectedInitiative];
+            const initiativeOption = Array.from(initiativeDropdown.options).find(opt => opt.value === selectedInitiative);
+            if (initiativeOption) initiativeDropdown.removeChild(initiativeOption);
+
+            const existingPoint = document.getElementById(`point-${selectedGoal}-${selectedInitiative}`);
+            if (existingPoint) graphContainer.removeChild(existingPoint);
+            saveData();
+        }
+
+        function renameInitiative() {
+            const selectedGoal = goalDropdown.value;
+            const selectedInitiative = initiativeDropdown.value;
+            if (!goalState[selectedGoal] || !goalState[selectedGoal].initiatives[selectedInitiative]) {
+                alert("בחרו קודם ביוזמה לשנות את שמה");
+                return;
+            }
+            const newName = prompt(`בחר שם חדש ל "${selectedInitiative}"`);
+            if (!newName || !newName.trim()) { alert("שם לא תקין"); return; }
+            if (goalState[selectedGoal].initiatives[newName]) {
+                alert("יוזמה בשם זה כבר קיימת");
+                return;
+            }
+            goalState[selectedGoal].initiatives[newName] = goalState[selectedGoal].initiatives[selectedInitiative];
+            delete goalState[selectedGoal].initiatives[selectedInitiative];
+
+            const initiativeOption = Array.from(initiativeDropdown.options).find(opt => opt.value === selectedInitiative);
+            if (initiativeOption) {
+                initiativeOption.value = newName;
+                initiativeOption.textContent = newName;
+            }
+            const existingPoint = document.getElementById(`point-${selectedGoal}-${selectedInitiative}`);
+            if (existingPoint) existingPoint.id = `point-${selectedGoal}-${newName}`;
+
+            saveData();
+        }
+
+        // =============== UPDATE INITIATIVES & SLIDERS ===============
+        function updateInitiativesDropdown() {
+            const selectedGoal = goalDropdown.value;
+            if (!goalState[selectedGoal] || !goalState[selectedGoal].initiatives) {
+                initiativeDropdown.innerHTML = "<option>No initiatives found</option>";
+                initiativeDropdown.disabled = true;
+                return;
+            }
+            const initiatives = Object.keys(goalState[selectedGoal].initiatives);
+            initiativeDropdown.innerHTML = "";
+            initiatives.forEach(initiative => {
+                const option = document.createElement("option");
+                option.value = initiative;
+                option.textContent = initiative;
+                initiativeDropdown.appendChild(option);
+            });
+            if (initiatives.length > 0) {
+                initiativeDropdown.value = initiatives[0];
+            }
+            initiativeDropdown.disabled = false;
+            updateSliders();
+        }
+
+        function updateSliders() {
+            const selectedGoal = goalDropdown.value;
+            const selectedInitiative = initiativeDropdown.value;
+            if (!goalState[selectedGoal] || !goalState[selectedGoal].initiatives[selectedInitiative]) {
+                console.warn("No initiative data found for the selected goal/initiative.");
+                return;
+            }
+            const initiativeData = goalState[selectedGoal].initiatives[selectedInitiative];
+            if (!initiativeData.params) initiativeData.params = {};
+
+            document.querySelectorAll(".slider").forEach(slider => {
+                if (initiativeData.params.hasOwnProperty(slider.id)) {
+                    slider.value = initiativeData.params[slider.id];
+                } else {
+                    slider.value = slider.min;
+                }
+            });
+            plotPoint();
+        }
+
+        // =============== PLOTTING LOGIC ===============
+        function plotPoint() {
+            const selectedGoal = goalDropdown.value;
+            const selectedInitiative = initiativeDropdown.value;
+            if (!goalState[selectedGoal] || !goalState[selectedGoal].initiatives[selectedInitiative]) {
+                console.warn("No initiative data found for the selected goal/initiative.");
+                return;
+            }
+            const initiativeData = goalState[selectedGoal].initiatives[selectedInitiative];
+            if (!initiativeData.params) initiativeData.params = {};
+
+            let xSum = 0, xCount = 0;
+            let ySum = 0, yCount = 0;
+
+            const sliders = document.querySelectorAll(".slider");
+            sliders.forEach(slider => {
+                const val = parseInt(slider.value) || 0;
+                initiativeData.params[slider.id] = val; // store
+                const axis = slider.getAttribute("data-axis");
+                if (axis === "X") { xSum += val; xCount++; }
+                if (axis === "Y") { ySum += val; yCount++; }
+            });
+
+            const xAvg = (xCount > 0) ? xSum / xCount : 0;
+            const yAvg = (yCount > 0) ? ySum / yCount : 0;
+
+            const existingPoint = document.getElementById(`point-${selectedGoal}-${selectedInitiative}`);
+            if (existingPoint) graphContainer.removeChild(existingPoint);
+
+            plotStoredPoint(selectedInitiative, xAvg / 2, yAvg / 2, goalState[selectedGoal].color, selectedGoal);
+            document.getElementById("xValueDisplay").textContent = xAvg.toFixed(0);
+            document.getElementById("yValueDisplay").textContent = yAvg.toFixed(0);
+            saveData();
+        }
+
+        function plotStoredPoint(initiative, x, y, color, currentGoal) {
+            if (!goalState[currentGoal] || !goalState[currentGoal].initiatives[initiative]) {
+                console.error("No data for the current goal:", currentGoal);
+                return;
+            }
+            const pointId = `point-${currentGoal}-${initiative}`;
+            const point = document.createElement("div");
+            point.id = pointId;
+            point.style.width = "15px";
+            point.style.height = "15px";
+            point.style.backgroundColor = color;
+            point.style.borderRadius = "50%";
+            point.style.position = "absolute";
+            point.style.transform = "translate(-50%, -50%)";
+
+            const adjustedX = (graphContainer.clientWidth - 10) * (x / 50);
+            const adjustedY = (graphContainer.clientHeight - 10) * (1 - y / 50);
+            point.style.left = `${adjustedX}px`;
+            point.style.top = `${adjustedY}px`;
+
+            const text = document.createElement("div");
+            text.textContent = initiative;
+            text.style.position = "absolute";
+            text.style.transform = "translate(-50%, -50%)";
+            text.style.left = "50%";
+            text.style.bottom = "-20px";
+            text.style.fontSize = "18px";
+            text.style.color = "#000";
+            point.appendChild(text);
+
+            graphContainer.appendChild(point);
+        }
+
+        // =============== ADD / REMOVE SLIDERS ===============
+        function addSlider(axis, sliderData) {
+            const container = (axis === 'X')
+                ? document.querySelector('.green-background')
+                : document.querySelector('.orange-background');
+            if (!container) {
+                console.error('Container not found for axis:', axis);
+                return;
+            }
+
+            let sliderName = 'שם מדד';
+            let isNewSlider = !sliderData;
+            if (!sliderData || !sliderData.name) {
+                sliderName = prompt("תבחרו שם חדש", sliderName) || sliderName;
+            } else {
+                sliderName = sliderData.name;
+            }
+
+            const tr = document.createElement('tr');
+            tr.classList.add('dynamic-slider');
+
+            // First TD: numeric range & slider
+            const td1 = document.createElement('td');
+            const div = document.createElement('div');
+            div.className = 'flex-end-container';
+
+            const span0 = document.createElement('span');
+            span0.textContent = '0';
+            div.appendChild(span0);
+
+            const input = document.createElement('input');
+            input.type = 'range';
+            input.style.width = '250px';
+            input.className = 'slider';
+            input.dataset.axis = axis;
+            input.id = sliderData ? sliderData.id : `param-${axis}-${Date.now()}`;
+            input.min = '1';
+            input.max = '100';
+            input.style.margin = '0px 10px';
+            if (sliderData) {
+                input.value = sliderData.value;
+            }
+            div.appendChild(input);
+
+            const span10 = document.createElement('span');
+            span10.textContent = '10';
+            span10.style.marginRight = '10px';
+            div.appendChild(span10);
+
+            td1.appendChild(div);
+            tr.appendChild(td1);
+
+            // Second TD: parameter name + pencil icon
+            const td2 = document.createElement('td');
+            const spanName = document.createElement('span');
+            spanName.className = 'rename-target';
+            spanName.textContent = sliderName;
+            spanName.style.direction = 'rtl';
+            spanName.style.textAlign = 'right';
+
+            const penIcon = document.createElement('span');
+            penIcon.className = 'edit-icon';
+            penIcon.textContent = '✏️';
+            penIcon.style.cursor = 'pointer';
+
+            // ATTACH the rename logic:
+            penIcon.addEventListener('click', function () {
+                const currentName = spanName.textContent.trim();
+                const newName = prompt("שנה את שם הפרמטר:", currentName);
+                if (newName && newName.trim() !== "") {
+                    spanName.textContent = newName;
+                    // Persist new name in localStorage
+                    localStorage.setItem(input.id, newName);
+                    saveParametersToLocalStorage();
+                }
+            });
+
+            td2.appendChild(spanName);
+            td2.appendChild(penIcon);
+            tr.appendChild(td2);
+
+            container.appendChild(tr);
+
+            // Re-plot whenever this slider changes
+            input.addEventListener('input', plotPoint);
+
+            if (isNewSlider) {
+                localStorage.setItem(input.id, sliderName);
+            }
+            // Save the updated slider set
+            saveParametersToLocalStorage();
+
+            // Optionally, re-run setupEditIconListeners() if you prefer the "global" approach:
+            // setupEditIconListeners();
+        }
+
+        function removeLastRow(containerSelector) {
+            const sliderContainer = document.querySelector(containerSelector);
+            if (!sliderContainer) {
+                console.error('Slider container not found for:', containerSelector);
+                return;
+            }
+            const rows = sliderContainer.querySelectorAll('tr');
+            if (rows.length > 1) {
+                const lastRow = rows[rows.length - 1];
+                if (sliderContainer.contains(lastRow)) {
+                    sliderContainer.removeChild(lastRow);
+                }
+            } else {
+                alert('חייב להיות לפחות פרמטר אחד');
+            }
+            saveParametersToLocalStorage();
+        }
+
+        function saveParametersToLocalStorage() {
+            const sliders = document.querySelectorAll('.slider');
+            const sliderData = Array.from(sliders).map(slider => {
+                const customName = localStorage.getItem(slider.id) || `Slider ${slider.id}`;
+                return {
+                    id: slider.id,
+                    value: slider.value,
+                    axis: slider.getAttribute('data-axis') || '',
+                    name: customName
+                };
+            });
+            localStorage.setItem('sliders', JSON.stringify(sliderData));
+        }
+
+        function loadParametersFromLocalStorage() {
+            const savedSliders = JSON.parse(localStorage.getItem('sliders'));
+            if (savedSliders && savedSliders.length) {
+                savedSliders.forEach(sliderData => {
+                    if (!document.getElementById(sliderData.id)) {
+                        addSlider(sliderData.axis, sliderData);
+                    }
+                });
+            }
+        }
+
+        // =============== SAVE / LOAD GOALSTATE ===============
+        function saveData() {
+            try {
+                localStorage.setItem("goalState", JSON.stringify(goalState));
+            } catch (e) {
+                console.error("Failed to save data:", e);
+                alert("Failed to save data. Storage might be full.");
+            }
+        }
+
+        function loadData() {
+            const savedGoalState = localStorage.getItem("goalState");
+            if (savedGoalState) {
+                goalState = JSON.parse(savedGoalState);
+            } else {
+                initializeGoalsAndInitiatives();
+            }
+            updateInitiativesDropdown();
+            replotPoints();
+        }
+
+        function replotPoints() {
+            // Clear all existing dots
+            const points = document.querySelectorAll("#graphContainer > div");
+            points.forEach(p => graphContainer.removeChild(p));
+
+            // Loop through all goals and their initiatives
+            for (const goalKey in goalState) {
+                const goal = goalState[goalKey];
+
+                if (goal.initiatives) {
+                    for (const initiativeName in goal.initiatives) {
+                        const initiativeData = goal.initiatives[initiativeName];
+
+                        // Temporarily load initiative sliders
+                        loadInitiativeToSliders(initiativeData.params);
+
+                        // Calculate X and Y averages
+                        let xSum = 0, xCount = 0;
+                        let ySum = 0, yCount = 0;
+
+                        document.querySelectorAll(".slider").forEach(slider => {
+                            const val = parseInt(slider.value) || 0;
+                            const axis = slider.getAttribute("data-axis");
+
+                            if (axis === "X") {
+                                xSum += val;
+                                xCount++;
+                            } else if (axis === "Y") {
+                                ySum += val;
+                                yCount++;
+                            }
+                        });
+
+                        const xAvg = xCount > 0 ? xSum / xCount : 0;
+                        const yAvg = yCount > 0 ? ySum / yCount : 0;
+
+                        // Plot the dot on the graph
+                        plotStoredPoint(initiativeName, xAvg / 2, yAvg / 2, goal.color, goalKey);
+                    }
+                }
+            }
+        }
+        function loadInitiativeToSliders(params) {
+            document.querySelectorAll(".slider").forEach(slider => {
+                if (params.hasOwnProperty(slider.id)) {
+                    slider.value = params[slider.id];
+                } else {
+                    slider.value = slider.min;
+                }
+            });
+        }
+
+
+
+
+        /**
+         * Helper function to guess axis from sliderId 
+         * if not stored in localStorage with a separate key.
+         */
+        function getAxisFromId(sliderId) {
+            // For example, if sliderId has "param1" or "param1-" we consider it "X"
+            // If sliderId has "param6" or "param6-" we consider it "Y"
+            // Adjust as needed to fit your naming pattern
+            if (sliderId.startsWith('param1')) return 'X';
+            if (sliderId.startsWith('param6')) return 'Y';
+            // fallback
+            return '';
+        }
+
+
+        function initializeGoalsAndInitiatives() {
+            goalState = {
+                goal1: { name: "מטרה 1", color: goalColors.goal1 || "#FF0000", initiatives: {} },
+                goal2: { name: "מטרה 2", color: goalColors.goal2 || "#00FF00", initiatives: {} },
+                goal3: { name: "מטרה 3", color: goalColors.goal3 || "#0000FF", initiatives: {} },
+                goal4: { name: "מטרה 4", color: goalColors.goal4 || "#FFFF00", initiatives: {} },
+                goal5: { name: "מטרה 5", color: goalColors.goal5 || "#FF00FF", initiatives: {} },
+                goal6: { name: "מטרה 6", color: goalColors.goal6 || "#00FFFF", initiatives: {} },
+                goal7: { name: "מטרה 7", color: goalColors.goal7 || "#C0C0C0", initiatives: {} }
+            };
+            localStorage.setItem("goalState", JSON.stringify(goalState));
+        }
+    </script>
+
+    <!-- STYLES -->
+    <style>
+        @font-face {
+            font-family: 'GreycliffCF';
+            src: url('font.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        header {
+            display: none;
+        }
+
+        body {
+            font-family: greycliff-hebrew-cf, sans-serif;
+            text-align: right;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            margin: 1%;
+            display: flex;
+            background-color: #fff;
+            width: 1600px;
+        }
+
+        .left {
+            width: 700px;
+            margin-right: 10px;
+        }
+
+        .rightb {
+            height: 700px;
+            border-radius: 20px;
+        }
+
+        .right {
+            margin-left: 15px;
+            margin-right: 20px;
+            min-width: 700px;
+            width: 685px;
+            height: 685px;
+        }
+
+        aside {
+            margin-left: 10px;
+            text-align: center;
+            border: 6px solid gray;
+            border-radius: 20px;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 10px;
+            height: 680px;
+        }
+
+        aside img {
+            display: block;
+            margin: 0 auto;
+            width: 100px;
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .buttons button {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+            border: none;
+            background-color: rgb(144, 235, 202);
+            color: black;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        #bottomContent {
+            text-align: center;
+            background-color: rgb(144, 235, 202);
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        button {
+            border: none;
+            background-color: rgb(144, 235, 202);
+            color: black;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        #graph {
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            width: 100%;
+            height: 100%;
+            background-image: url('grid.jpg');
+        }
+
+        select {
+            padding: 1px;
+            border: 1px solid #b3b0da;
+            width: 90%;
+            border-radius: 5px;
+            background-color: #f3f3f3;
+            cursor: pointer;
+            color: #413e98;
+            direction: rtl;
+            text-align: right;
+            font-size: 18px;
+        }
+
+        table {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        td {
+            position: relative;
+            padding: 5px 10px;
+            /* Add some padding for better spacing */
+        }
+
+        h1 {
+            margin-top: 0px;
+            margin-bottom: 0px;
+            text-align: center;
+            padding-top: 10px;
+        }
+
+        h2 {
+            margin: 0;
+        }
+
+        h3 {
+            padding: 5px;
+            margin: 0;
+        }
+
+        h4 {
+            background-color: rgb(144, 235, 202);
+            display: inline-block;
+            border-radius: 10px;
+        }
+
+        .slider {
+            width: 250px;
+            background: repeating-linear-gradient(to right,
+                    #a70b0b, #cf0c0c 2px, #b21313 2px, #c11515 10%);
+        }
+
+        .black-background {
+            background-color: #202523;
+            color: white;
+            direction: rtl;
+            text-align: right;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        .green-background {
+            background-color: rgb(144, 235, 202);
+            color: rgb(32, 37, 35);
+            text-align: right;
+            padding: 10px;
+        }
+
+        .orange-background {
+            background-color: rgb(20, 25, 23);
+            color: white;
+            text-align: right;
+            padding: 10px;
+        }
+
+        .flex-end-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .rename-target {
+            direction: rtl;
+            text-align: right;
+            margin-left: 130px;
+        }
+
+        .edit-icon {
+            display: inline-block;
+            vertical-align: middle;
+            /* Aligns pencil icon vertically with text */
+            font-size: 18px;
+            /* Adjust size of pencil icon */
+            margin-left: 5px;
+            /* Space between the rename-target text and pencil icon */
+            cursor: pointer;
+            color: rgb(144, 235, 202);
+        }
+
+        /* Updated Axis Styling */
+        .axis {
+            position: absolute;
+            display: flex;
+            pointer-events: none;
+            /* Prevent interaction */
+        }
+
+        .x-axis {
+            bottom: -10px;
+            /* Adjust to align numbers below the axis */
+            left: 0;
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        .y-axis {
+            left: -25px;
+            /* Adjust to align numbers to the left of the axis */
+            top: 0;
+            height: 100%;
+            flex-direction: column-reverse;
+            justify-content: space-between;
+        }
+
+        .tick {
+            position: relative;
+        }
+
+        .tick-label {
+            position: absolute;
+            font-size: 14px;
+            /* Slightly larger for better visibility */
+            font-weight: bold;
+            color: rgb(37, 33, 33);
+            /* To match the requested color (change if needed) */
+        }
+
+        .x-axis .tick-label {
+            top: -5px;
+            /* Adjust upward for alignment below X axis */
+            left: 140px;
+            transform: translateX(-50%);
+        }
+
+        .y-axis .tick-label {
+            right: -30px;
+            /* Adjust position to align horizontally next to ticks */
+            top: -135px;
+            transform: translateY(-50%);
+        }
+
+
+        .crosshair-vertical,
+        .crosshair-horizontal {
+            position: absolute;
+            background-color: black;
+            pointer-events: none;
+        }
+
+        .crosshair-vertical {
+            width: 1px;
+            height: 100%;
+            left: 50%;
+            top: 0;
+        }
+
+        .crosshair-horizontal {
+            height: 1px;
+            width: 100%;
+            top: 50%;
+            left: 0;
+        }
+
+        .feasibility-button {
+            color: rgb(144, 235, 202);
+            /* Change the text color to black */
+            background-color: black;
+            /* Maintain the original button background */
+            border: none;
+            border-radius: 10px;
+            padding: 5px 10px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .feasibility-button:hover {
+            background-color: rgb(120, 200, 180);
+            /* Slightly darker shade for hover */
+        }
+    </style>
+</body>
+
+</html>
